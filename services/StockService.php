@@ -17,7 +17,7 @@ $data = array(
 );
 
 // JSON formatına dönüştürme
-$data_json = json_encode($data);
+$data_json = json_encode($data); 
 
 // HTTP isteği başlıkları
 $options = array(
