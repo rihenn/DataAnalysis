@@ -70,13 +70,12 @@ if ($result !== false) {
             $params_insert = array($ItemCode, $ItemDescription, $ColorCode, $ItemDim1Code, $barcode, $ColorThemeCode, $ColorThemeDescription, $ColorCatalogCode, $ColorCatalogDescription, $ProductHierarchyLevel01, $ProductHierarchyLevel02, $ProductHierarchyLevel03, $ProductHierarchyLevel04, $ProductHierarchyLevel05);
             $stmt_insert = sqlsrv_query($conn, $tsql_insert, $params_insert);
             if ($stmt_insert === false) {
-                die(print_r(sqlsrv_errors(), true));
+                $error_message = "Update failed: " . print_r(sqlsrv_errors(), true);
+                $tsql_service_log = "INSERT INTO ServiceLog (ServiceType, ServiceName,ErrorMessage,LastWorkingDate) VALUES ('1', 'Product Services', ?,?)";
+                $params_service_log = array($error_message, $service_run_datetime);
+                $stmt_error = sqlsrv_query($conn, $tsql_service_log, $params_service_log);
             }
            
-            $error_message = "Insert Succesfull";
-            $tsql_service_log = "INSERT INTO ServiceLog (ServiceType, ServiceName,ErrorMessage,LastWorkingDate) VALUES ('1', 'Product Services', ?,?)";
-            $params_service_log = array($error_message, $service_run_datetime);
-            $stmt_error = sqlsrv_query($conn, $tsql_service_log, $params_service_log);
            
         } else {
            
