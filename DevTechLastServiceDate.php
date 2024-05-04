@@ -1,6 +1,6 @@
 <?php 
   
-$query = "SELECT * FROM dbo.ServiceLog WHERE LastWorkingDate = (SELECT MAX(LastWorkingDate) FROM dbo.ServiceLog)";
+$query = "SELECT * FROM dbo.ServiceLog WHERE LastWorkingDate = (SELECT MAX(LastWorkingDate) FROM dbo.ServiceLog) AND ServiceType = 1;";
 
 $stmt_LastServiceDate = sqlsrv_query($conn, $query);
 

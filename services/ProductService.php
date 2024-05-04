@@ -1,5 +1,7 @@
 <?php
 date_default_timezone_set('Europe/Istanbul');
+
+function ProductServiceFunction(){
 require "../DevTechcon.php"; // Bu dosyanın nerede olduğuna bağlı olarak yolunu güncellemelisiniz.
 require "../DevTechLastServiceDate.php";
 require "../IntegratorCon.php";
@@ -89,7 +91,7 @@ if ($result !== false) {
 
 
                 // ServiceLog tablosuna hata mesajını ve güncelleme tarihini kaydet
-                $tsql_service_log = "INSERT INTO ServiceLog (ServiceType, ServiceName, ErrorMessage, LastWorkingDate) VALUES ('1', 'Product Services', ?, ?)";
+                $tsql_service_log = "INSERT INTO ServiceLog (ServiceType, ServiceName, ErrorMessage, LastWorkingDate) VALUES ('2', 'Price Services', ?, ?)";
                 $params_service_log = array($error_message, $service_run_datetime);
                 $stmt_error = sqlsrv_query($conn, $error_message, $params_service_log);
             }
@@ -103,7 +105,20 @@ if ($result !== false) {
     $stmt_error = sqlsrv_query($conn, $tsql_service_log, $params_service_log);
 
     
+    sqlsrv_close($conn);
+    }
+    
 }
 
 
-sqlsrv_close($conn);
+
+
+while (true) {
+    
+ 
+    // Fonksiyonu çağırv
+    ProductServiceFunction();
+
+    // 1 saat beklemek için
+    sleep(3600); // 3600 saniye = 1 saat
+}

@@ -1,4 +1,6 @@
 <?php 
+
+
 // Hedef URL
 $url = 'http://10.200.120.10:9091/Integratorservice/connect';
 
@@ -26,7 +28,7 @@ if ($response_array === null) {
 }
 
 // SessionID'yi al
-$session_id = $response_array['SessionID'];
+ $session_id = $response_array['SessionID'];
 
 
 }
