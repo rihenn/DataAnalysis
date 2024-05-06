@@ -121,6 +121,10 @@ if (!empty($error_message)) {
 
 // Bağlantıyı kapat
 sqlsrv_close($conn);
+$error_message = "Update Successful";
+$tsql_service_log = "INSERT INTO ServiceLog (ServiceType, ServiceName, ErrorMessage, LastWorkingDate) VALUES (?, ?, ?, ?)";
+$params_service_log = array($serviceType, 'Product Services', $error_message, $service_run_datetime);
+$stmt_error = sqlsrv_query($conn, $tsql_service_log, $params_service_log);
 
-echo "İşlem tamamlandı. Veri aktarıldı.";
+
 ?>
