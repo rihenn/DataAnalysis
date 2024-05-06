@@ -1,6 +1,7 @@
 <?php
 date_default_timezone_set('Europe/Istanbul');
 
+$serviceType = 1;
 
 require "../DevTechcon.php"; // Bu dosyanın nerede olduğuna bağlı olarak yolunu güncellemelisiniz.
 require "../DevTechLastServiceDate.php";

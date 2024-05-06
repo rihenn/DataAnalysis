@@ -1,30 +1,15 @@
 <?php
 date_default_timezone_set('Europe/Istanbul');
 
+$serviceType = 2;
 
-
-function PriceServiceFunction () {
+//function PriceServiceFunction () {
 require "../DevTechcon.php";
+require "../DevTechLastServiceDate.php";
 require "../IntegratorCon.php";
 
   
-$query = "SELECT * FROM dbo.ServiceLog WHERE LastWorkingDate = (SELECT MAX(LastWorkingDate) FROM dbo.ServiceLog) AND ServiceType = 2;";
 
-$stmt_LastServiceDate = sqlsrv_query($conn, $query);
-
-if ($stmt_LastServiceDate === false) {
-    die(print_r(sqlsrv_errors(), true));
-}
-$lastWorkingDate = "20210503 00:00:00";
-// Fetch the result
-$row = sqlsrv_fetch_array($stmt_LastServiceDate, SQLSRV_FETCH_ASSOC);
-if ($row) {
-    
-    $lastWorkingDate = $row['LastWorkingDate']->format('Ymd H:i:s'); // Date stored in a variable
-
-
-
-}
 
 $service_run_datetime = date('Y-m-d H:i:s');
 // API URL
@@ -126,10 +111,10 @@ if (sqlsrv_has_rows($stmt_check)) {
 }
 // Bağlantıyı kapat
 sqlsrv_close($conn);
-}
+//}
 
 
-while (true) {
+/*while (true) {
     
  
     // Fonksiyonu çağırv
@@ -137,4 +122,4 @@ while (true) {
 
     // 1 saat beklemek için
     sleep(3600); // 3600 saniye = 1 saat
-}
+}*/
