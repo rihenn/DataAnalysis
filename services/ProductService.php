@@ -1,12 +1,15 @@
 <?php
 date_default_timezone_set('Europe/Istanbul');
 
-function ProductServiceFunction(){
+
 require "../DevTechcon.php"; // Bu dosyanın nerede olduğuna bağlı olarak yolunu güncellemelisiniz.
 require "../DevTechLastServiceDate.php";
 require "../IntegratorCon.php";
 
-
+$error_message = "Deneme Başarılı" ;
+$tsql_service_log = "INSERT INTO ServiceLog (ServiceType, ServiceName,ErrorMessage,LastWorkingDate) VALUES ('1', 'Product Services', ?,?)";
+$params_service_log = array($error_message, $service_run_datetime);
+$stmt_error = sqlsrv_query($conn, $tsql_service_log, $params_service_log);
 // API URL
 $apiUrl = "http://10.200.120.10:9091/(S(".$session_id."))/Integratorservice/runproc";
 
@@ -107,17 +110,6 @@ if ($result !== false) {
     sqlsrv_close($conn);
     }
     
-}
 
 
 
-
-while (true) {
-    
- 
-    // Fonksiyonu çağırv
-    ProductServiceFunction();
-
-    // 1 saat beklemek için
-    sleep(3600); // 3600 saniye = 1 saat
-}
