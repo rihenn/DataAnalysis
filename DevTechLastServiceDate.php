@@ -11,7 +11,7 @@ $lastWorkingDate = "20210503 00:00:00";
 // Fetch the result
 $row = sqlsrv_fetch_array($stmt_LastServiceDate, SQLSRV_FETCH_ASSOC);
 if ($row) {
-    
+    echo"fsakofoafk";
     $lastWorkingDate = $row['LastWorkingDate']->format('Ymd H:i:s'); // Date stored in a variable
 
 
