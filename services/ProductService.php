@@ -96,7 +96,10 @@ if ($result !== false) {
         } else {
             // Veri bulunamadı, ekle
             if($barcode == null){
-                $error_message = "Ekleme hatası: Barcode error";
+                $error_message1 = "Ekleme hatası: Barcode null";
+                $tsql_service_log = "INSERT INTO ServiceLog (ServiceType, ServiceName, ErrorMessage, LastWorkingDate) VALUES (?, ?, ?, ?)";
+                $params_service_log = array($serviceType, 'Product Services', $error_message1, $service_run_datetime);
+                $stmt_error = sqlsrv_query($conn, $tsql_service_log, $params_service_log);
             }else{
                 $tsql_insert = "INSERT INTO cdNebimProduct (ItemCode, ItemDescription, ColorCode, ItemDim1Code, Barcode, ColorThemeCode, ColorThemeDescription, ColorCatalogCode, ColorCatalogDescription, ProductHierarchyLevel01, ProductHierarchyLevel02, ProductHierarchyLevel03, ProductHierarchyLevel04, ProductHierarchyLevel05) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
                 $params_insert = array($ItemCode, $ItemDescription, $ColorCode, $ItemDim1Code, $barcode, $ColorThemeCode, $ColorThemeDescription, $ColorCatalogCode, $ColorCatalogDescription, $ProductHierarchyLevel01, $ProductHierarchyLevel02, $ProductHierarchyLevel03, $ProductHierarchyLevel04, $ProductHierarchyLevel05);
