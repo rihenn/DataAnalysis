@@ -1,6 +1,8 @@
 <?php
 date_default_timezone_set('Europe/Istanbul');
 
+function ProductServiceFunction(){
+
 $serviceType = 1;
 
 // Veritabanı bağlantı dosyası
@@ -125,6 +127,10 @@ $error_message = "Update Successful";
 $tsql_service_log = "INSERT INTO ServiceLog (ServiceType, ServiceName, ErrorMessage, LastWorkingDate) VALUES (?, ?, ?, ?)";
 $params_service_log = array($serviceType, 'Product Services', $error_message, $service_run_datetime);
 $stmt_error = sqlsrv_query($conn, $tsql_service_log, $params_service_log);
+}
 
+while(true){
+    ProductServiceFunction();
 
-?>
+    sleep(3600);
+}

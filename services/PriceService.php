@@ -1,10 +1,10 @@
 <?php
 date_default_timezone_set('Europe/Istanbul');
 
-$serviceType = 2;
 
-//function PriceServiceFunction () {
-require "../DevTechcon.php";
+function PriceServiceFunction () {
+    $serviceType = 2;
+ require "../DevTechcon.php";
 require "../DevTechLastServiceDate.php";
 require "../IntegratorCon.php";
 
@@ -111,10 +111,10 @@ if (sqlsrv_has_rows($stmt_check)) {
 }
 // Bağlantıyı kapat
 sqlsrv_close($conn);
-//}
+}
 
 
-/*while (true) {
+while (true) {
     
  
     // Fonksiyonu çağırv
@@ -122,4 +122,4 @@ sqlsrv_close($conn);
 
     // 1 saat beklemek için
     sleep(3600); // 3600 saniye = 1 saat
-}*/
+}
