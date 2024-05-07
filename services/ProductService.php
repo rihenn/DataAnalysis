@@ -69,7 +69,7 @@ if ($result !== false) {
         $ProductHierarchyLevel03 = $row["ProductHierarchyLevel03"];
         $ProductHierarchyLevel04 = $row["ProductHierarchyLevel04"];
         $ProductHierarchyLevel05 = $row["ProductHierarchyLevel05"];
-
+        if($barcode !==null){
         // Veritabanında gelen Barcode değerini kontrol et
         $tsql_check = "SELECT * FROM cdNebimProduct WHERE Barcode = ?";
         $params_check = array($barcode);
@@ -104,7 +104,7 @@ if ($result !== false) {
                 break;
             }
         }
-    }
+    }}
 } else {
     // HTTP isteği hatası
     $error_message = "HTTP isteği hatası: " . error_get_last()["message"];
