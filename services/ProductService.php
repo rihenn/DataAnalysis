@@ -53,8 +53,9 @@ $result = file_get_contents($url, false, $context);
 // Gelen veriler
 if ($result !== false) {
     $result_data = json_decode($result, true);
-    
+    $error_message = "Update Successful";
     foreach ($result_data as $row) {
+
         $ItemCode = $row["ItemCode"];
         $ItemDescription = $row["ItemDescription"];
         $ColorCode = $row["ColorCode"];
@@ -69,7 +70,7 @@ if ($result !== false) {
         $ProductHierarchyLevel03 = $row["ProductHierarchyLevel03"];
         $ProductHierarchyLevel04 = $row["ProductHierarchyLevel04"];
         $ProductHierarchyLevel05 = $row["ProductHierarchyLevel05"];
-        if($barcode !==null){
+       
         // Veritabanında gelen Barcode değerini kontrol et
         $tsql_check = "SELECT * FROM cdNebimProduct WHERE Barcode = ?";
         $params_check = array($barcode);
@@ -94,9 +95,14 @@ if ($result !== false) {
             }
         } else {
             // Veri bulunamadı, ekle
-            $tsql_insert = "INSERT INTO cdNebimProduct (ItemCode, ItemDescription, ColorCode, ItemDim1Code, Barcode, ColorThemeCode, ColorThemeDescription, ColorCatalogCode, ColorCatalogDescription, ProductHierarchyLevel01, ProductHierarchyLevel02, ProductHierarchyLevel03, ProductHierarchyLevel04, ProductHierarchyLevel05) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-            $params_insert = array($ItemCode, $ItemDescription, $ColorCode, $ItemDim1Code, $barcode, $ColorThemeCode, $ColorThemeDescription, $ColorCatalogCode, $ColorCatalogDescription, $ProductHierarchyLevel01, $ProductHierarchyLevel02, $ProductHierarchyLevel03, $ProductHierarchyLevel04, $ProductHierarchyLevel05);
-            $stmt_insert = sqlsrv_query($conn, $tsql_insert, $params_insert);
+            if($barcode == null){
+                $error_message = "Ekleme hatası: Barcode error";
+            }else{
+                $tsql_insert = "INSERT INTO cdNebimProduct (ItemCode, ItemDescription, ColorCode, ItemDim1Code, Barcode, ColorThemeCode, ColorThemeDescription, ColorCatalogCode, ColorCatalogDescription, ProductHierarchyLevel01, ProductHierarchyLevel02, ProductHierarchyLevel03, ProductHierarchyLevel04, ProductHierarchyLevel05) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                $params_insert = array($ItemCode, $ItemDescription, $ColorCode, $ItemDim1Code, $barcode, $ColorThemeCode, $ColorThemeDescription, $ColorCatalogCode, $ColorCatalogDescription, $ProductHierarchyLevel01, $ProductHierarchyLevel02, $ProductHierarchyLevel03, $ProductHierarchyLevel04, $ProductHierarchyLevel05);
+                $stmt_insert = sqlsrv_query($conn, $tsql_insert, $params_insert);
+            }
+   
 
             if ($stmt_insert === false) {
                 // Ekleme hatası
@@ -104,7 +110,7 @@ if ($result !== false) {
                 break;
             }
         }
-    }}
+    }
 } else {
     // HTTP isteği hatası
     $error_message = "HTTP isteği hatası: " . error_get_last()["message"];
@@ -123,10 +129,8 @@ if (!empty($error_message)) {
 
 // Bağlantıyı kapat
 sqlsrv_close($conn);
-$error_message = "Update Successful";
-$tsql_service_log = "INSERT INTO ServiceLog (ServiceType, ServiceName, ErrorMessage, LastWorkingDate) VALUES (?, ?, ?, ?)";
-$params_service_log = array($serviceType, 'Product Services', $error_message, $service_run_datetime);
-$stmt_error = sqlsrv_query($conn, $tsql_service_log, $params_service_log);
+
+
 }
 
 while(true){
