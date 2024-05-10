@@ -4,9 +4,9 @@ date_default_timezone_set('Europe/Istanbul');
 
 function PriceServiceFunction () {
     $serviceType = 2;
- require "../DevTechcon.php";
-require "../DevTechLastServiceDate.php";
-require "../IntegratorCon.php";
+ require "../conn/DevTechcon.php";
+require "../conn/DevTechLastServiceDate.php";
+require "../conn/IntegratorCon.php";
 
   
 
