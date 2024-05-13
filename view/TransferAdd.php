@@ -21,7 +21,7 @@
 </head>
 
 <body style="height: 100vh;width:auto ;padding: 0!important;">
-   
+
 
 
     <nav class="sidebar close">
@@ -119,68 +119,26 @@
         <div class="text1">Transfer Add</div>
         <div id="sonuc"></div>
         <div class="row justify-content-center">
-    <div class="col-md-12">
-        <form>
+            <div class="col-md-12" style="max-height: 30rem;overflow: auto;">
+                <form>
 
-            <div id="dataRows">
-                <div id="focus" class="row mb-3 justify-content-center">
-              
-                    <div class="col-md-1">
-                        <label for="ProcessCode" class="form-label">ProcessCode:</label>
-                        <select class="form-select" id="ProcessCode" name="ProcessCode">
-                            <option value="GF">Gifting</option>
-                            <option value="SD">Seeding</option>
-                        </select>
+                    <div id="dataRows">
+
                     </div>
-                    <div class="col-md-1">
-                        <label for="ItemBarcode" class="form-label">ItemBarcode:</label>
-                        <input type="text" class="form-control" id="ItemBarcode" onkeyup="veriGetir(this.value)" name="ItemBarcode[]">
-                    </div>
-                    <div class="col-md-1">
-                        <label for="ItemCode" class="form-label">ItemCode:</label>
-                        <input type="text" class="form-control" id="ItemCode" name="ItemCode[]">
-                    </div>
-                    <div class="col-md-1">
-                        <label for="ColorCode" class="form-label">ColorCode:</label>
-                        <input type="text" class="form-control" id="ColorCode" name="ColorCode[]">
-                    </div>
-                    <div class="col-md-1">
-                        <label for="ItemDim1Code" class="form-label">ItemDim1Code:</label>
-                        <input type="text" class="form-control" id="ItemDim1Code" name="ItemDim1Code[]">
-                    </div>
-                    <div class="col-md-1">
-                        <label for="Qty1" class="form-label">Qty1:</label>
-                        <input type="text" class="form-control" id="Qty1" name="Qty1[]">
-                    </div>
-                    <div class="col-md-1">
-                        <label for="SendInfCode" class="form-label">SendInfCode:</label>
-                        <input type="text" class="form-control" id="SendInfCode" name="SendInfCode[]">
-                    </div>
-                    <div class="col-md-1">
-                        <label for="SendInfName" class="form-label">SendInfName:</label>
-                        <input type="text" class="form-control" id="SendInfName" name="SendInfName[]">
-                    </div>
-                    <div class="col-md-1">
-                        <label for="Post" class="form-label">Post:</label>
-                        <input type="text" class="form-control" id="Post" name="Post[]">
-                    </div>
-                    </div>
-                </div>
+                </form>
             </div>
-        </form>
-    </div>
-</div>
+        </div>
 
-<div class="row justify-content-center">
-    <div class="col-md-1">
-        <button type="button" class="btn btn-success" id="addRowBtn">Satır Ekle</button>
-    </div>
-    <div class="col-md-1">
-        <button type="button" class="btn btn-primary">Gönder</button>
-    </div>
-</div>
+        <div class="row justify-content-center">
+            <div class="col-md-1">
+                <button type="button" class="btn btn-success" id="addRowBtn">Satır Ekle</button>
+            </div>
+            <div class="col-md-1">
+                <button type="button" class="btn btn-primary">Gönder</button>
+            </div>
+        </div>
 
->
+        >
 
 
 
@@ -210,7 +168,7 @@
 
             </div>
         </div>
-  
+
     </section>
     <!-- JavaScript dosyası -->
     <script src="../js/app.js"></script>
@@ -497,125 +455,132 @@
 
 
         );
-//    // Satır tıklama olayı ekleme
-// $('#MyTable tbody').on('click', 'tr', function () {
-//     // Tıklanan satırdaki verileri alın
-//     var rowData = dataTable.row(this).data();
+        //    // Satır tıklama olayı ekleme
+        // $('#MyTable tbody').on('click', 'tr', function () {
+        //     // Tıklanan satırdaki verileri alın
+        //     var rowData = dataTable.row(this).data();
 
-//     // Alınan verileri istediğiniz yere yazın
-//     // Örneğin, bir div içine yazdırmak için:
-//     document.getElementById("ItemBarcode").value = rowData.Barcode;
+        //     // Alınan verileri istediğiniz yere yazın
+        //     // Örneğin, bir div içine yazdırmak için:
+        //     document.getElementById("ItemBarcode").value = rowData.Barcode;
 
-// });
+        // });
 
-// // Inputlara focus olduğunda işlem yapma
-// $('#MyTable tbody').on('focus', 'input', function () {
-//     // Input'un içinde olduğu div'in id'sini alın
-//     var parentDivId = $(this).closest('div[id^="focus"]').attr('id');
-//     console.log("Focus olan inputun bulunduğu div id'si: ", parentDivId);
+        // // Inputlara focus olduğunda işlem yapma
+        // $('#MyTable tbody').on('focus', 'input', function () {
+        //     // Input'un içinde olduğu div'in id'sini alın
+        //     var parentDivId = $(this).closest('div[id^="focus"]').attr('id');
+        //     console.log("Focus olan inputun bulunduğu div id'si: ", parentDivId);
 
-//     // Eğer parentDivId değişkeni boş değilse
-//     if (parentDivId) {
-//         // Div içindeki Barcode id'li input alanına bir değer yazın
-//         $('#' + parentDivId + ' input#Barcode').val("Yazılacak Değer");
-//     }
-// });
+        //     // Eğer parentDivId değişkeni boş değilse
+        //     if (parentDivId) {
+        //         // Div içindeki Barcode id'li input alanına bir değer yazın
+        //         $('#' + parentDivId + ' input#Barcode').val("Yazılacak Değer");
+        //     }
+        // });
 
 
-       
+
     </script>
 
 
 
-<script>
+    <script>
 
-function veriGetir(barkod) {
-    var xhr = new XMLHttpRequest();
-    xhr.onreadystatechange = function () {
-        if (this.readyState == 4 && this.status == 200) {
-            var veri = JSON.parse(this.responseText);
-            // Veriyi işleme
+        function veriGetir(barkod, index) {
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    var veri = JSON.parse(this.responseText);
 
-
-            // Item code input alanına veriyi yazdırma
-            document.getElementById("ItemCode").value = veri[0].ItemCode;
-            document.getElementById("ColorCode").value = veri[0].ColorCode;
-            document.getElementById("ItemDim1Code").value = veri[0].ItemDim1Code;
-
+                    // Veriyi işleme
+                    // İlgili satırdaki input alanlarına verileri doldurma
+                    document.getElementById(`ItemCode${index}`).value = veri[0].ItemCode;
+                    document.getElementById(`ColorCode${index}`).value = veri[0].ColorCode;
+                    document.getElementById(`ItemDim1Code${index}`).value = veri[0].ItemDim1Code;
+                }
+            };
+            xhr.open("GET", "../DataGetTransfer.php?barcode=" + barkod, true);
+            xhr.send();
         }
-    };
-    xhr.open("GET", "../DataGetTransfer.php?barcode=" + barkod, true);
-    xhr.send();
-}
 
-</script>
-<script>
-   document.getElementById('addRowBtn').addEventListener('click', function () {
-    var dataRows = document.getElementsByClassName('dataRow');
-    var index = dataRows.length + 1;
+        function addRow() {
+            var dataRows = document.getElementsByClassName('dataRow');
+            var index = dataRows.length + 1;
 
-    var newRow = document.createElement('div');
-    newRow.classList.add('row', 'dataRow','mb-3','justify-content-center');
-    newRow.id = `focus${index}`;
-    newRow.innerHTML = `
- 
-        <div class="col-md-1 ">
-            <label for="ProcessCode${index}" class="form-label">ProcessCode:</label>
-            <select class="form-select" id="ProcessCode${index}" name="ProcessCode[]">
-                <option value="GF">Gifting</option>
-                <option value="SD">Seeding</option>
-            </select>
-        </div>
-        <div class="col-md-1">
-            <label for="ItemBarcode${index}" class="form-label">ItemBarcode:</label>
-            <input type="text" class="form-control" id="ItemBarcode${index}" name="ItemBarcode[]">
-        </div>
-        <div class="col-md-1">
-            <label for="ItemCode${index}" class="form-label">ItemCode:</label>
-            <input type="text" class="form-control" id="ItemCode${index}" name="ItemCode[]">
-        </div>
-        <div class="col-md-1">
-            <label for="ColorCode${index}" class="form-label">ColorCode:</label>
-            <input type="text" class="form-control" id="ColorCode${index}" name="ColorCode[]">
-        </div>
-        <div class="col-md-1">
-            <label for="ItemDim1Code${index}" class="form-label">ItemDim1Code:</label>
-            <input type="text" class="form-control" id="ItemDim1Code${index}" name="ItemDim1Code[]">
-        </div>
-        <div class="col-md-1">
-            <label for="Qty1${index}" class="form-label">Qty1:</label>
-            <input type="text" class="form-control" id="Qty1${index}" name="Qty1[]">
-        </div>
-        <div class="col-md-1">
-            <label for="SendInfCode${index}" class="form-label">SendInfCode:</label>
-            <input type="text" class="form-control" id="SendInfCode${index}" name="SendInfCode[]">
-        </div>
-        <div class="col-md-1">
-            <label for="SendInfName${index}" class="form-label">SendInfName:</label>
-            <input type="text" class="form-control" id="SendInfName${index}" name="SendInfName[]">
-        </div>
-        <div class="col-md-1">
-            <label for="Post${index}" class="form-label">Post:</label>
-            <input type="text" class="form-control" id="Post${index}" name="Post[]">
-        </div>
-        
-    `;
-    document.getElementById('dataRows').appendChild(newRow);
-});
+            var newRow = document.createElement('div');
+            newRow.classList.add('row', 'dataRow', 'mb-3', 'justify-content-center');
+            newRow.id = `focus${index}`;
+            newRow.innerHTML = `
+                <div class="col-md-1 ">
+                   <h2 class="text-end">${index}.</h2>
+                </div>
+                <div class="col-md-1 ">
+                    <label for="ProcessCode${index}" class="form-label">ProcessCode:</label>
+                    <select class="form-select" id="ProcessCode${index}" name="ProcessCode[]">
+                        <option value="GF">Gifting</option>
+                        <option value="SD">Seeding</option>
+                    </select>
+                </div>
+                <div class="col-md-1">
+                    <label for="ItemBarcode${index}" class="form-label">ItemBarcode:</label>
+                    <input type="text" class="form-control" id="ItemBarcode${index}" name="ItemBarcode[]" onkeyup="veriGetir(this.value, ${index})">
+                    
+                </div>
+                <div class="col-md-1">
+                    <label for="ItemCode${index}" class="form-label">ItemCode:</label>
+                    <input type="text" class="form-control" id="ItemCode${index}" name="ItemCode[]">
+                </div>
+                <div class="col-md-1">
+                    <label for="ColorCode${index}" class="form-label">ColorCode:</label>
+                    <input type="text" class="form-control" id="ColorCode${index}" name="ColorCode[]">
+                </div>
+                <div class="col-md-1">
+                    <label for="ItemDim1Code${index}" class="form-label">ItemDim1Code:</label>
+                    <input type="text" class="form-control" id="ItemDim1Code${index}" name="ItemDim1Code[]">
+                </div>
+                <div class="col-md-1">
+                    <label for="Qty1${index}" class="form-label">Qty1:</label>
+                    <input type="text" class="form-control" id="Qty1${index}" name="Qty1[]">
+                </div>
+                <div class="col-md-1">
+                    <label for="SendInfCode${index}" class="form-label">SendInfCode:</label>
+                    <input type="text" class="form-control" id="SendInfCode${index}" name="SendInfCode[]">
+                </div>
+                <div class="col-md-1">
+                    <label for="SendInfName${index}" class="form-label">SendInfName:</label>
+                    <input type="text" class="form-control" id="SendInfName${index}" name="SendInfName[]">
+                </div>
+                <div class="col-md-1">
+                    <label for="Post${index}" class="form-label">Post:</label>
+                    <input type="text" class="form-control" id="Post${index}" name="Post[]">
+                </div>
+            `;
+            document.getElementById('dataRows').appendChild(newRow);
+        }
 
-document.getElementById('myForm').addEventListener('submit', function (event) {
-    event.preventDefault();
-    var formData = new FormData(this);
-    var formObject = {};
-    var dataArray = [];
-    formData.forEach(function (value, key) {
-        dataArray.push({ [key]: value });
-    });
-    console.log(dataArray);
+        // Sayfa yüklenir yüklenmez otomatik olarak bir satır ekle
+        window.onload = function () {
+            addRow();
+        }
 
-});
+        // "Add Row" düğmesine tıklama olayı
+        document.getElementById('addRowBtn').addEventListener('click', function () {
+            addRow();
+        });
+        document.getElementById('myForm').addEventListener('submit', function (event) {
+            event.preventDefault();
+            var formData = new FormData(this);
+            var formObject = {};
+            var dataArray = [];
+            formData.forEach(function (value, key) {
+                dataArray.push({ [key]: value });
+            });
+            console.log(dataArray);
 
-</script>
+        });
+
+    </script>
 
 </body>
 
