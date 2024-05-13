@@ -1,5 +1,6 @@
 // HTML elementleri tanımla
 const body = document.querySelector('body'),
+        table = document.querySelector('table');
       sidebar = body.querySelector('nav'),
       toggle = body.querySelector(".toggle"),
       searchBtn = body.querySelector(".search-box"),
@@ -48,6 +49,7 @@ searchBtn.addEventListener("click", () => {
 // Karanlık mod geçişi
 modeSwitch.addEventListener("click", () => {
     body.classList.toggle("dark");
+    table.classList.toggle("table-dark");
     modeText.innerText = body.classList.contains("dark") ? "Light mode" : "Dark mode";
 });
 

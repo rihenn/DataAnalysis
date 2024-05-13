@@ -494,7 +494,7 @@ body.dark .switch::before{
     height: 100vh;
     transition: var(--tran-05);
 }
-.home .text{
+.home .text1{
     font-size: 30px;
     font-weight: 500;
     color: var(--text-color);
@@ -506,6 +506,6 @@ body.dark .switch::before{
     height: 100vh;
     width: calc(100% - 78px);
 }
-body.dark .home .text{
+body.dark .home .text1{
     color: var(--text-color);
 }
