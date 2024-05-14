@@ -10,7 +10,13 @@
 body {
     display: flex;
 }
-
+/* Checkbox Stillemesi */
+.form-control[type="checkbox"] {
+    width: 20px; /* Checkbox boyutu */
+    height: 20px; /* Checkbox boyutu */
+    margin-top: 0.8rem; /* Üstten boşluk ayarlama */
+    cursor: pointer; /* İmleç el şeklinde olsun */
+}
 
 
 

@@ -43,7 +43,7 @@
         <header>
             <div class="image-text">
                 <span class="image">
-                    <img src="../images/icon.jpg" alt="">
+                    <img src="../images/amblem copy.png" alt="">
                 </span>
 
                 <div class="text logo-text">
@@ -73,7 +73,7 @@
                     <li class="nav-link">
                         <a href="transfer.php">
                             <i class='bx bx-bell icon'></i>
-                            <span class="text nav-text">Transfer Gir</span>
+                            <span class="text nav-text">Transfer</span>
                         </a>
                     </li>
 
@@ -131,7 +131,7 @@
         </div>
     </nav>
     <section class="home">
-        <div class="text1">Dasboard</div>
+        <div class="text1">Dashboard</div>
 
         <div class="container ml-5">
             <div id="tableContainer" class="table-response">

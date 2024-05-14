@@ -28,7 +28,7 @@
         <header>
             <div class="image-text">
                 <span class="image">
-                    <img src="../images/icon.jpg" alt="">
+                    <img src="../images/amblem copy.png" alt="">
                 </span>
 
                 <div class="text logo-text">
@@ -58,7 +58,7 @@
                     <li class="nav-link">
                         <a href="transfer.php">
                             <i class='bx bx-bell icon'></i>
-                            <span class="text nav-text">Transfer Gir</span>
+                            <span class="text nav-text">Transfer</span>
                         </a>
                     </li>
 
@@ -186,11 +186,12 @@
                 dataSrc: '' // Sunucudan gelen JSON verilerinin doğrudan kullanılacağını belirtir
             },
             columns: [
+                { data: 'Barcode', title: 'Barkod' },
                 { data: 'ItemCode', title: 'Ürün Kodu' },
                 { data: 'ItemDescription', title: 'Ürün Açıklaması' },
                 { data: 'ColorCode', title: 'Renk Kodu' },
                 { data: 'ItemDim1Code', title: 'Ürün Boyut Kodu' },
-                { data: 'Barcode', title: 'Barkod' },
+                { data: 'MLY_EUR', title: 'Euro Bazlı Maliyet' },
                 { data: 'ColorThemeCode', title: 'Renk Tema Kodu' },
                 { data: 'ColorThemeDescription', title: 'Renk Tema Açıklaması' },
                 { data: 'ColorCatalogCode', title: 'Renk Katalog Kodu' },
@@ -498,87 +499,126 @@
                     document.getElementById(`ItemCode${index}`).value = veri[0].ItemCode;
                     document.getElementById(`ColorCode${index}`).value = veri[0].ColorCode;
                     document.getElementById(`ItemDim1Code${index}`).value = veri[0].ItemDim1Code;
+                    document.getElementById(`ItemName${index}`).value = veri[0].ItemDescription+" "+veri[0].ColorThemeDescription;
+                    document.getElementById(`MLY_EUR${index}`).value = veri[0].MLY_EUR;
                 }
             };
             xhr.open("GET", "../DataGetTransfer.php?barcode=" + barkod, true);
             xhr.send();
         }
-
+        
         function addRow() {
-            var dataRows = document.getElementsByClassName('dataRow');
-            var index = dataRows.length + 1;
+    var dataRows = document.getElementsByClassName('dataRow');
+    var index = dataRows.length + 1;
 
-            var newRow = document.createElement('div');
-            newRow.classList.add('row', 'dataRow', 'mb-3', 'justify-content-center');
-            newRow.id = `focus${index}`;
-            newRow.innerHTML = `
-                <div class="col-md-1 ">
-                   <h2 class="text-end">${index}.</h2>
-                </div>
-                <div class="col-md-1 ">
-                    <label for="ProcessCode${index}" class="form-label">ProcessCode:</label>
-                    <select class="form-select" id="ProcessCode${index}" name="ProcessCode[]">
-                        <option value="GF">Gifting</option>
-                        <option value="SD">Seeding</option>
-                    </select>
-                </div>
-                <div class="col-md-1">
-                    <label for="ItemBarcode${index}" class="form-label">ItemBarcode:</label>
-                    <input type="text" class="form-control" id="ItemBarcode${index}" name="ItemBarcode[]" onkeyup="veriGetir(this.value, ${index})">
-                    
-                </div>
-                <div class="col-md-1">
-                    <label for="ItemCode${index}" class="form-label">ItemCode:</label>
-                    <input type="text" class="form-control" id="ItemCode${index}" name="ItemCode[]">
-                </div>
-                <div class="col-md-1">
-                    <label for="ColorCode${index}" class="form-label">ColorCode:</label>
-                    <input type="text" class="form-control" id="ColorCode${index}" name="ColorCode[]">
-                </div>
-                <div class="col-md-1">
-                    <label for="ItemDim1Code${index}" class="form-label">ItemDim1Code:</label>
-                    <input type="text" class="form-control" id="ItemDim1Code${index}" name="ItemDim1Code[]">
-                </div>
-                <div class="col-md-1">
-                    <label for="Qty1${index}" class="form-label">Qty1:</label>
-                    <input type="text" class="form-control" id="Qty1${index}" name="Qty1[]">
-                </div>
-                <div class="col-md-1">
-                    <label for="SendInfCode${index}" class="form-label">SendInfCode:</label>
-                    <input type="text" class="form-control" id="SendInfCode${index}" name="SendInfCode[]">
-                </div>
-                <div class="col-md-1">
-                    <label for="SendInfName${index}" class="form-label">SendInfName:</label>
-                    <input type="text" class="form-control" id="SendInfName${index}" name="SendInfName[]">
-                </div>
-                <div class="col-md-1">
-                    <label for="Post${index}" class="form-label">Post:</label>
-                    <input type="text" class="form-control" id="Post${index}" name="Post[]">
-                </div>
-            `;
-            document.getElementById('dataRows').appendChild(newRow);
+    var newRow = document.createElement('div');
+    newRow.classList.add('row', 'dataRow', 'mb-3', 'justify-content-start');
+    newRow.id = `focus${index}`;
+    newRow.innerHTML = `
+        <div class="offset-md-2 col-md-1">
+            <label for="ProcessCode${index}" class="form-label">ProcessCode:</label>
+            <select class="form-select form-select-sm" id="ProcessCode${index}" name="ProcessCode[]">
+                <option value="GF">Gifting</option>
+                <option value="SD">Seeding</option>
+            </select>
+        </div>
+        <div class="col-md-1">
+            <label for="SendInfCode${index}" class="form-label">Inf Kodu:</label>
+            <input type="text" class="form-control form-control-sm" id="SendInfCode${index}" name="SendInfCode[]">
+        </div>
+        <div class="col-md-1">
+            <label for="SendInfName${index}" class="form-label">Inf Adı:</label>
+            <input type="text" class="form-control form-control-sm" id="SendInfName${index}" name="SendInfName[]">
+        </div>
+        <div class="col-md-1">
+            <label for="Post${index}" class="form-label d-block">Paylaşıldı mı?:</label>
+            <input type="checkbox" class="form-check-input mt-2" id="Post${index}" name="Post[]">
+        </div>
+        <div class="w-100"></div> <!-- Yeni satıra geçiş için boş bir div -->
+        <div class="offset-md-2 col-md-1">
+            <label for="ItemBarcode${index}" class="form-label">Barkod:</label>
+            <input type="text" class="form-control form-control-sm" id="ItemBarcode${index}" name="ItemBarcode[]" onkeyup="veriGetir(this.value, ${index})">
+        </div>
+        <div class="col-md-1">
+            <label for="ItemCode${index}" class="form-label">Ürün Kodu:</label>
+            <input type="text" class="form-control form-control-sm" id="ItemCode${index}" name="ItemCode[]">
+        </div>
+        <div class="col-md-1">
+            <label for="ColorCode${index}" class="form-label">Renk Kodu:</label>
+            <input type="text" class="form-control form-control-sm" id="ColorCode${index}" name="ColorCode[]">
+        </div>
+        <div class="col-md-1">
+            <label for="ItemDim1Code${index}" class="form-label">Beden:</label>
+            <input type="text" class="form-control form-control-sm" id="ItemDim1Code${index}" name="ItemDim1Code[]">
+        </div>
+        <div class="col-md-1">
+            <label for="ItemName${index}" class="form-label">Ürün Adı:</label>
+            <input type="text" class="form-control form-control-sm" id="ItemName${index}" name="ItemName[]">
+        </div>
+        <div class="col-md-1">
+            <label for="MLY_EUR${index}" class="form-label">Euro Maliyeti:</label>
+            <input type="text" class="form-control form-control-sm" id="MLY_EUR${index}" name="MLY_EUR[]">
+        </div>
+        <div class="col-md-1">
+            <label for="Qty1${index}" class="form-label">Adet:</label>
+            <input type="text" class="form-control form-control-sm" id="Qty1${index}" name="Qty1[]">
+        </div>
+        <div class="col-md-1 justify-content-center mt-2">
+            <button type="button" class="btn btn-danger btn-sm mt-4" onclick="removeRow(${index})">Kaldır</button>
+        </div>
+    `;
+    document.getElementById('dataRows').appendChild(newRow);
+}
+
+function veriGetir(barkod, index) {
+    if (!barkod) return;
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            var veri = JSON.parse(this.responseText);
+            if (veri && veri.length > 0) {
+                var item = veri[0];
+                document.getElementById(`ItemCode${index}`).value = item.ItemCode;
+                document.getElementById(`ColorCode${index}`).value = item.ColorCode;
+                document.getElementById(`ItemDim1Code${index}`).value = item.ItemDim1Code;
+                document.getElementById(`ItemName${index}`).value = item.ItemDescription + " " + item.ColorThemeDescription;
+                document.getElementById(`MLY_EUR${index}`).value = item.MLY_EUR;
+            }
         }
+    };
+    xhr.open("GET", "../DataGetTransfer.php?barcode=" + barkod, true);
+    xhr.send();
+}
 
-        // Sayfa yüklenir yüklenmez otomatik olarak bir satır ekle
-        window.onload = function () {
-            addRow();
-        }
+// Silme buttonu
+function removeRow(index) {
+    var rowToRemove = document.getElementById(`focus${index}`);
+    rowToRemove.parentNode.removeChild(rowToRemove);
+}
 
-        // "Add Row" düğmesine tıklama olayı
-        document.getElementById('addRowBtn').addEventListener('click', function () {
-            addRow();
-        });
-        document.getElementById('myForm').addEventListener('submit', function (event) {
-            event.preventDefault();
-            var formData = new FormData(this);
-            var formObject = {};
-            var dataArray = [];
-            formData.forEach(function (value, key) {
-                dataArray.push({ [key]: value });
-            });
-            console.log(dataArray);
+// Sayfa yüklenir yüklenmez otomatik olarak bir satır ekle
+window.onload = function () {
+    addRow();
+}
 
-        });
+// "Add Row" düğmesine tıklama olayı
+document.getElementById('addRowBtn').addEventListener('click', function () {
+    addRow();
+});
+
+document.getElementById('myForm').addEventListener('submit', function (event) {
+    event.preventDefault();
+    var formData = new FormData(this);
+    var formObject = {};
+    var dataArray = [];
+    formData.forEach(function (value, key) {
+        dataArray.push({ [key]: value });
+    });
+    console.log(dataArray);
+});
+
+
+
 
     </script>
 

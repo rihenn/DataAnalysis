@@ -7,7 +7,7 @@ $conn = sqlsrv_connect($serverName, $connectionOptions);
 
 if ($conn) {
     // Veritabanından verileri çekme sorgusu
-    $sql = "SELECT * FROM cdNebimProduct";
+    $sql = "exec sp_ProductGiftingNA";
     $stmt = sqlsrv_query($conn, $sql);
 
     if ($stmt === false) {
