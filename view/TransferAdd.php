@@ -22,6 +22,29 @@
 
 <body style="height: 100vh;width:auto ;padding: 0!important;">
 
+    <!-- Popup -->
+    <div id="popup" class="popup">
+        <div class="popup-content">
+            <button id="closeButton" class="close-button"><i class="fa-solid fa-xmark"></i></button>
+            <div class="container ml-5">
+                <div id="tableContainer" class="table-response text-center">
+                    <table id="MyTable" style="margin: 0.2rem;border:0.1px solid;"
+                        class="table  table-striped text-center">
+                        <thead class="text-center">
+                            <tr>
+
+                                <!-- Add more columns if needed -->
+                            </tr>
+                        </thead>
+                        <tbody class="text-center">
+
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </div>
 
 
     <nav class="sidebar close">
@@ -123,7 +146,35 @@
                 <form>
 
                     <div id="dataRows">
-
+                        <div class="row justify-content-start w-100">
+                            <div class="offset-md-2 col-md-1">
+                                <label for="ProcessCode${index}" class="form-label">ProcessCode:</label>
+                                <select class="form-select form-select-sm" id="ProcessCode${index}"
+                                    name="ProcessCode[]">
+                                    <option value="GF">Gifting</option>
+                                    <option value="SD">Seeding</option>
+                                </select>
+                            </div>
+                            <div class="col-md-1">
+                                <label for="SendInfCode${index}" class="form-label">Inf Kodu:</label>
+                                <input type="text" class="form-control form-control-sm" id="SendInfCode${index}"
+                                    name="SendInfCode[]">
+                            </div>
+                            <div class="col-md-1">
+                                <label for="SendInfName${index}" class="form-label">Inf Adı:</label>
+                                <input type="text" class="form-control form-control-sm" id="SendInfName${index}"
+                                    name="SendInfName[]">
+                            </div>
+                            <div class="col-md-1">
+                                <label for="Post${index}" class="form-label d-block">Paylaşıldı mı?:</label>
+                                <input type="checkbox" class="form-check-input mt-2" id="Post${index}" name="Post">
+                            </div>
+                            <div class="col-md-1">
+                                <label for="Post" class="form-label d-block">Ürünler</label>
+                                <input type="button" class="btn btn-primary mt-2 toggle-button" id="Post" name="Post"
+                                    value="Ürünler">
+                            </div>
+                        </div>
                     </div>
                 </form>
             </div>
@@ -138,41 +189,16 @@
             </div>
         </div>
 
-        >
 
 
 
-        <div class="container ml-5">
-            <div id="tableContainer" class="table-response text-center">
-                <table id="MyTable" style="margin: 0.2rem;border:0.1px solid;" class="table  table-striped text-center">
-                    <thead class="text-center">
-                        <tr>
-                            <th>ItemCode</th>
-                            <th>Username</th>
-                            <th>Ülke Kodu</th>
-                            <th>Ülke</th>
-                            <th>City</th>
-                            <th>Address</th>
-                            <th>CreatedUserName</th>
-                            <th>CreatedDate</th>
-                            <th>LastUpdatedUserName</th>
-                            <th>LastUpdatedDate</th>
-                            <th>IsActive</th>
-                            <!-- Add more columns if needed -->
-                        </tr>
-                    </thead>
-                    <tbody class="text-center">
 
-                    </tbody>
-                </table>
 
-            </div>
-        </div>
 
     </section>
     <!-- JavaScript dosyası -->
     <script src="../js/app.js"></script>
-
+    <script src="../js/popup.js"></script>
 
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"
         integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
@@ -456,6 +482,37 @@
 
 
         );
+
+
+        $('#MyTable tbody').on('dblclick', 'tr', function () {
+    var data = dataTable.row(this).data(); // dataTable.row kullanıldı
+    var barcode = data.Barcode;
+    var ColorCode = data.ColorCode;
+    var ItemDim1Code = data.ItemDim1Code;
+    var name = data.ItemDescription +" "+ data.ColorThemeDescription;
+    var MLY_EUR = data.MLY_EUR;
+    const popup = document.getElementById('popup');
+ 
+    // Find the first empty input with class 'barcode' to write the barcode
+    var Inputbarcode = document.querySelectorAll('input.barcode');
+    var InputColorCode = document.querySelectorAll('input.ColorCode');
+    var InputItemDim1Code = document.querySelectorAll('input.ItemDim1Code');
+    var Inputname = document.querySelectorAll('input.name');
+    var InputMLY_EUR = document.querySelectorAll('input.MLY_EUR');
+    var InputItemCode = document.querySelectorAll('input.ItemCode');
+    for (var i = 0; i < Inputbarcode.length; i++) {
+        if (Inputbarcode[i].value === '') {
+            Inputbarcode[i].value = barcode;
+            InputItemDim1Code[i].value = ItemDim1Code;
+            Inputname[i].value = name;
+            InputMLY_EUR[i].value = MLY_EUR;
+            InputItemCode[i].value = ItemDim1Code;
+            InputColorCode[i].value = ColorCode;
+            popup.style.display = 'none';
+            break;
+        }
+    }
+});
         //    // Satır tıklama olayı ekleme
         // $('#MyTable tbody').on('click', 'tr', function () {
         //     // Tıklanan satırdaki verileri alın
@@ -499,65 +556,48 @@
                     document.getElementById(`ItemCode${index}`).value = veri[0].ItemCode;
                     document.getElementById(`ColorCode${index}`).value = veri[0].ColorCode;
                     document.getElementById(`ItemDim1Code${index}`).value = veri[0].ItemDim1Code;
-                    document.getElementById(`ItemName${index}`).value = veri[0].ItemDescription+" "+veri[0].ColorThemeDescription;
-                    document.getElementById(`MLY_EUR${index}`).value = veri[0].MLY_EUR;
+                    document.getElementById(`ItemName${index}`).value = veri[0].ItemDescription + " " + veri[0].ColorThemeDescription;
+                    // document.getElementById(`MLY_EUR${index}`).value = veri[0].MLY_EUR;
                 }
             };
             xhr.open("GET", "../DataGetTransfer.php?barcode=" + barkod, true);
             xhr.send();
         }
-        
-        function addRow() {
-    var dataRows = document.getElementsByClassName('dataRow');
-    var index = dataRows.length + 1;
 
-    var newRow = document.createElement('div');
-    newRow.classList.add('row', 'dataRow', 'mb-3', 'justify-content-start');
-    newRow.id = `focus${index}`;
-    newRow.innerHTML = `
-        <div class="offset-md-2 col-md-1">
-            <label for="ProcessCode${index}" class="form-label">ProcessCode:</label>
-            <select class="form-select form-select-sm" id="ProcessCode${index}" name="ProcessCode[]">
-                <option value="GF">Gifting</option>
-                <option value="SD">Seeding</option>
-            </select>
-        </div>
-        <div class="col-md-1">
-            <label for="SendInfCode${index}" class="form-label">Inf Kodu:</label>
-            <input type="text" class="form-control form-control-sm" id="SendInfCode${index}" name="SendInfCode[]">
-        </div>
-        <div class="col-md-1">
-            <label for="SendInfName${index}" class="form-label">Inf Adı:</label>
-            <input type="text" class="form-control form-control-sm" id="SendInfName${index}" name="SendInfName[]">
-        </div>
-        <div class="col-md-1">
-            <label for="Post${index}" class="form-label d-block">Paylaşıldı mı?:</label>
-            <input type="checkbox" class="form-check-input mt-2" id="Post${index}" name="Post[]">
-        </div>
+        function addRow() {
+            var dataRows = document.getElementsByClassName('dataRow');
+            var index = dataRows.length + 1;
+
+            var newRow = document.createElement('div');
+            newRow.classList.add('row', 'dataRow', 'mb-3', 'justify-content-start');
+            newRow.id = `focus${index}`;
+            newRow.innerHTML = `
+      
         <div class="w-100"></div> <!-- Yeni satıra geçiş için boş bir div -->
         <div class="offset-md-2 col-md-1">
             <label for="ItemBarcode${index}" class="form-label">Barkod:</label>
-            <input type="text" class="form-control form-control-sm" id="ItemBarcode${index}" name="ItemBarcode[]" onkeyup="veriGetir(this.value, ${index})">
+            <input type="text" class="form-control form-control-sm barcode" id="ItemBarcode${index}" name="ItemBarcode[]" onkeyup="veriGetir(this.value, ${index})">
+          
         </div>
         <div class="col-md-1">
             <label for="ItemCode${index}" class="form-label">Ürün Kodu:</label>
-            <input type="text" class="form-control form-control-sm" id="ItemCode${index}" name="ItemCode[]">
+            <input type="text" class="form-control form-control-sm ItemCode" id="ItemCode${index}" name="ItemCode[]">
         </div>
         <div class="col-md-1">
             <label for="ColorCode${index}" class="form-label">Renk Kodu:</label>
-            <input type="text" class="form-control form-control-sm" id="ColorCode${index}" name="ColorCode[]">
+            <input type="text" class="form-control form-control-sm ColorCode" id="ColorCode${index}" name="ColorCode[]">
         </div>
         <div class="col-md-1">
             <label for="ItemDim1Code${index}" class="form-label">Beden:</label>
-            <input type="text" class="form-control form-control-sm" id="ItemDim1Code${index}" name="ItemDim1Code[]">
+            <input type="text" class="form-control form-control-sm ItemDim1Code" id="ItemDim1Code${index}" name="ItemDim1Code[]">
         </div>
         <div class="col-md-1">
             <label for="ItemName${index}" class="form-label">Ürün Adı:</label>
-            <input type="text" class="form-control form-control-sm" id="ItemName${index}" name="ItemName[]">
+            <input type="text" class="form-control form-control-sm name" id="ItemName${index}" name="ItemName[]">
         </div>
         <div class="col-md-1">
             <label for="MLY_EUR${index}" class="form-label">Euro Maliyeti:</label>
-            <input type="text" class="form-control form-control-sm" id="MLY_EUR${index}" name="MLY_EUR[]">
+            <input type="text" class="form-control form-control-sm MLY_EUR" id="MLY_EUR${index}" name="MLY_EUR[]">
         </div>
         <div class="col-md-1">
             <label for="Qty1${index}" class="form-label">Adet:</label>
@@ -567,55 +607,55 @@
             <button type="button" class="btn btn-danger btn-sm mt-4" onclick="removeRow(${index})">Kaldır</button>
         </div>
     `;
-    document.getElementById('dataRows').appendChild(newRow);
-}
-
-function veriGetir(barkod, index) {
-    if (!barkod) return;
-    var xhr = new XMLHttpRequest();
-    xhr.onreadystatechange = function () {
-        if (this.readyState == 4 && this.status == 200) {
-            var veri = JSON.parse(this.responseText);
-            if (veri && veri.length > 0) {
-                var item = veri[0];
-                document.getElementById(`ItemCode${index}`).value = item.ItemCode;
-                document.getElementById(`ColorCode${index}`).value = item.ColorCode;
-                document.getElementById(`ItemDim1Code${index}`).value = item.ItemDim1Code;
-                document.getElementById(`ItemName${index}`).value = item.ItemDescription + " " + item.ColorThemeDescription;
-                document.getElementById(`MLY_EUR${index}`).value = item.MLY_EUR;
-            }
+            document.getElementById('dataRows').appendChild(newRow);
         }
-    };
-    xhr.open("GET", "../DataGetTransfer.php?barcode=" + barkod, true);
-    xhr.send();
-}
 
-// Silme buttonu
-function removeRow(index) {
-    var rowToRemove = document.getElementById(`focus${index}`);
-    rowToRemove.parentNode.removeChild(rowToRemove);
-}
+        function veriGetir(barkod, index) {
+            if (!barkod) return;
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    var veri = JSON.parse(this.responseText);
+                    if (veri && veri.length > 0) {
+                        var item = veri[0];
+                        document.getElementById(`ItemCode${index}`).value = item.ItemCode;
+                        document.getElementById(`ColorCode${index}`).value = item.ColorCode;
+                        document.getElementById(`ItemDim1Code${index}`).value = item.ItemDim1Code;
+                        document.getElementById(`ItemName${index}`).value = item.ItemDescription + " " + item.ColorThemeDescription;
+                        document.getElementById(`MLY_EUR${index}`).value = item.MLY_EUR;
+                    }
+                }
+            };
+            xhr.open("GET", "../DataGetTransfer.php?barcode=" + barkod, true);
+            xhr.send();
+        }
 
-// Sayfa yüklenir yüklenmez otomatik olarak bir satır ekle
-window.onload = function () {
-    addRow();
-}
+        // Silme buttonu
+        function removeRow(index) {
+            var rowToRemove = document.getElementById(`focus${index}`);
+            rowToRemove.parentNode.removeChild(rowToRemove);
+        }
 
-// "Add Row" düğmesine tıklama olayı
-document.getElementById('addRowBtn').addEventListener('click', function () {
-    addRow();
-});
+        // Sayfa yüklenir yüklenmez otomatik olarak bir satır ekle
+        window.onload = function () {
+            addRow();
+        }
 
-document.getElementById('myForm').addEventListener('submit', function (event) {
-    event.preventDefault();
-    var formData = new FormData(this);
-    var formObject = {};
-    var dataArray = [];
-    formData.forEach(function (value, key) {
-        dataArray.push({ [key]: value });
-    });
-    console.log(dataArray);
-});
+        // "Add Row" düğmesine tıklama olayı
+        document.getElementById('addRowBtn').addEventListener('click', function () {
+            addRow();
+        });
+
+        document.getElementById('myForm').addEventListener('submit', function (event) {
+            event.preventDefault();
+            var formData = new FormData(this);
+            var formObject = {};
+            var dataArray = [];
+            formData.forEach(function (value, key) {
+                dataArray.push({ [key]: value });
+            });
+            console.log(dataArray);
+        });
 
 
 

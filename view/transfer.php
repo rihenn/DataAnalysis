@@ -163,7 +163,7 @@
 
                         if ($conn) {
                             // Veri tabanından veri çekme sorgusu
-                            $sql = "SELECT * FROM trSending";
+                            $sql = "SELECT * FROM trSendingHeader";
                             $stmt = sqlsrv_query($conn, $sql);
 
                             if ($stmt === false) {
