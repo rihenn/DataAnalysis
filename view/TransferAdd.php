@@ -492,6 +492,41 @@
     var name = data.ItemDescription +" "+ data.ColorThemeDescription;
     var MLY_EUR = data.MLY_EUR;
     const popup = document.getElementById('popup');
+     // Barkodu panoya kopyalamak için bir textarea oluşturun ve içine barkodu yazın
+     var tempTextarea = document.createElement('textarea');
+    tempTextarea.value = barcode;
+    tempTextarea.setAttribute('readonly', ''); // Yazılamaz hale getir
+    tempTextarea.style.position = 'absolute';
+    tempTextarea.style.left = '-9999px'; // Ekran dışında konumlandır
+    document.body.appendChild(tempTextarea);
+
+    // Barkodu seçip kopyalama işlemi
+    tempTextarea.select();
+    document.execCommand('copy');
+    
+    // Geçici textarea'yı kaldır
+    document.body.removeChild(tempTextarea);
+
+
+    // Kullanıcıya kopyalandı mesajını göstermek için bir div oluşturun
+    var messageDiv = document.createElement('div');
+    messageDiv.textContent = 'Barcode kopyalandı: ' + barcode;
+    messageDiv.style.position = 'fixed';
+    messageDiv.style.top = '50%'; // Yukarıdan yarıya konumlandır
+    messageDiv.style.right = '20px'; // Sağdan 20 piksel mesafede
+    messageDiv.style.transform = 'translateY(-50%)'; // Dikey hizalama
+    messageDiv.style.padding = '10px';
+    messageDiv.style.background = '#fff';
+    messageDiv.style.border = '1px solid #ccc';
+    messageDiv.style.borderRadius = '5px';
+    messageDiv.style.boxShadow = '0 2px 5px rgba(0,0,0,0.2)';
+    document.body.appendChild(messageDiv);
+
+    // Yazının belirli bir süre sonra kaybolmasını sağlayın
+    setTimeout(function() {
+        document.body.removeChild(messageDiv);
+    }, 2000); // 2 saniye sonra sil
+
  
     // Find the first empty input with class 'barcode' to write the barcode
     var Inputbarcode = document.querySelectorAll('input.barcode');
@@ -512,6 +547,7 @@
             break;
         }
     }
+    popup.style.display = 'none';
 });
         //    // Satır tıklama olayı ekleme
         // $('#MyTable tbody').on('click', 'tr', function () {
