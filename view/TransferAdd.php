@@ -491,6 +491,7 @@
     var ItemDim1Code = data.ItemDim1Code;
     var name = data.ItemDescription +" "+ data.ColorThemeDescription;
     var MLY_EUR = data.MLY_EUR;
+    var ItemCode = data.ItemCode;
     const popup = document.getElementById('popup');
      // Barkodu panoya kopyalamak için bir textarea oluşturun ve içine barkodu yazın
      var tempTextarea = document.createElement('textarea');
@@ -541,7 +542,7 @@
             InputItemDim1Code[i].value = ItemDim1Code;
             Inputname[i].value = name;
             InputMLY_EUR[i].value = MLY_EUR;
-            InputItemCode[i].value = ItemDim1Code;
+            InputItemCode[i].value = ItemCode;
             InputColorCode[i].value = ColorCode;
             popup.style.display = 'none';
             break;
