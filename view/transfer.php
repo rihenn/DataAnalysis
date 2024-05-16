@@ -132,25 +132,13 @@
                 <table id="MyTable" style="margin: 0.2rem;border:0.1px solid;"  class="table  table-striped">
                     <thead>
                         <tr>
-                            <th>ID</th>
-                            <th>ProcessCode</th>
-                            <th>TransferNumber</th>
-                            <th>ItemBarcode</th>
-                            <th>ItemCode</th>
-                            <th>ColorCode</th>
-                            <th>ItemDim1Code</th>
-                            <th>Qty1</th>
-                            <th>ItemName</th>
-                            <th>ItemCostPrice</th>
-                            <th>SendDate</th>
-                            <th>SendInfCode</th>
-                            <th>SendInfName</th>
-                            <th>Post</th>
-                            <th>CreatedUserName</th>
-                            <th>CreatedDate</th>
-                            <th>LastUpdatedUserName</th>
-                            <th>LastUpdatedDate</th>
-                            <th>IsActive</th>
+                            <th>Kimlik</th>
+                            <th>Süreç Kodu</th>
+                            <th>Transfer Numarası</th>
+                            <th>Toplam Gönderim Bedeli</th>
+                            <th>Gönderim Tarihi</th>
+                            <th>Inf Kodu</th>
+                            <th>Inf Adı</th>
                             <!-- Add more columns if needed -->
                         </tr>
                     </thead>
