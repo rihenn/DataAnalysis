@@ -124,7 +124,7 @@ body {
 
 
 
-.toggle-button {
+.toggle-button1 {
     bottom: 150px; /* Alt kenardan mesafe */
     right: 20px; /* Sağ kenardan mesafe */
     z-index: 999; /* Diğer öğelerin üstünde olması için */

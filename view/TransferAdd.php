@@ -141,9 +141,9 @@
     <section class="home">
         <div class="text1">Transfer Add</div>
         <div id="sonuc"></div>
-        <div class="row justify-content-start">
+        <div class="row justify-content-center">
             <div class="col-md-12" style="max-height: 30rem;overflow: auto;">
-                <form id="myForm" method="post">
+                <form id="myForm">
 
                     <div id="dataRows">
                         <div class="row justify-content-start w-100">
@@ -170,8 +170,8 @@
                                 <input type="checkbox" class="form-check-input mt-2" id="Post${index}" name="Post">
                             </div>
                             <div class="col-md-1">
-                                <label for="Post" class="form-label d-block"></label>
-                                <input type="button" class="btn btn-primary mt-2 toggle-button" 
+                         
+                                <input type="button" class="btn btn-primary mt-2 toggle-button aling-item-center" 
                                     value="...">
                             </div>
                         </div>
@@ -204,9 +204,10 @@
         integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 
     <script src="https://cdn.datatables.net/v/bs5/dt-2.0.7/datatables.min.js"></script>
-    <script src="../js/TransferAddDatatable.js"></script>
-    <script src="../js/TransferAddInputAction.js"></script>
-    <script src="../js/TransferAddInsert.js"></script>
+   <script src="../js/TransferAddDatatable.js"></script>
+   <script src="../js/TransferAddInputAction.js"></script>
+   <script src="../js/TransferAddInsert.js"></script>
+
 </body>
 
 </html>

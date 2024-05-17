@@ -28,6 +28,10 @@ function addRow() {
 
 <div class="w-100"></div> <!-- Yeni satıra geçiş için boş bir div -->
 <div class="offset-md-2 col-md-1">
+  
+</div>
+<div class="offset-md-2 col-md-1">
+
     <label for="ItemBarcode${index}" class="form-label">Barkod:</label>
     <input type="text" class="form-control form-control-sm barcode" id="ItemBarcode${index}" name="ItemBarcode[]" onkeyup="veriGetir(this.value, ${index})">
   

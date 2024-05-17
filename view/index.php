@@ -150,7 +150,7 @@
                             <th>LastUpdatedDate</th>
                             <th>IsActive</th>
                             <!-- Add more columns if needed -->
-                        </tr>
+                        </tr >
                     </thead>
                     <tbody>
                         <?php
@@ -194,7 +194,7 @@
                         ?>
                     </tbody>
                 </table>
-                <button class="btn btn-primary toggle-button">Kart Ekle</button>
+                <button class="btn btn-primary toggle-button toggle-button1">Kart Ekle</button>
             </div>
         </div>
 
