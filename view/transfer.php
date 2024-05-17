@@ -130,67 +130,7 @@
         <div class="container ml-5" >
             <div id="tableContainer" class="table-response" >
                 <table id="MyTable" style="margin: 0.2rem;border:0.1px solid;"  class="table  table-striped">
-                    <thead>
-                        <tr>
-                            <th>Kimlik</th>
-                            <th>Süreç Kodu</th>
-                            <th>Transfer Numarası</th>
-                            <th>Toplam Gönderim Bedeli</th>
-                            <th>Gönderim Tarihi</th>
-                            <th>Inf Kodu</th>
-                            <th>Inf Adı</th>
-                            <!-- Add more columns if needed -->
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php
-                        require '../conn/DevTechcon.php';
-
-                        // MSSQL sunucusuna bağlan
-                        $conn = sqlsrv_connect($serverName, $connectionOptions);
-
-                        if ($conn) {
-                            // Veri tabanından veri çekme sorgusu
-                            $sql = "SELECT * FROM trSendingHeader";
-                            $stmt = sqlsrv_query($conn, $sql);
-
-                            if ($stmt === false) {
-                                die(print_r(sqlsrv_errors(), true));
-                            }
-
-                            // Verileri tabloya ekleme
-                            while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
-                                echo "<tr>";
-                                echo "<td>" . $row['ID'] . "</td>";
-                                echo "<td>" . $row['ProcessCode'] . "</td>";
-                                echo "<td>" . $row['TransferNumber'] . "</td>";
-                                echo "<td>" . $row['ItemBarcode'] . "</td>";
-                                echo "<td>" . $row['ItemCode'] . "</td>";
-                                echo "<td>" . $row['ColorCode'] . "</td>";
-                                echo "<td>" . $row['ItemDim1Code'] . "</td>";
-                                echo "<td>" . $row['Qty1']. "</td>";
-                                echo "<td>" . $row['ItemName'] . "</td>";
-                                echo "<td>" . $row['ItemCostPrice'] . "</td>";
-                                echo "<td>" . $row['SendDate'] ->format('Y-m-d H:i:s'). "</td>";
-                                echo "<td>" . $row['SendInfCode'] . "</td>";
-                                echo "<td>" . $row['SendInfName'] . "</td>";
-                                echo "<td>" . $row['Post'] . "</td>";
-                                echo "<td>" . $row['CreatedUserName'] . "</td>";
-                                echo "<td>" . $row['CreatedDate']->format('Y-m-d H:i:s') . "</td>";
-                                echo "<td>" . $row['LastUpdatedUserName'] . "</td>";
-                                echo "<td>" . $row['LastUpdatedDate'] ->format('Y-m-d H:i:s'). "</td>";
-                                echo "<td>" . $row['IsActive'] . "</td>";
-                                echo "</tr>";
-                            }
-
-                            sqlsrv_free_stmt($stmt);
-                            sqlsrv_close($conn);
-                        } else {
-                            echo "Connection could not be established.<br />";
-                            die(print_r(sqlsrv_errors(), true));
-                        }
-                        ?>
-                    </tbody>
+                    
                 </table>
                 <a href="./TransferAdd.php" class="btn btn-primary">Transfer Ekle</a>
                
@@ -199,12 +139,10 @@
     
     </section>
 
-    <!-- JavaScript dosyası -->
-    <!-- JavaScript dosyası -->
-    <script src="../js/app.js"></script>
-    <script src="../js/popup.js"></script>
-    <script src="../js/insertinf.js"></script>
-    <script src="../js/transfer.js"></script>
+ 
+   
+
+
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"
         integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 
@@ -212,7 +150,25 @@
     <script>
  
  $(document).ready(function() {
-        $('#MyTable').DataTable({
+    $('#MyTable').DataTable({
+            ajax: {
+                url: '../DataGetCdInfluecer.php',
+                dataSrc: '' // Sunucudan gelen JSON verilerinin doğrudan kullanılacağını belirtir
+            },
+            columns: [
+                { data: 'ID', title: 'ID' },
+                { data: 'Code', title: 'Code' },
+                { data: 'FirstName', title: 'FirstName' },
+                { data: 'LastName', title: 'LastName' },
+                { data: 'CountryCode', title: 'CountryCode' },
+                { data: 'Country', title: 'Country' },
+                { data: 'City', title: 'City' },
+                { data: 'Address', title: 'Address' },
+                { data: 'CreatedUserName', title: 'CreatedUserName' },
+                { data: 'CreatedDate', title: 'CreatedDate' },
+                { data: 'LastUpdatedUserName', title: 'LastUpdatedUserName' },
+                { data: 'LastUpdatedDate', title: 'LastUpdatedDate' },
+            ],
             scrollY: '35rem',
             scrollCollapse: true,
             scrollX: true,
