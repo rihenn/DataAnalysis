@@ -70,7 +70,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
               
                     for ($i=0; $i < $qty1; $i++) { 
                        // trSendingLine tablosuna veri ekleyin
-                    $MLY_EURTotal  = $MLY_EUR/$qty1;
+                    $shippingcostAdet = intval($shippingcost)/$qty1;
+                  
                     $sqlLine = "INSERT INTO trSendingLine (
                         SendingLineID, ProcessCode, TransferNumber, Barcode, ItemCode, ColorCode, ItemDim1Code,
                         ItemDescription, ColorDescription, ItemCostPrice, ShippingCostPrice, Qty1, Post, InfCode,
@@ -89,8 +90,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         $itemDim1Code,
                         $itemName,
                         $colorCode, // Renk açıklaması olduğunu varsayalım
-                        $MLY_EURTotal,
-                        $shippingcost , // Nakliye maliyeti, Ürün maliyetine eşit olduğunu varsayalım
+                        $MLY_EUR,
+                        $shippingcostAdet , // Nakliye maliyeti, Ürün maliyetine eşit olduğunu varsayalım
                         "1",
                         "1",
                         $sendInfCode,
@@ -104,7 +105,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     }
     
                     if (sqlsrv_execute($stmtLine)) {
-                        return "True";
+                        echo "True";
                     } else {
                         echo "trSendingLine kaydı ekleme işlemi başarısız oldu: ";
                         print_r(sqlsrv_errors());
