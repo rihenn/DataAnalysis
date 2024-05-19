@@ -28,7 +28,7 @@
         { data: 'LastUpdatedDate', title: 'LastUpdatedDate' },
     ],
     scrollX: true,
-    scrollY: "20rem",
+    scrollY: "30rem",
     language: {
         "info": "_TOTAL_ kayıttan _START_ - _END_ arasındaki kayıtlar gösteriliyor",
         "infoEmpty": "Kayıt yok",

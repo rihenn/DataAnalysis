@@ -69,8 +69,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 if ($newId !== null) {
               
                     for ($i=0; $i < $qty1; $i++) { 
-                       // trSendingLine tablosuna veri ekleyin
-                    $shippingcostAdet = intval($shippingcost)/$qty1;
+                      $shippingcostprice =   $shippingcost[0] ;           // trSendingLine tablosuna veri ekleyin
+                      $total =  $shippingcostprice/$qty1;
+      
                   
                     $sqlLine = "INSERT INTO trSendingLine (
                         SendingLineID, ProcessCode, TransferNumber, Barcode, ItemCode, ColorCode, ItemDim1Code,
@@ -91,7 +92,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         $itemName,
                         $colorCode, // Renk açıklaması olduğunu varsayalım
                         $MLY_EUR,
-                        $shippingcostAdet , // Nakliye maliyeti, Ürün maliyetine eşit olduğunu varsayalım
+                        $total , // Nakliye maliyeti, Ürün maliyetine eşit olduğunu varsayalım
                         "1",
                         "1",
                         $sendInfCode,
