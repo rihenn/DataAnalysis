@@ -137,6 +137,19 @@ body {
     cursor: pointer; /* Fare işaretçisi */
     transition: background-color 0.3s, color 0.3s; /* Geçiş efektleri */
   }
+.toggle-button2 {
+    bottom: 150px; /* Alt kenardan mesafe */
+    right: 20px; /* Sağ kenardan mesafe */
+    z-index: 999; /* Diğer öğelerin üstünde olması için */
+    color: #fff; /* Metin rengi */
+    padding: 10px 20px; /* Buton içi dolgusu */
+    font-size: 16px; /* Yazı tipi boyutu */
+    border-radius: 5px; /* Kenar yuvarlaklığı */
+    background-color: #007bff; /* Arka plan rengi */
+    border: none; /* Kenarlık yok */
+    cursor: pointer; /* Fare işaretçisi */
+    transition: background-color 0.3s, color 0.3s; /* Geçiş efektleri */
+  }
   
   .toggle-button:hover {
     background-color: #0056b3; /* Üzerine gelindiğinde arka plan rengi */

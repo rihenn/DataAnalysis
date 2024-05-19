@@ -1,36 +1,15 @@
-function veriGetir(barkod, index) {
-    var xhr = new XMLHttpRequest();
-    xhr.onreadystatechange = function () {
-        if (this.readyState == 4 && this.status == 200) {
-            var veri = JSON.parse(this.responseText);
-
-            // Veriyi işleme
-            // İlgili satırdaki input alanlarına verileri doldurma
-            document.getElementById(`ItemCode${index}`).value = veri[0].ItemCode;
-            document.getElementById(`ColorCode${index}`).value = veri[0].ColorCode;
-            document.getElementById(`ItemDim1Code${index}`).value = veri[0].ItemDim1Code;
-            document.getElementById(`ItemName${index}`).value = veri[0].ItemDescription + " " + veri[0].ColorThemeDescription;
-            // document.getElementById(`MLY_EUR${index}`).value = veri[0].MLY_EUR;
-        }
-    };
-    xhr.open("GET", "../DataGetTransfer.php?barcode=" + barkod, true);
-    xhr.send();
-}
 
 function addRow() {
     var dataRows = document.getElementsByClassName('dataRow');
     var index = dataRows.length + 1;
 
     var newRow = document.createElement('div');
-    newRow.classList.add('row', 'dataRow', 'mb-3', 'justify-content-start');
+    newRow.classList.add('row', 'dataRow', 'mb-3', 'justify-content-center');
     newRow.id = `focus${index}`;
     newRow.innerHTML = `
 
-<div class="w-100"></div> <!-- Yeni satıra geçiş için boş bir div -->
-<div class="offset-md-2 col-md-1">
-  
-</div>
-<div class="offset-md-2 col-md-1">
+
+<div class=" col-md-1">
 
     <label for="ItemBarcode${index}" class="form-label">Barkod:</label>
     <input type="text" class="form-control form-control-sm barcode" id="ItemBarcode${index}" name="ItemBarcode[]" onkeyup="veriGetir(this.value, ${index})">
@@ -58,7 +37,7 @@ function addRow() {
 </div>
 <div class="col-md-1">
     <label for="Qty1${index}" class="form-label">Adet:</label>
-    <input type="text" class="form-control form-control-sm" id="Qty1${index}" name="Qty1[]">
+    <input type="text" class="form-control form-control-sm Qty1" id="Qty1${index}" name="Qty1[]"  value="1">
 </div>
 <div class="col-md-1 justify-content-center mt-2">
     <button type="button" class="btn btn-danger btn-sm mt-4" onclick="removeRow(${index})">Kaldır</button>
@@ -80,6 +59,7 @@ function veriGetir(barkod, index) {
                 document.getElementById(`ItemDim1Code${index}`).value = item.ItemDim1Code;
                 document.getElementById(`ItemName${index}`).value = item.ItemDescription + " " + item.ColorThemeDescription;
                 document.getElementById(`MLY_EUR${index}`).value = item.MLY_EUR;
+                document.getElementById(`Qty1${index}`).value = "1";
             }
         }
     };

@@ -171,17 +171,17 @@
                             // Verileri tabloya ekleme
                             while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
                                 echo "<tr>";
-                                echo "<td>" . $row['Code'] . "</td>";
-                                echo "<td>" . $row['FirstName'] . " " . $row['LastName'] . "</td>";
-                                echo "<td>" . $row['CountryCode'] . "</td>";
-                                echo "<td>" . $row['Country'] . "</td>";
-                                echo "<td>" . $row['City'] . "</td>";
-                                echo "<td>" . $row['Address'] . "</td>";
-                                echo "<td>" . $row['CreatedUserName'] . "</td>";
-                                echo "<td>" . $row['CreatedDate']->format('Y-m-d H:i:s') . "</td>";
-                                echo "<td>" . $row['LastUpdatedUserName'] . "</td>";
-                                echo "<td>" . $row['LastUpdatedDate']->format('Y-m-d H:i:s') . "</td>";
-                                echo "<td>" . $row['IsActive'] . "</td>";
+                                echo "<td class:'text-center' >" . $row['Code'] . "</td>";
+                                echo "<td class:'text-center'>" . $row['FirstName'] . " " . $row['LastName'] . "</td>";
+                                echo "<td class:'text-center'>" . $row['CountryCode'] . "</td>";
+                                echo "<td class:'text-center'>" . $row['Country'] . "</td>";
+                                echo "<td class:'text-center'>" . $row['City'] . "</td>";
+                                echo "<td class:'text-center'>" . $row['Address'] . "</td>";
+                                echo "<td class:'text-center'>" . $row['CreatedUserName'] . "</td>";
+                                echo "<td class:'text-center'>" . $row['CreatedDate']->format('Y-m-d ') . "</td>";
+                                echo "<td class:'text-center'>" . $row['LastUpdatedUserName'] . "</td>";
+                                echo "<td class:'text-center'>" . $row['LastUpdatedDate']->format('Y-m-d ') . "</td>";
+                                echo "<td class:'text-center'>" . $row['IsActive'] . "</td>";
                                 echo "</tr>";
                             }
 

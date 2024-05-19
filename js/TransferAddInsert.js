@@ -10,7 +10,11 @@ document.getElementById('Submit').addEventListener('click', function(event) {
     xhr.open('POST', '../query/TransferAddInsert.php', true); // PHP dosyanızın yolu
     xhr.onreadystatechange = function() {
         if (xhr.readyState == 4 && xhr.status == 200) {
-            console.log(xhr.responseText); // Sunucudan gelen yanıt
+           if(xhr.responseText == "True"){
+            alert("Kayıt İşlemi başarılı Bir Şekilde Gerçekleştirildi");
+           } else{
+            alert("Kayıt başarılı Bir Şekilde atılamadı");
+           }
         }
     };
     xhr.send(formData); // Form verilerini gönderme

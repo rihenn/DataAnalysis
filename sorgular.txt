@@ -1,0 +1,17 @@
+
+//gifting
+insert into trSendingHeader (ID, ProcessCode, TransferNumber, ShippingCostPrice, SendDate, SendInfCode, SendInfName,
+                             CreatedUserName, CreatedDate, LastUpdatedUserName, LastUpdatedDate, IsActive)
+values (NEWID(),'GF',CONCAT('1-GF-', NEXT VALUE FOR gfid),'?',GETDATE(),'?','?','ADMIN',GETDATE(),'ADMIN',GETDATE(),'1');
+
+//seedingLine
+insert into trSendingHeader (ID, ProcessCode, TransferNumber, ShippingCostPrice, SendDate, SendInfCode, SendInfName,
+                             CreatedUserName, CreatedDate, LastUpdatedUserName, LastUpdatedDate, IsActive)
+values (NEWID(),'SD',CONCAT('1-SD-', NEXT VALUE FOR sdid),'?',GETDATE(),'?','?','ADMIN',GETDATE(),'ADMIN',GETDATE(),'1');
+
+seeding
+insert into trSendingLine (SendingLineID, ProcessCode, TransferNumber, Barcode, ItemCode, ColorCode, ItemDim1Code,
+                           ItemDescription, ColorDescription, ItemCostPrice, ShippingCostPrice, Qty1, Post, InfCode,
+                           InfName, SendDate, SendingHeaderID, CreatedUserName, CreatedDate, LastUpdatedUserName,
+                           LastUpdatedDate, IsActive)
+values ();line de zaten headerdaki verileri içeri alacağında bundan özel bişi yok
