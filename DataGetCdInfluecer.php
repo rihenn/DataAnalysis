@@ -7,7 +7,7 @@ $conn = sqlsrv_connect($serverName, $connectionOptions);
 
 if ($conn) {
     // Veritabanından verileri çekme sorgusu
-    $sql = "SELECT * FROM cdInfluecer";
+    $sql = "select * from cdInfluecer";
     $stmt = sqlsrv_query($conn, $sql);
 
     if ($stmt === false) {
