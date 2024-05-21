@@ -7,7 +7,37 @@ $conn = sqlsrv_connect($serverName, $connectionOptions);
 
 if ($conn) {
     // Veritabanından verileri çekme sorgusu
-    $sql = "select * from cdInfluecer";
+    $sql = "SELECT 
+    sh.ID AS SendingHeaderID,
+    sh.ProcessCode,
+    sh.TransferNumber,
+    sh.ShippingCostPrice,
+    sh.SendDate,
+    sh.SendInfCode,
+    sh.SendInfName,
+    sh.CreatedUserName,
+    sh.CreatedDate,
+    sh.LastUpdatedUserName,
+    sh.LastUpdatedDate,
+    sh.IsActive,
+    SUM(sl.ItemCostPrice) AS TotalItemCostPrice
+FROM 
+    trSendingHeader sh
+JOIN 
+    trSendingLine sl ON sh.ID = sl.SendingHeaderID
+GROUP BY 
+    sh.ID,
+    sh.ProcessCode,
+    sh.TransferNumber,
+    sh.ShippingCostPrice,
+    sh.SendDate,
+    sh.SendInfCode,
+    sh.SendInfName,
+    sh.CreatedUserName,
+    sh.CreatedDate,
+    sh.LastUpdatedUserName,
+    sh.LastUpdatedDate,
+    sh.IsActive";
     $stmt = sqlsrv_query($conn, $sql);
 
     if ($stmt === false) {

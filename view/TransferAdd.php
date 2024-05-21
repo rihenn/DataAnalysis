@@ -17,12 +17,15 @@
     <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="https://cdn.datatables.net/v/bs5/dt-2.0.7/datatables.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+
     <title>Gifting</title>
 </head>
 
 <body style="height: 100vh;width:auto ;padding: 0!important;">
 
-    <!-- Popup -->
+    
     <div id="popup" class="popup">
         <div class="popup-content">
             <button id="closeButton" class="close-button"><i class="fa-solid fa-xmark"></i></button>
@@ -143,76 +146,74 @@
             </div>
         </div>
     </nav>
-
     <section class="home">
-        <div class="text1">Transfer Add</div>
-        <div id="sonuc"></div>
-        <div class="row justify-content-center">
-            <div class="col-md-12" style="max-height: 30rem; overflow: auto;">
-                <form id="myForm">
-                    <div class="row justify-content-start w-100">
-                        <div class="offset-md-2 col-md-1">
-                            <label for="ProcessCode${index}" class="form-label">ProcessCode:</label>
-                            <select class="form-select form-select-sm" id="ProcessCode${index}" name="ProcessCode[]">
-                                <option value="GF">Gifting</option>
-                                <option value="SD">Seeding</option>
-                            </select>
-                        </div>
-                        <div class="col-md-1">
-                            <label for="SendInfCode${index}" class="form-label">Inf Kodu:</label>
-                            <input type="text" class="form-control form-control-sm SendInfCode"
-                                onkeyup="veriGetirInf(this.value)" name="SendInfCode[]">
-                        </div>
-                        <div class="col-md-1">
-                            <label for="SendInfName${index}" class="form-label">Inf Adı:</label>
-                            <input type="text" class="form-control form-control-sm SendInfName" id="SendInfName"
-                                name="SendInfName[]">
-                        </div>
-                        <div class="col-md-1 mb-4">
-                            <label for="shippingcost${index}" class="form-label">Gönderim:</label>
-                            <input type="text" class="form-control form-control-sm shippingcost" id="shippingcost${index}"
-                                name="shippingcost[]">
-                        </div>
-                        <div class="col-md-1 mt-4">
-                            <input type="button" class="btn btn-primary mt-2 toggle-button2 aling-item-center"
-                                value="Influecer" id="InfluecerBtn">
-                        </div>
-                        <div class="col-md-1 mt-4">
-                            <input type="button" class="btn btn-primary mt-2 toggle-button aling-item-center"
-                                value="Barcode" id="Barcode">
-                        </div>
+    <div class="text1">Transfer Add</div>
+    <div id="sonuc"></div>
+    <div class="row justify-content-center">
+        <div class="col-md-12" style="max-height: 30rem; overflow: auto;">
+            <form id="myForm">
+                <div class="row justify-content-start w-100">
+                    <div class="offset-md-2 col-md-1">
+                        <label for="ProcessCode" class="form-label">ProcessCode:</label>
+                        <select class="form-select form-select-sm" id="ProcessCode" name="ProcessCode[]">
+                            <option value="Gifting">Gifting</option>
+                            <option value="Seeding">Seeding</option>
+                        </select>
                     </div>
-                    <div id="dataRows"></div>
-                </form>
-            </div>
+                    <div class="col-md-1">
+                        <label for="SendInfCode" class="form-label">Inf Kodu:</label>
+                        <input type="text" class="form-control form-control-sm SendInfCode" onkeyup="veriGetirInf(this.value)" name="SendInfCode[]">
+                    </div>
+                    <div class="col-md-1">
+                        <label for="SendInfName" class="form-label">Inf Adı:</label>
+                        <input type="text" class="form-control form-control-sm SendInfName" id="SendInfName" name="SendInfName[]">
+                    </div>
+                    <div class="col-md-1 mb-4">
+                        <label for="shippingcost" class="form-label">Gönderim:</label>
+                        <input type="text" class="form-control form-control-sm shippingcost" id="shippingcost" name="shippingcost[]">
+                    </div>
+                    <div class="col-md-1 mt-4">
+                        <input type="button" class="btn btn-primary mt-2 toggle-button2 aling-item-center" value="Influecer" id="InfluecerBtn">
+                    </div>
+                    <div class="col-md-1 mt-4" id="barcodeSection" style="display: none;">
+                        <input type="button" class="btn btn-primary mt-2 toggle-button aling-item-center" value="Barcode" id="Barcode">
+                    </div>
+                    <div class="col-md-1 mt-4">
+                        <input type="button" class="btn btn-success mt-2" value="İşlem Başlat" id="startProcessBtn">
+                    </div>
+                </div>
+                <div id="dataRows" style="display: none;"></div>
+                <div class="row justify-content-center mt-3" id="addRowSection" style="display: none;">
+                    <div class="col-md-1">
+                        <button type="button" class="btn btn-success" id="addRowBtn">Satır Ekle</button>
+                    </div>
+                    <div class="col-md-1">
+                        <button type="submit" id="Submit" class="btn btn-primary">Gönder</button>
+                    </div>
+                </div>
+            </form>
         </div>
+    </div>
 
-        <div class="row justify-content-center">
-            <div class="col-md-1">
-                <button type="button" class="btn btn-success" id="addRowBtn">Satır Ekle</button>
-            </div>
-            <div class="col-md-1">
-                <button type="button" id="Submit" class="btn btn-primary">Gönder</button>
-            </div>
+    <div class="container">
+        <div class="flex justify-content-center">
+            <table class="table" id="SeedingLine"></table>
         </div>
-
-        <div class="container">
-            <div class="flex justify-content-center">
-                <table class="table" id="SeedingLine"></table>
-            </div>
-        </div>
-    </section>
+    </div>
+</section>
     <!-- JavaScript dosyası -->
     <script src="../js/app.js"></script>
     <script src="../js/popup.js"></script>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"
         integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <script src="https://cdn.datatables.net/v/bs5/dt-2.0.7/datatables.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <script src="../js/TransferAddInfluecerDatatable.js"></script>
     <script src="../js/TransferDataTableSeedingLine.js"></script>
     <script src="../js/TransferAddDatatable.js"></script>
     <script src="../js/TransferAddInputAction.js"></script>
-    <script src="../js/TransferAddInsert.js"></script>
+
+
 
 </body>
 

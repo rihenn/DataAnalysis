@@ -5,27 +5,42 @@
         dataSrc: '' // Sunucudan gelen JSON verilerinin doğrudan kullanılacağını belirtir
     },
     columns: [
-        { data: 'SendingLineID', title: 'SendingLineID' },
-        { data: 'ProcessCode', title: 'ProcessCode' },
-        { data: 'TransferNumber', title: 'TransferNumber' },
-        { data: 'Barcode', title: 'Barcode' },
-        { data: 'ItemCode', title: 'ItemCode' },
-        { data: 'ColorCode', title: 'ColorCode' },
-        { data: 'ItemDim1Code', title: 'ItemDim1Code' },
-        { data: 'ItemDescription', title: 'ItemDescription' },
-        { data: 'ColorDescription', title: 'ColorDescription' },
-        { data: 'ItemCostPrice', title: 'ItemCostPrice' },
-        { data: 'ShippingCostPrice', title: 'ShippingCostPrice' },
-        { data: 'Qty1', title: 'Qty1' },
+
+        { data: 'ProcessCode', title: 'Süreç Kodu' },
+        { data: 'TransferNumber', title: 'Transfer Numarası' },
+        { data: 'Barcode', title: 'Barkod' },
+        { data: 'ItemCode', title: 'Ürün Kodu' },
+        { data: 'ColorCode', title: 'Renk Kodu' },
+        { data: 'ItemDim1Code', title: 'Beden' },
+        { 
+            data: null, 
+            title: 'Ürün Adı',
+            render: function (data, type, row) {
+                return `${row.ItemDescription} ${row.ColorDescription}`;
+            } 
+        },
+        { data: 'ItemCostPrice', title: 'Maliyet Fiyatı' },
+        { data: 'ShippingCostPrice', title: 'Gönderim Bedeli' },
+        { data: 'Qty1', title: 'Adet' },
         { data: 'Post', title: 'Post' },
-        { data: 'InfCode', title: 'InfCode' },
-        { data: 'InfName', title: 'InfName' },
-        { data: 'SendDate', title: 'SendDate' },
-        { data: 'SendingHeaderID', title: 'SendingHeaderID' },
-        { data: 'CreatedUserName', title: 'CreatedUserName' },
-        { data: 'CreatedDate', title: 'CreatedDate' },
-        { data: 'LastUpdatedUserName', title: 'LastUpdatedUserName' },
-        { data: 'LastUpdatedDate', title: 'LastUpdatedDate' },
+        { data: 'InfCode', title: 'Inf Kodu' },
+        { data: 'InfName', title: 'Inf Adı' },
+        { 
+            data: 'SendDate', 
+            title: 'Gönderim Tarihi',
+            render: function (data, type, row) {
+                if (!data) return '';
+
+                // Tarih verisini doğru formatta parse et
+                var date = moment(data.date, 'YYYY-MM-DD HH:mm:ss.SSSSSS');
+                if (!date.isValid()) {
+                    return 'Geçersiz tarih';
+                }
+
+                // Sadece tarih kısmını 'YYYY-MM-DD' formatında döndür
+                return date.format('YYYY-MM-DD');
+            }
+        },
     ],
     scrollX: true,
     scrollY: "30rem",

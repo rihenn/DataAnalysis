@@ -11,13 +11,8 @@
         { data: 'LastName', title: 'LastName' },
         { data: 'CountryCode', title: 'CountryCode' },
         { data: 'Country', title: 'Country' },
-        { data: 'City', title: 'City' },
-        { data: 'Address', title: 'Address' },
-        { data: 'CreatedUserName', title: 'CreatedUserName' },
-        { data: 'CreatedDate', title: 'CreatedDate' },
-        { data: 'LastUpdatedUserName', title: 'LastUpdatedUserName' },
-        { data: 'LastUpdatedDate', title: 'LastUpdatedDate' },
-        { data: 'IsActive', title: 'IsActive' },
+
+
    
     ],
     scrollX: true,

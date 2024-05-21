@@ -1,232 +1,38 @@
-<!DOCTYPE html>
-<html lang="tr">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- CSS dosyası -->
-    <link rel="stylesheet" type="text/css" href="../css/style.css">
-
-    <!-- Boxicons CSS dosyası -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-        crossorigin="anonymous"></script>
-    <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link href="https://cdn.datatables.net/v/bs5/dt-2.0.7/datatables.min.css" rel="stylesheet">
-    <title>Gifting</title>
-</head>
-
-<body style="height: 100vh;width:auto ;padding: 0!important;">
-
-<div class="modal fade" id="popupModal" tabindex="-1" aria-labelledby="popupModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="popupModalLabel">Kart Ekle</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <form id="insertForm" action="../query/insert.php" method="post">
-          <input class="border form-control mb-3" type="text" id="firstName" name="firstName" placeholder="İsim">
-          <input class="border form-control mb-3" type="text" id="lastName" name="lastName" placeholder="Soyisim">
-          <input class="border form-control mb-3" type="text" id="countryCode" name="countryCode" placeholder="Ülke Kodu">
-          <input class="border form-control mb-3" type="text" id="country" name="country" placeholder="Ülke">
-          <input class="border form-control mb-3" type="text" id="city" name="city" placeholder="Şehir">
-          <input class="border form-control mb-3" type="text" id="address" name="address" placeholder="Adres">
-          <button class="btn btn-dark" type="submit" id="saveButton">Kaydet</button>
-        </form>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-
-    <nav class="sidebar close">
-        <header>
-            <div class="image-text">
-                <span class="image">
-                    <img src="../images/amblem copy.png" alt="">
-                </span>
-
-                <div class="text logo-text">
-                    <span class="name">Gifting</span>
-                    <span class="profession">Admin</span>
-                </div>
-            </div>
-
-            <i class='bx bx-chevron-right toggle'></i>
-        </header>
-
-        <div class="menu-bar">
-            <div class="menu">
-                <li class="search-box">
-                    <i class='bx bx-search icon'></i>
-                    <input type="text" placeholder="Search...">
-                </li>
-
-                <ul class="menu-links p-0">
-                    <li class="nav-link">
-                        <a href="#">
-                            <i class='bx bx-home-alt icon'></i>
-                            <span class="text nav-text">Dashboard</span>
-                        </a>
-                    </li>
-
-                    <li class="nav-link">
-                        <a href="transfer.php">
-                            <i class='bx bx-bell icon'></i>
-                            <span class="text nav-text">Transfer</span>
-                        </a>
-                    </li>
-
-                    <li class="nav-link">
-                        <a href="#">
-                            <i class='bx bx-bar-chart-alt-2 icon'></i>
-                            <span class="text nav-text">Revenue</span>
-                        </a>
-                    </li>
-
-
-                    <li class="nav-link">
-                        <a href="#">
-                            <i class='bx bx-pie-chart-alt icon'></i>
-                            <span class="text nav-text">Analytics</span>
-                        </a>
-                    </li>
-
-                    <li class="nav-link">
-                        <a href="#">
-                            <i class='bx bx-heart icon'></i>
-                            <span class="text nav-text">Likes</span>
-                        </a>
-                    </li>
-
-                    <li class="nav-link">
-                        <a href="#">
-                            <i class='bx bx-wallet icon'></i>
-                            <span class="text nav-text">Wallets</span>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-
-            <div class="bottom-content">
-                <li class="">
-                    <a href="#">
-                        <i class='bx bx-log-out icon'></i>
-                        <span class="text nav-text">Logout</span>
-                    </a>
-                </li>
-
-                <li class="mode">
-                    <div class="sun-moon">
-                        <i class='bx bx-moon icon moon'></i>
-                        <i class='bx bx-sun icon sun'></i>
-                    </div>
-                    <span class="mode-text text">Dark mode</span>
-
-                    <div class="toggle-switch">
-                        <span class="switch"></span>
-                    </div>
-                </li>
-            </div>
-        </div>
-    </nav>
-    <section class="home">
-        <div class="text1">Dashboard</div>
-
-        <div class="container ml-5">
-            <div id="tableContainer" class="table-response">
-                <table id="MyTable" style="margin: 0.2rem;border:0.1px solid;" class="table  table-striped">
-                    <thead>
-                        <tr>
-                            <th>User ID</th>
-                            <th>Username</th>
-                            <th>Ülke Kodu</th>
-                            <th>Ülke</th>
-                            <th>City</th>
-                            <th>Address</th>
-                            <th>CreatedUserName</th>
-                            <th>CreatedDate</th>
-                            <th>LastUpdatedUserName</th>
-                            <th>LastUpdatedDate</th>
-                            <th>IsActive</th>
-                            <!-- Add more columns if needed -->
-                        </tr >
-                    </thead>
-                    <tbody>
-                        <?php
-                        require '../conn/DevTechcon.php';
-
-                        // MSSQL sunucusuna bağlan
-                        $conn = sqlsrv_connect($serverName, $connectionOptions);
-
-                        if ($conn) {
-                            // Veri tabanından veri çekme sorgusu
-                            $sql = "SELECT * FROM cdInfluecer";
-                            $stmt = sqlsrv_query($conn, $sql);
-
-                            if ($stmt === false) {
-                                die(print_r(sqlsrv_errors(), true));
-                            }
-
-                            // Verileri tabloya ekleme
-                            while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
-                                echo "<tr>";
-                                echo "<td class:'text-center' >" . $row['Code'] . "</td>";
-                                echo "<td class:'text-center'>" . $row['FirstName'] . " " . $row['LastName'] . "</td>";
-                                echo "<td class:'text-center'>" . $row['CountryCode'] . "</td>";
-                                echo "<td class:'text-center'>" . $row['Country'] . "</td>";
-                                echo "<td class:'text-center'>" . $row['City'] . "</td>";
-                                echo "<td class:'text-center'>" . $row['Address'] . "</td>";
-                                echo "<td class:'text-center'>" . $row['CreatedUserName'] . "</td>";
-                                echo "<td class:'text-center'>" . $row['CreatedDate']->format('Y-m-d ') . "</td>";
-                                echo "<td class:'text-center'>" . $row['LastUpdatedUserName'] . "</td>";
-                                echo "<td class:'text-center'>" . $row['LastUpdatedDate']->format('Y-m-d ') . "</td>";
-                                echo "<td class:'text-center'>" . $row['IsActive'] . "</td>";
-                                echo "</tr>";
-                            }
-
-                            sqlsrv_free_stmt($stmt);
-                            sqlsrv_close($conn);
-                        } else {
-                            echo "Connection could not be established.<br />";
-                            die(print_r(sqlsrv_errors(), true));
-                        }
-                        ?>
-                    </tbody>
-                </table>
-                <button class="btn btn-primary toggle-button toggle-button1" data-bs-toggle="modal" data-bs-target="#popupModal">Kart Ekle</button>
-            </div>
-        </div>
-
-
-    </section>
-    <!-- JavaScript dosyası -->
-    <script>
-    // Kart ekle butonuna tıklama olayı ekle
-    $('#kartEkleButton').on('click', function() {
-        // Popup modal'i aç
-        $('#popupModal').modal('show');
-    });
-    </script>
-
-    <script src="../js/app.js"></script>
-    <script src="../js/popup.js"></script>
-    <script src="../js/insertinf.js"></script>
-    <script src="../js/transfer.js"></script>
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
-        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-
-    <script src="https://cdn.datatables.net/v/bs5/dt-2.0.7/datatables.min.js"></script>
-    <script>
-        $('#MyTable').DataTable({
+$(document).ready(function() {
+    // DataTable'ı başlat
+    var table = $('#MyTable').DataTable({
+        ajax: {
+            url: '../DataGetSendingHeader.php',
+            dataSrc: '' // Sunucudan gelen JSON verilerinin doğrudan kullanılacağını belirtir
+        },
+        columns: [
+            { data: 'SendInfCode', title: 'Inf Kodu' },
+            { data: 'SendInfName', title: 'Inf Adı' },
+            { data: 'TransferNumber', title: 'Transfer Numarası' },
+            { data: 'ShippingCostPrice', title: 'Gönderim Ücreti' },
+            { data: 'TotalItemCostPrice', title: 'Ürün Maliyeti' },
+            { 
+                data: 'SendDate', 
+                title: 'Gönderim Tarihi',
+                render: function (data, type, row) {
+                    if (!data) return '';
+    
+                    // Tarih verisini doğru formatta parse et
+                    var date = moment(data.date, 'YYYY-MM-DD HH:mm:ss.SSSSSS');
+                    if (!date.isValid()) {
+                        return 'Geçersiz tarih';
+                    }
+    
+                    // Sadece tarih kısmını 'YYYY-MM-DD' formatında döndür
+                    return date.format('YYYY-MM-DD');
+                }
+            },
+            { data: 'ProcessCode', title: 'Süreç Kodu' }
+        ],
+            scrollY: '35rem',
+            scrollCollapse: true,
             scrollX: true,
+           
             language: {
 
                 "info": "_TOTAL_ kayıttan _START_ - _END_ arasındaki kayıtlar gösteriliyor",
@@ -478,7 +284,25 @@
 
             },
         });
-    </script>
-</body>
+       // DataTable'daki herhangi bir hücreye çift tıklandığında popup oluştur
+    // DataTable'daki herhangi bir hücreye çift tıklandığında popup oluştur
+    $(document).ready(function() {
+        $('#MyTable').on('click', 'td', function() {
+            // Tıklanan hücrenin bulunduğu satırı al
+            var row = $(this).closest('tr');
+            
+            // Satırdaki transfer numarasını al (örneğin, 3. sütundaki veri)
+            var transferNumber = row.find('td').eq(2).text();
+            
+            // Transfer numarasını al ve popup modal'de göstermek için
+            $('#popupModalLabel').text('Transfer Numarası: ' + transferNumber);
+            
+            // Popup modal'i aç
+            $('#popupModal').modal('show');
+        });
+    });
+});
+    
+       
+    
 
-</html>

@@ -17,17 +17,39 @@
     <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="https://cdn.datatables.net/v/bs5/dt-2.0.7/datatables.min.css" rel="stylesheet">
-  <style>
-  .table-container {
-        max-height: 35rem; /* Maksimum yükseklik */
-        overflow: auto; /* İçeriğin sığması için kaydırma çubuğunu göster */
-    }
-  </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+
     <title>Gifting</title>
 </head>
 
 <body>
-
+    <!-- Modal Popup -->
+    <div class="modal fade" id="popupModal" tabindex="-1" aria-labelledby="popupModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="popupModalLabel">Detaylar</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <table class="table table-striped" id="detailsTable">
+                        <thead>
+                            <tr>
+                                <th>Item Code</th>
+                                <th>Quantity</th>
+                                <th>Price</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Detaylar buraya eklenecek -->
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kapat</button>
+                </div>
+            </div>
+        </div>
     </div>
 
     <nav class="sidebar close">
@@ -60,36 +82,30 @@
                             <span class="text nav-text">Dashboard</span>
                         </a>
                     </li>
-
                     <li class="nav-link">
                         <a href="transfer.php">
                             <i class='bx bx-bell icon'></i>
                             <span class="text nav-text">Transfer</span>
                         </a>
                     </li>
-
                     <li class="nav-link">
                         <a href="#">
                             <i class='bx bx-bar-chart-alt-2 icon'></i>
                             <span class="text nav-text">Revenue</span>
                         </a>
                     </li>
-
-
                     <li class="nav-link">
                         <a href="#">
                             <i class='bx bx-pie-chart-alt icon'></i>
                             <span class="text nav-text">Analytics</span>
                         </a>
                     </li>
-
                     <li class="nav-link">
                         <a href="#">
                             <i class='bx bx-heart icon'></i>
                             <span class="text nav-text">Likes</span>
                         </a>
                     </li>
-
                     <li class="nav-link">
                         <a href="#">
                             <i class='bx bx-wallet icon'></i>
@@ -113,7 +129,6 @@
                         <i class='bx bx-sun icon sun'></i>
                     </div>
                     <span class="mode-text text">Dark mode</span>
-
                     <div class="toggle-switch">
                         <span class="switch"></span>
                     </div>
@@ -138,300 +153,10 @@
         </div>
     
     </section>
-
- 
-   
-
-
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
-        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <script src="https://cdn.datatables.net/v/bs5/dt-2.0.7/datatables.min.js"></script>
-    <script>
- 
- $(document).ready(function() {
-    $('#MyTable').DataTable({
-            ajax: {
-                url: '../DataGetCdInfluecer.php',
-                dataSrc: '' // Sunucudan gelen JSON verilerinin doğrudan kullanılacağını belirtir
-            },
-            columns: [
-                { data: 'ID', title: 'ID' },
-                { data: 'Code', title: 'Code' },
-                { data: 'FirstName', title: 'FirstName' },
-                { data: 'LastName', title: 'LastName' },
-                { data: 'CountryCode', title: 'CountryCode' },
-                { data: 'Country', title: 'Country' },
-                { data: 'City', title: 'City' },
-                { data: 'Address', title: 'Address' },
-                { data: 'CreatedUserName', title: 'CreatedUserName' },
-                { data: 'CreatedDate', title: 'CreatedDate' },
-                { data: 'LastUpdatedUserName', title: 'LastUpdatedUserName' },
-                { data: 'LastUpdatedDate', title: 'LastUpdatedDate' },
-            ],
-            scrollY: '35rem',
-            scrollCollapse: true,
-            scrollX: true,
-           
-            language: {
-
-                "info": "_TOTAL_ kayıttan _START_ - _END_ arasındaki kayıtlar gösteriliyor",
-                "infoEmpty": "Kayıt yok",
-                "infoFiltered": "(_MAX_ kayıt içerisinden bulunan)",
-                "infoThousands": ".",
-                "lengthMenu": "Sayfada _MENU_ kayıt göster",
-                "loadingRecords": "Yükleniyor...",
-                "processing": "İşleniyor...",
-                "search": "Ara:",
-                "zeroRecords": "Eşleşen kayıt bulunamadı",
-                "paginate": {
-                    "first": "İlk",
-                    "last": "Son",
-                    "next": "Sonraki",
-                    "previous": "Önceki"
-                },
-                "aria": {
-                    "sortAscending": ": artan sütun sıralamasını aktifleştir",
-                    "sortDescending": ": azalan sütun sıralamasını aktifleştir"
-                },
-                "select": {
-                    "rows": {
-                        "_": "%d kayıt seçildi",
-                        "1": "1 kayıt seçildi"
-                    },
-                    "cells": {
-                        "1": "1 hücre seçildi",
-                        "_": "%d hücre seçildi"
-                    },
-                    "columns": {
-                        "1": "1 sütun seçildi",
-                        "_": "%d sütun seçildi"
-                    }
-                },
-                "autoFill": {
-                    "cancel": "İptal",
-                    "fillHorizontal": "Hücreleri yatay olarak doldur",
-                    "fillVertical": "Hücreleri dikey olarak doldur",
-                    "fill": "Bütün hücreleri <i>%d<\/i> ile doldur",
-                    "info": "Detayı"
-                },
-                "buttons": {
-                    "collection": "Koleksiyon <span class=\"ui-button-icon-primary ui-icon ui-icon-triangle-1-s\"><\/span>",
-                    "colvis": "Sütun görünürlüğü",
-                    "colvisRestore": "Görünürlüğü eski haline getir",
-                    "copySuccess": {
-                        "1": "1 satır panoya kopyalandı",
-                        "_": "%ds satır panoya kopyalandı"
-                    },
-                    "copyTitle": "Panoya kopyala",
-                    "csv": "CSV",
-                    "excel": "Excel",
-                    "pageLength": {
-                        "-1": "Bütün satırları göster",
-                        "_": "%d satır göster",
-                        "1": "1 Satır Göster"
-                    },
-                    "pdf": "PDF",
-                    "print": "Yazdır",
-                    "copy": "Kopyala",
-                    "copyKeys": "Tablodaki veriyi kopyalamak için CTRL veya u2318 + C tuşlarına basınız. İptal etmek için bu mesaja tıklayın veya escape tuşuna basın.",
-                    "createState": "Şuanki Görünümü Kaydet",
-                    "removeAllStates": "Tüm Görünümleri Sil",
-                    "removeState": "Aktif Görünümü Sil",
-                    "renameState": "Aktif Görünümün Adını Değiştir",
-                    "savedStates": "Kaydedilmiş Görünümler",
-                    "stateRestore": "Görünüm -&gt; %d",
-                    "updateState": "Aktif Görünümün Güncelle"
-                },
-                "searchBuilder": {
-                    "add": "Koşul Ekle",
-                    "button": {
-                        "0": "Arama Oluşturucu",
-                        "_": "Arama Oluşturucu (%d)"
-                    },
-                    "condition": "Koşul",
-                    "conditions": {
-                        "date": {
-                            "after": "Sonra",
-                            "before": "Önce",
-                            "between": "Arasında",
-                            "empty": "Boş",
-                            "equals": "Eşittir",
-                            "not": "Değildir",
-                            "notBetween": "Dışında",
-                            "notEmpty": "Dolu"
-                        },
-                        "number": {
-                            "between": "Arasında",
-                            "empty": "Boş",
-                            "equals": "Eşittir",
-                            "gt": "Büyüktür",
-                            "gte": "Büyük eşittir",
-                            "lt": "Küçüktür",
-                            "lte": "Küçük eşittir",
-                            "not": "Değildir",
-                            "notBetween": "Dışında",
-                            "notEmpty": "Dolu"
-                        },
-                        "string": {
-                            "contains": "İçerir",
-                            "empty": "Boş",
-                            "endsWith": "İle biter",
-                            "equals": "Eşittir",
-                            "not": "Değildir",
-                            "notEmpty": "Dolu",
-                            "startsWith": "İle başlar",
-                            "notContains": "İçermeyen",
-                            "notStartsWith": "Başlamayan",
-                            "notEndsWith": "Bitmeyen"
-                        },
-                        "array": {
-                            "contains": "İçerir",
-                            "empty": "Boş",
-                            "equals": "Eşittir",
-                            "not": "Değildir",
-                            "notEmpty": "Dolu",
-                            "without": "Hariç"
-                        }
-                    },
-                    "data": "Veri",
-                    "deleteTitle": "Filtreleme kuralını silin",
-                    "leftTitle": "Kriteri dışarı çıkart",
-                    "logicAnd": "ve",
-                    "logicOr": "veya",
-                    "rightTitle": "Kriteri içeri al",
-                    "title": {
-                        "0": "Arama Oluşturucu",
-                        "_": "Arama Oluşturucu (%d)"
-                    },
-                    "value": "Değer",
-                    "clearAll": "Filtreleri Temizle"
-                },
-                "searchPanes": {
-                    "clearMessage": "Hepsini Temizle",
-                    "collapse": {
-                        "0": "Arama Bölmesi",
-                        "_": "Arama Bölmesi (%d)"
-                    },
-                    "count": "{total}",
-                    "countFiltered": "{shown}\/{total}",
-                    "emptyPanes": "Arama Bölmesi yok",
-                    "loadMessage": "Arama Bölmeleri yükleniyor ...",
-                    "title": "Etkin filtreler - %d",
-                    "showMessage": "Tümünü Göster",
-                    "collapseMessage": "Tümünü Gizle"
-                },
-                "thousands": ".",
-                "datetime": {
-                    "amPm": [
-                        "öö",
-                        "ös"
-                    ],
-                    "hours": "Saat",
-                    "minutes": "Dakika",
-                    "next": "Sonraki",
-                    "previous": "Önceki",
-                    "seconds": "Saniye",
-                    "unknown": "Bilinmeyen",
-                    "weekdays": {
-                        "6": "Paz",
-                        "5": "Cmt",
-                        "4": "Cum",
-                        "3": "Per",
-                        "2": "Çar",
-                        "1": "Sal",
-                        "0": "Pzt"
-                    },
-                    "months": {
-                        "9": "Ekim",
-                        "8": "Eylül",
-                        "7": "Ağustos",
-                        "6": "Temmuz",
-                        "5": "Haziran",
-                        "4": "Mayıs",
-                        "3": "Nisan",
-                        "2": "Mart",
-                        "11": "Aralık",
-                        "10": "Kasım",
-                        "1": "Şubat",
-                        "0": "Ocak"
-                    }
-                },
-                "decimal": ",",
-                "editor": {
-                    "close": "Kapat",
-                    "create": {
-                        "button": "Yeni",
-                        "submit": "Kaydet",
-                        "title": "Yeni kayıt oluştur"
-                    },
-                    "edit": {
-                        "button": "Düzenle",
-                        "submit": "Güncelle",
-                        "title": "Kaydı düzenle"
-                    },
-                    "error": {
-                        "system": "Bir sistem hatası oluştu (Ayrıntılı bilgi)"
-                    },
-                    "multi": {
-                        "info": "Seçili kayıtlar bu alanda farklı değerler içeriyor. Seçili kayıtların hepsinde bu alana aynı değeri atamak için buraya tıklayın; aksi halde her kayıt bu alanda kendi değerini koruyacak.",
-                        "noMulti": "Bu alan bir grup olarak değil ancak tekil olarak düzenlenebilir.",
-                        "restore": "Değişiklikleri geri al",
-                        "title": "Çoklu değer"
-                    },
-                    "remove": {
-                        "button": "Sil",
-                        "confirm": {
-                            "_": "%d adet kaydı silmek istediğinize emin misiniz?",
-                            "1": "Bu kaydı silmek istediğinizden emin misiniz?"
-                        },
-                        "submit": "Sil",
-                        "title": "Kayıtları sil"
-                    }
-                },
-                "stateRestore": {
-                    "creationModal": {
-                        "button": "Kaydet",
-                        "columns": {
-                            "search": "Kolon Araması",
-                            "visible": "Kolon Görünümü"
-                        },
-                        "name": "Görünüm İsmi",
-                        "order": "Sıralama",
-                        "paging": "Sayfalama",
-                        "scroller": "Kaydırma (Scrool)",
-                        "search": "Arama",
-                        "searchBuilder": "Arama Oluşturucu",
-                        "select": "Seçimler",
-                        "title": "Yeni Görünüm Oluştur",
-                        "toggleLabel": "Kaydedilecek Olanlar"
-                    },
-                    "duplicateError": "Bu Görünüm Daha Önce Tanımlanmış",
-                    "emptyError": "Görünüm Boş Olamaz",
-                    "emptyStates": "Herhangi Bir Görünüm Yok",
-                    "removeJoiner": "ve",
-                    "removeSubmit": "Sil",
-                    "removeTitle": "Görünüm Sil",
-                    "renameButton": "Değiştir",
-                    "renameLabel": "Görünüme Yeni İsim Ver -&gt; %s:",
-                    "renameTitle": "Görünüm İsmini Değiştir",
-                    "removeConfirm": "Görünümü silmek istediğinize emin misiniz?",
-                    "removeError": "Görünüm silinemedi"
-                },
-                "emptyTable": "Tabloda veri bulunmuyor",
-                "searchPlaceholder": "Arayın...",
-                "infoPostFix": " "
-
-            },
-        });
-
-       
-    });
-
-
-  
-    </script>
-
+    <script src="../js/TransferHeader.js"></script>
+    <script src="../js/TransferLinePost.js"></script>
  
 </body>
 

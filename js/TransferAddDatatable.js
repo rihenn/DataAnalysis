@@ -14,11 +14,7 @@
         { data: 'ColorThemeCode', title: 'Renk Tema Kodu' },
         { data: 'ColorThemeDescription', title: 'Renk Tema Açıklaması' },
         { data: 'ColorCatalogCode', title: 'Renk Katalog Kodu' },
-        { data: 'ProductHierarchyLevel01', title: 'Ürün Hiyerarşisi Seviye 01' },
-        { data: 'ProductHierarchyLevel02', title: 'Ürün Hiyerarşisi Seviye 02' },
-        { data: 'ProductHierarchyLevel03', title: 'Ürün Hiyerarşisi Seviye 03' },
-        { data: 'ProductHierarchyLevel04', title: 'Ürün Hiyerarşisi Seviye 04' },
-        { data: 'ProductHierarchyLevel05', title: 'Ürün Hiyerarşisi Seviye 05' }
+
     ],
     scrollX: true,
     scrollY: "20rem",

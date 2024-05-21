@@ -55,3 +55,4 @@ modeSwitch.addEventListener("click", () => {
 
 // Pencere yeniden boyutlandığında tabloyu ayarla
 window.addEventListener("resize", adjustTableWidth);
+
