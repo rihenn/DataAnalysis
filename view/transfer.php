@@ -17,7 +17,9 @@
     <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="https://cdn.datatables.net/v/bs5/dt-2.0.7/datatables.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    
 
     <title>Gifting</title>
 </head>
@@ -26,7 +28,7 @@
     <!-- Modal Popup -->
     <div class="modal fade" id="popupModal" tabindex="-1" aria-labelledby="popupModalLabel" aria-hidden="true">
         <div class="modal-dialog" style="--bs-modal-width: 85% !important">
-            <div class="modal-content" style="">
+            <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="popupModalLabel">Detaylar</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -42,28 +44,32 @@
             </div>
         </div>
     </div>
-    <div class="modal fade" id="popupModal1" tabindex="-1" aria-labelledby="popupModalLabel" aria-hidden="true">
+   <!-- Modal Popup -->
+<div class="modal fade" id="popupModal1" tabindex="-1" aria-labelledby="popupModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="popupModalLabel">Sending Atribute</h5>
+        <h5 class="modal-title" id="popupModalLabel">Sending Attribute</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form id="insertForm" >
-          <input class="border form-control mb-3" type="text" id="PlatformCode" name="PlatformCode" placeholder="Platform Code">
-          <input class="border form-control mb-3" type="text" id="PlatformName" name="PlatformName" placeholder="Platform Name">
-          <input class="border form-control mb-3" type="text" id="ContentCode" name="ContentCode" placeholder="Content Code">
-          <input class="border form-control mb-3" type="text" id="ContentName" name="ContentName" placeholder="Content Name">
-          <input class="border form-control mb-3" type="text" id="ShareDate" name="ShareDate" placeholder="Share Date">
-          <input class="border form-control mb-3" type="text" id="LikeCount" name="LikeCount" placeholder="Like Count">
-          <input class="border form-control mb-3" type="text" id="WievCount" name="WievCount" placeholder="Wiev Count">
-          <button class="btn btn-dark" type="submit" id="saveButton">Kaydet</button>
+        <form id="insertForm">
+          <input type="hidden" name="TransferNumber">
+          <input type="hidden" name="Barcode">
+          <input class="border form-control mb-3" type="text" name="PlatformCode" placeholder="Platform Code">
+          <input class="border form-control mb-3" type="text" name="PlatformName" placeholder="Platform Name">
+          <input class="border form-control mb-3" type="text" name="ContentCode" placeholder="Content Code">
+          <input class="border form-control mb-3" type="text" name="ContentName" placeholder="Content Name">
+          <input class="border form-control mb-3" type="date" name="ShareDate" placeholder="Share Date">
+          <input class="border form-control mb-3" type="text" name="LikeCount" placeholder="Like Count">
+          <input class="border form-control mb-3" type="text" name="WievCount" placeholder="Wiev Count">
+          <button class="btn btn-dark" type="button" id="saveButton">Kaydet</button>
         </form>
       </div>
     </div>
   </div>
 </div>
+
 
     <nav class="sidebar close">
         <header>
@@ -163,17 +169,18 @@
         </div>
     </section>
     
+
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <script src="https://cdn.datatables.net/v/bs5/dt-2.0.7/datatables.min.js"></script>
     <script src="../js/app.js"></script>
     <script src="../js/TransferHeader.js"></script>
-    <script src="../js/TransferSeedingLineDatatable.js"></script>
+    <script src="../js/TransferDataTableSeedingLine.js"></script>
+    <script src="../js/TransferPostLine.js"></script>
 
-
-    <script>
+ 
        
-    </script>
 </body>
 
 </html>

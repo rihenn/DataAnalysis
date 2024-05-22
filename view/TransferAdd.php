@@ -28,34 +28,32 @@
 
 
     <div class="modal fade" id="popupModal" tabindex="-1" aria-labelledby="popupModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content justify-content-center" style="width: 800px !important;height: auto !important; ">
+        <div class="modal-dialog" style="--bs-modal-width: 55% !important">
+            <div class="modal-content justify-content-center" style="width: 1000px !important;height: auto !important; ">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="popupModalLabel">Kart Ekle</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <h5 class="modal-title" id="popupModalLabel">Ürün Ekle</h5>
+                    <button type="button" class="btn-close" id="closeButton" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <div>
+                    
                         <table id="MyTable" style="margin: 0.2rem;border:0.1px solid;" class="table  table-striped ">
                             <thead class="text-center">
-                                <tr>
-                                    <!-- Add more columns if needed -->
-                                </tr>
+                        
                             </thead>
                             <tbody class="text-center">
                             </tbody>
                         </table>
-                    </div>
+                   
                 </div>
             </div>
         </div>
     </div>
     <div class="modal fade" id="popupModal1" tabindex="-1" aria-labelledby="popupModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog" style="--bs-modal-width: 55% !important">
             <div class="modal-content justify-content-center" style="width: 800px !important;height: auto !important; ">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="popupModalLabel">Kart Ekle</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <h5 class="modal-title" id="popupModalLabel"></h5>
+                    <button type="button" class="btn-close"  id="closeButton1" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
 
@@ -238,7 +236,7 @@
         // Kart ekle butonuna tıklama olayı ekle
         $('#InfluecerBtn').on('click', function () {
             // Popup modal'i aç
-            $('#popupModal').modal('show');
+            $('#popupModal1').modal('show');
         });
     </script>
 
