@@ -1,15 +1,5 @@
-const toggleButton = document.getElementById('BtnBarcode');
-const popup = document.getElementById('popup');
-const closeButton = document.getElementById('closeButton');
 
 
-toggleButton.addEventListener('click', function () {
-    popup.style.display = 'block';
-});
-
-closeButton.addEventListener('click', function () {
-    popup.style.display = 'none';
-});
 
 // DataTable başlatma ve tablo nesnesini bir değişkene atama
   var dataTable = $('#MyTable').DataTable({
@@ -29,8 +19,8 @@ closeButton.addEventListener('click', function () {
         { data: 'ColorCatalogCode', title: 'Renk Katalog Kodu' },
 
     ],
-    scrollX: "40rem",
-    scrollY: "20rem",
+
+    scrollY: "30rem",
     language: {
         "info": "_TOTAL_ kayıttan _START_ - _END_ arasındaki kayıtlar gösteriliyor",
         "infoEmpty": "Kayıt yok",
@@ -295,7 +285,7 @@ var name = data.ItemDescription +" "+ data.ColorThemeDescription;
 var MLY_EUR = data.MLY_EUR;
 var ItemCode = data.ItemCode;
 
-const popup = document.getElementById('popup');
+
 // Barkodu panoya kopyalamak için bir textarea oluşturun ve içine barkodu yazın
 var tempTextarea = document.createElement('textarea');
 tempTextarea.value = barcode;
@@ -348,7 +338,8 @@ if (Inputbarcode[i].value === '') {
     InputMLY_EUR[i].value = MLY_EUR;
     InputItemCode[i].value = ItemCode;
     InputColorCode[i].value = ColorCode;
- 
+    var closeButton = document.getElementById('closeButton');
+    closeButton.click();
    
     break;
 }

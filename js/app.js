@@ -1,12 +1,13 @@
 // HTML elementleri tanımla
-const body = document.querySelector('body'),
-        table = document.querySelector('.table');
-      sidebar = body.querySelector('nav'),
-      toggle = body.querySelector(".toggle"),
-      searchBtn = body.querySelector(".search-box"),
-      modeSwitch = body.querySelector(".toggle-switch"),
-      modeText = body.querySelector(".mode-text"),
-      tableContainer = document.getElementById("tableContainer");
+// HTML elementleri tanımla
+const body = document.querySelector('body');
+const table = document.querySelector('table');
+const sidebar = body.querySelector('nav');
+const toggle = body.querySelector(".toggle");
+const searchBtn = body.querySelector(".search-box");
+const modeSwitch = body.querySelector(".toggle-switch");
+const modeText = body.querySelector(".mode-text");
+const tableContainer = document.getElementById("tableContainer");
 
 // Margin animasyonu için fonksiyon
 function animateMargin(target, start, end, duration) {
@@ -46,10 +47,15 @@ searchBtn.addEventListener("click", () => {
     adjustTableWidth();
 });
 
-// Karanlık mod geçişi
 modeSwitch.addEventListener("click", () => {
+    console.log("Mode switch clicked");
     body.classList.toggle("dark");
-    table.classList.toggle("table-dark");
+    console.log("Dark mode active: ", body.classList.contains("dark")); // Dark modun durumunu kontrol et
+    if (body.classList.contains("dark")) {
+        table.classList.add("table-dark");
+    } else {
+        table.classList.remove("table-dark");
+    }
     modeText.innerText = body.classList.contains("dark") ? "Light mode" : "Dark mode";
 });
 
