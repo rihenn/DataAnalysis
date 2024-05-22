@@ -1,4 +1,17 @@
-  // DataTable başlatma ve tablo nesnesini bir değişkene atama
+const toggleButton = document.getElementById('BtnBarcode');
+const popup = document.getElementById('popup');
+const closeButton = document.getElementById('closeButton');
+
+
+toggleButton.addEventListener('click', function () {
+    popup.style.display = 'block';
+});
+
+closeButton.addEventListener('click', function () {
+    popup.style.display = 'none';
+});
+
+// DataTable başlatma ve tablo nesnesini bir değişkene atama
   var dataTable = $('#MyTable').DataTable({
     ajax: {
         url: '../DataGetProduct.php',
@@ -16,7 +29,7 @@
         { data: 'ColorCatalogCode', title: 'Renk Katalog Kodu' },
 
     ],
-    scrollX: true,
+    scrollX: "40rem",
     scrollY: "20rem",
     language: {
         "info": "_TOTAL_ kayıttan _START_ - _END_ arasındaki kayıtlar gösteriliyor",
@@ -336,9 +349,9 @@ if (Inputbarcode[i].value === '') {
     InputItemCode[i].value = ItemCode;
     InputColorCode[i].value = ColorCode;
  
-    popup.style.display = 'none';
+   
     break;
 }
 }
-popup.style.display = 'none';
+
 });

@@ -1,3 +1,21 @@
+toastr.options = {
+    "closeButton": true,
+    "debug": false,
+    "newestOnTop": true,
+    "progressBar": true,
+    "positionClass": "toast-top-right",
+    "preventDuplicates": true,
+    "onclick": null,
+    "showDuration": "300",
+    "hideDuration": "1000",
+    "timeOut": "5000",
+    "extendedTimeOut": "1000",
+    "showEasing": "swing",
+    "hideEasing": "linear",
+    "showMethod": "fadeIn",
+    "hideMethod": "fadeOut"
+};
+
 $(document).ready(function() {
     // DataTable'ı başlat
     var table = $('#MyTable').DataTable({
@@ -14,125 +32,123 @@ $(document).ready(function() {
             { 
                 data: 'SendDate', 
                 title: 'Gönderim Tarihi',
-                render: function (data, type, row) {
+                render: function(data, type, row) {
                     if (!data) return '';
-    
+
                     // Tarih verisini doğru formatta parse et
                     var date = moment(data.date, 'YYYY-MM-DD HH:mm:ss.SSSSSS');
                     if (!date.isValid()) {
                         return 'Geçersiz tarih';
                     }
-    
+
                     // Sadece tarih kısmını 'YYYY-MM-DD' formatında döndür
                     return date.format('YYYY-MM-DD');
                 }
             },
             { data: 'ProcessCode', title: 'Süreç Kodu' }
         ],
-            scrollY: '35rem',
-            scrollCollapse: true,
-            scrollX: true,
-           
-            language: {
-
-                "info": "_TOTAL_ kayıttan _START_ - _END_ arasındaki kayıtlar gösteriliyor",
-                "infoEmpty": "Kayıt yok",
-                "infoFiltered": "(_MAX_ kayıt içerisinden bulunan)",
-                "infoThousands": ".",
-                "lengthMenu": "Sayfada _MENU_ kayıt göster",
-                "loadingRecords": "Yükleniyor...",
-                "processing": "İşleniyor...",
-                "search": "Ara:",
-                "zeroRecords": "Eşleşen kayıt bulunamadı",
-                "paginate": {
-                    "first": "İlk",
-                    "last": "Son",
-                    "next": "Sonraki",
-                    "previous": "Önceki"
+        scrollY: '35rem',
+        scrollCollapse: true,
+        scrollX: true,
+        language: {
+            "info": "_TOTAL_ kayıttan _START_ - _END_ arasındaki kayıtlar gösteriliyor",
+            "infoEmpty": "Kayıt yok",
+            "infoFiltered": "(_MAX_ kayıt içerisinden bulunan)",
+            "infoThousands": ".",
+            "lengthMenu": "Sayfada _MENU_ kayıt göster",
+            "loadingRecords": "Yükleniyor...",
+            "processing": "İşleniyor...",
+            "search": "Ara:",
+            "zeroRecords": "Eşleşen kayıt bulunamadı",
+            "paginate": {
+                "first": "İlk",
+                "last": "Son",
+                "next": "Sonraki",
+                "previous": "Önceki"
+            },
+            "aria": {
+                "sortAscending": ": artan sütun sıralamasını aktifleştir",
+                "sortDescending": ": azalan sütun sıralamasını aktifleştir"
+            },
+            "select": {
+                "rows": {
+                    "_": "%d kayıt seçildi",
+                    "1": "1 kayıt seçildi"
                 },
-                "aria": {
-                    "sortAscending": ": artan sütun sıralamasını aktifleştir",
-                    "sortDescending": ": azalan sütun sıralamasını aktifleştir"
+                "cells": {
+                    "1": "1 hücre seçildi",
+                    "_": "%d hücre seçildi"
                 },
-                "select": {
-                    "rows": {
-                        "_": "%d kayıt seçildi",
-                        "1": "1 kayıt seçildi"
-                    },
-                    "cells": {
-                        "1": "1 hücre seçildi",
-                        "_": "%d hücre seçildi"
-                    },
-                    "columns": {
-                        "1": "1 sütun seçildi",
-                        "_": "%d sütun seçildi"
-                    }
+                "columns": {
+                    "1": "1 sütun seçildi",
+                    "_": "%d sütun seçildi"
+                }
+            },
+            "autoFill": {
+                "cancel": "İptal",
+                "fillHorizontal": "Hücreleri yatay olarak doldur",
+                "fillVertical": "Hücreleri dikey olarak doldur",
+                "fill": "Bütün hücreleri <i>%d<\/i> ile doldur",
+                "info": "Detayı"
+            },
+            "buttons": {
+                "collection": "Koleksiyon <span class=\"ui-button-icon-primary ui-icon ui-icon-triangle-1-s\"><\/span>",
+                "colvis": "Sütun görünürlüğü",
+                "colvisRestore": "Görünürlüğü eski haline getir",
+                "copySuccess": {
+                    "1": "1 satır panoya kopyalandı",
+                    "_": "%ds satır panoya kopyalandı"
                 },
-                "autoFill": {
-                    "cancel": "İptal",
-                    "fillHorizontal": "Hücreleri yatay olarak doldur",
-                    "fillVertical": "Hücreleri dikey olarak doldur",
-                    "fill": "Bütün hücreleri <i>%d<\/i> ile doldur",
-                    "info": "Detayı"
+                "copyTitle": "Panoya kopyala",
+                "csv": "CSV",
+                "excel": "Excel",
+                "pageLength": {
+                    "-1": "Bütün satırları göster",
+                    "_": "%d satır göster",
+                    "1": "1 Satır Göster"
                 },
-                "buttons": {
-                    "collection": "Koleksiyon <span class=\"ui-button-icon-primary ui-icon ui-icon-triangle-1-s\"><\/span>",
-                    "colvis": "Sütun görünürlüğü",
-                    "colvisRestore": "Görünürlüğü eski haline getir",
-                    "copySuccess": {
-                        "1": "1 satır panoya kopyalandı",
-                        "_": "%ds satır panoya kopyalandı"
-                    },
-                    "copyTitle": "Panoya kopyala",
-                    "csv": "CSV",
-                    "excel": "Excel",
-                    "pageLength": {
-                        "-1": "Bütün satırları göster",
-                        "_": "%d satır göster",
-                        "1": "1 Satır Göster"
-                    },
-                    "pdf": "PDF",
-                    "print": "Yazdır",
-                    "copy": "Kopyala",
-                    "copyKeys": "Tablodaki veriyi kopyalamak için CTRL veya u2318 + C tuşlarına basınız. İptal etmek için bu mesaja tıklayın veya escape tuşuna basın.",
-                    "createState": "Şuanki Görünümü Kaydet",
-                    "removeAllStates": "Tüm Görünümleri Sil",
-                    "removeState": "Aktif Görünümü Sil",
-                    "renameState": "Aktif Görünümün Adını Değiştir",
-                    "savedStates": "Kaydedilmiş Görünümler",
-                    "stateRestore": "Görünüm -&gt; %d",
-                    "updateState": "Aktif Görünümün Güncelle"
+                "pdf": "PDF",
+                "print": "Yazdır",
+                "copy": "Kopyala",
+                "copyKeys": "Tablodaki veriyi kopyalamak için CTRL veya u2318 + C tuşlarına basınız. İptal etmek için bu mesaja tıklayın veya escape tuşuna basın.",
+                "createState": "Şuanki Görünümü Kaydet",
+                "removeAllStates": "Tüm Görünümleri Sil",
+                "removeState": "Aktif Görünümü Sil",
+                "renameState": "Aktif Görünümün Adını Değiştir",
+                "savedStates": "Kaydedilmiş Görünümler",
+                "stateRestore": "Görünüm -&gt; %d",
+                "updateState": "Aktif Görünümün Güncelle"
+            },
+            "searchBuilder": {
+                "add": "Koşul Ekle",
+                "button": {
+                    "0": "Arama Oluşturucu",
+                    "_": "Arama Oluşturucu (%d)"
                 },
-                "searchBuilder": {
-                    "add": "Koşul Ekle",
-                    "button": {
-                        "0": "Arama Oluşturucu",
-                        "_": "Arama Oluşturucu (%d)"
+                "condition": "Koşul",
+                "conditions": {
+                    "date": {
+                        "after": "Sonra",
+                        "before": "Önce",
+                        "between": "Arasında",
+                        "empty": "Boş",
+                        "equals": "Eşittir",
+                        "not": "Değildir",
+                        "notBetween": "Dışında",
+                        "notEmpty": "Dolu"
                     },
-                    "condition": "Koşul",
-                    "conditions": {
-                        "date": {
-                            "after": "Sonra",
-                            "before": "Önce",
-                            "between": "Arasında",
-                            "empty": "Boş",
-                            "equals": "Eşittir",
-                            "not": "Değildir",
-                            "notBetween": "Dışında",
-                            "notEmpty": "Dolu"
-                        },
-                        "number": {
-                            "between": "Arasında",
-                            "empty": "Boş",
-                            "equals": "Eşittir",
-                            "gt": "Büyüktür",
-                            "gte": "Büyük eşittir",
-                            "lt": "Küçüktür",
-                            "lte": "Küçük eşittir",
-                            "not": "Değildir",
-                            "notBetween": "Dışında",
-                            "notEmpty": "Dolu"
-                        },
+                    "number": {
+                        "between": "Arasında",
+                        "empty": "Boş",
+                        "equals": "Eşittir",
+                        "gt": "Büyüktür",
+                        "gte": "Büyük eşittir",
+                        "lt": "Küçüktür",
+                        "lte": "Küçük eşittir",
+                        "not": "Değildir",
+                        "notBetween": "Dışında",
+                        "notEmpty": "Dolu"
+                    },
                         "string": {
                             "contains": "İçerir",
                             "empty": "Boş",
@@ -282,27 +298,158 @@ $(document).ready(function() {
                 "searchPlaceholder": "Arayın...",
                 "infoPostFix": " "
 
+            }
+        });
+
+    // Satırdaki hücreye tıklanınca detay tablosunu göster ve güncelle
+    $('#MyTable').on('click', 'td', function() {
+        // Tıklanan hücrenin bulunduğu satırı al
+        var row = $(this).closest('tr');
+
+        // Satırdaki transfer numarasını al (örneğin, 3. sütundaki veri)
+        var transferNumber = row.find('td').eq(2).text();
+
+        // DataTable'ı yok et ve tekrar başlat
+        if ($.fn.DataTable.isDataTable('#detailsTable')) {
+            $('#detailsTable').DataTable().destroy();
+        }
+
+        var detailsTable = $('#detailsTable').DataTable({
+            ajax: {
+                url: '../DataGetSeedingLineTransfer.php?InfCode=' + transferNumber,
+                dataSrc: '' // Sunucudan gelen JSON verilerinin doğrudan kullanılacağını belirtir
             },
+            columns: [
+                { data: 'ProcessCode', title: 'Süreç Kodu' },
+                { data: 'TransferNumber', title: 'Transfer Numarası' },
+                { data: 'Barcode', title: 'Barkod' },
+                { data: 'ItemCode', title: 'Ürün Kodu' },
+                { data: 'ColorCode', title: 'Renk Kodu' },
+                { data: 'ItemDim1Code', title: 'Beden' },
+                { 
+                    data: null, 
+                    title: 'Ürün Adı',
+                    render: function (data, type, row) {
+                        return `${row.ItemDescription} ${row.ColorDescription}`;
+                    } 
+                },
+                { data: 'ItemCostPrice', title: 'Maliyet Fiyatı' },
+                { data: 'ShippingCostPrice', title: 'Gönderim Bedeli' },
+                { data: 'Qty1', title: 'Adet' },
+                { data: 'Post', title: 'Post' },
+                { data: 'InfCode', title: 'Inf Kodu' },
+                { data: 'InfName', title: 'Inf Adı' },
+                { 
+                    data: 'SendDate', 
+                    title: 'Gönderim Tarihi',
+                    render: function (data, type, row) {
+                        if (!data) return '';
+                        // Tarih verisini doğru formatta parse et
+                        var date = moment(data.date, 'YYYY-MM-DD HH:mm:ss.SSSSSS');
+                        if (!date.isValid()) {
+                            return 'Geçersiz tarih';
+                        }
+                        // Sadece tarih kısmını 'YYYY-MM-DD' formatında döndür
+                        return date.format('YYYY-MM-DD');
+                    }
+                },
+                {
+                    data: null,
+                    title: 'İşlem',
+                    render: function(data, type, row) {
+                        return `<button class="btn btn-primary btn-action" data-id="${row.TransferNumber}">Post</button>`;
+                    }
+                }
+            ],
+            scrollY: "30rem",
+            language: {
+                "info": "_TOTAL_ kayıttan _START_ - _END_ arasındaki kayıtlar gösteriliyor",
+                "infoEmpty": "Kayıt yok",
+                "infoFiltered": "(_MAX_ kayıt içerisinden bulunan)",
+                "infoThousands": ".",
+                "lengthMenu": "Sayfada _MENU_ kayıt göster",
+                "loadingRecords": "Yükleniyor...",
+                "processing": "İşleniyor...",
+                "search": "Ara:",
+                "zeroRecords": "Eşleşen kayıt bulunamadı"
+            }
         });
-       // DataTable'daki herhangi bir hücreye çift tıklandığında popup oluştur
-    // DataTable'daki herhangi bir hücreye çift tıklandığında popup oluştur
-    $(document).ready(function() {
-        $('#MyTable').on('click', 'td', function() {
-            // Tıklanan hücrenin bulunduğu satırı al
-            var row = $(this).closest('tr');
-            
-            // Satırdaki transfer numarasını al (örneğin, 3. sütundaki veri)
-            var transferNumber = row.find('td').eq(2).text();
-            
-            // Transfer numarasını al ve popup modal'de göstermek için
-            $('#popupModalLabel').text('Transfer Numarası: ' + transferNumber);
-            
-            // Popup modal'i aç
-            $('#popupModal').modal('show');
+
+        // Popup modal'in başlığını transfer numarası ile güncelle
+        $('#popupModalLabel').text('Transfer Numarası: ' + transferNumber);
+
+        // Popup modal'i aç
+        $('#popupModal').modal('show');
+
+        // Detay tablosunu yeniden yükle
+        detailsTable.ajax.reload();
+    });
+      // Buton tıklama işlemini yakala
+      $('#detailsTable').on('click', '.btn-action', function() {
+        var transferNumber = $(this).data('id');
+
+        // alert('Butona tıklanan transfer numarası: ' + transferNumber);
+        $('#popupModal1').modal('show');
+        // Burada buton tıklama işlemi için diğer aksiyonlarınızı ekleyebilirsiniz.
+    });
+    $('#detailsTable').on('click', '.btn-action', function() {
+   
+        var barcode = $(this).data('barcode');
+        var barcode = $(this).data('id');
+        document.getElementById('saveButton').addEventListener('click', function() {
+            var PlatformCode = document.querySelector('[name="PlatformCode"]').value;
+            var PlatformName = document.querySelector('[name="PlatformName"]').value;
+            var ContentName = document.querySelector('[name="ContentName"]').value;
+            var ShareDate = document.querySelector('[name="ShareDate"]').value;
+            var LikeCount = document.querySelector('[name="LikeCount"]').value;
+            var WievCount = document.querySelector('[name="WievCount"]').value;
+            var ContentCode = document.querySelector('[name="ContentCode"]').value;
+        
+            if (PlatformCode && PlatformName && ContentName && ShareDate && LikeCount && WievCount) {
+        
+        
+                var data = {
+                    barcode,
+                    transferNumber,
+                    PlatformCode,
+                    PlatformName,
+                    ContentName ,
+                    ShareDate,
+                    LikeCount,
+                    WievCount,
+                    ContentCode
+                };
+          
+                var xhr = new XMLHttpRequest();
+                xhr.open('POST', '../query/TransferInsert.php', true);
+                xhr.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState === 4) {
+                        if (xhr.status === 200) {
+                            var response = JSON.parse(xhr.responseText);
+                            if (response.status === 'success') {
+                                toastr.info('İşlem Başlatıldı Lütfen Gerekli Bilgileri Doldurunuz');
+                                document.getElementById('dataRows').style.display = 'block';
+                           
+                               
+                            
+                      
+                             
+                            } else {
+                                toastr.error('Kayıt ekleme başarısız: ' + response.message);
+                            }
+                        } else {
+                            console.error('AJAX isteği başarısız oldu:', xhr.responseText);
+                            toastr.error('Kayıt eklenirken bir hata oluştu');
+                        }
+                    }
+                };
+                xhr.send(JSON.stringify(data));
+            } else {
+                toastr.warning('Lütfen Eksik Bilgileri Giriniz.');
+            }
         });
+        
     });
 });
-    
-       
-    
 

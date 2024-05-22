@@ -25,24 +25,15 @@
 <body>
     <!-- Modal Popup -->
     <div class="modal fade" id="popupModal" tabindex="-1" aria-labelledby="popupModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
+        <div class="modal-dialog" style="--bs-modal-width: 85% !important">
+            <div class="modal-content" style="">
                 <div class="modal-header">
                     <h5 class="modal-title" id="popupModalLabel">Detaylar</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <table class="table table-striped" id="detailsTable">
-                        <thead>
-                            <tr>
-                                <th>Item Code</th>
-                                <th>Quantity</th>
-                                <th>Price</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <!-- Detaylar buraya eklenecek -->
-                        </tbody>
+                    <table class="table table-striped justify-content-center" id="detailsTable">
+                        
                     </table>
                 </div>
                 <div class="modal-footer">
@@ -51,6 +42,28 @@
             </div>
         </div>
     </div>
+    <div class="modal fade" id="popupModal1" tabindex="-1" aria-labelledby="popupModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="popupModalLabel">Sending Atribute</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form id="insertForm" >
+          <input class="border form-control mb-3" type="text" id="PlatformCode" name="PlatformCode" placeholder="Platform Code">
+          <input class="border form-control mb-3" type="text" id="PlatformName" name="PlatformName" placeholder="Platform Name">
+          <input class="border form-control mb-3" type="text" id="ContentCode" name="ContentCode" placeholder="Content Code">
+          <input class="border form-control mb-3" type="text" id="ContentName" name="ContentName" placeholder="Content Name">
+          <input class="border form-control mb-3" type="text" id="ShareDate" name="ShareDate" placeholder="Share Date">
+          <input class="border form-control mb-3" type="text" id="LikeCount" name="LikeCount" placeholder="Like Count">
+          <input class="border form-control mb-3" type="text" id="WievCount" name="WievCount" placeholder="Wiev Count">
+          <button class="btn btn-dark" type="submit" id="saveButton">Kaydet</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
 
     <nav class="sidebar close">
         <header>
@@ -140,24 +153,27 @@
     <section class="home">
         <div class="text1">Transfer</div>
 
-
-
         <div class="container ml-5" >
             <div id="tableContainer" class="table-response" >
                 <table id="MyTable" style="margin: 0.2rem;border:0.1px solid;"  class="table  table-striped">
                     
                 </table>
                 <a href="./TransferAdd.php" class="btn btn-primary">Transfer Ekle</a>
-               
             </div>
         </div>
-    
     </section>
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <script src="https://cdn.datatables.net/v/bs5/dt-2.0.7/datatables.min.js"></script>
+    <script src="../js/app.js"></script>
     <script src="../js/TransferHeader.js"></script>
-    <script src="../js/TransferLinePost.js"></script>
- 
+    <script src="../js/TransferSeedingLineDatatable.js"></script>
+
+
+    <script>
+       
+    </script>
 </body>
 
 </html>

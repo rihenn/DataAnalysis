@@ -5,17 +5,12 @@
         dataSrc: '' // Sunucudan gelen JSON verilerinin doğrudan kullanılacağını belirtir
     },
     columns: [
-        { data: 'ID', title: 'ID' },
         { data: 'Code', title: 'Code' },
         { data: 'FirstName', title: 'FirstName' },
         { data: 'LastName', title: 'LastName' },
         { data: 'CountryCode', title: 'CountryCode' },
         { data: 'Country', title: 'Country' },
-
-
-   
     ],
-    scrollX: true,
     scrollY: "20rem",
     language: {
         "info": "_TOTAL_ kayıttan _START_ - _END_ arasındaki kayıtlar gösteriliyor",
@@ -267,8 +262,6 @@
 
     },
 }
-
-
 );
 
 

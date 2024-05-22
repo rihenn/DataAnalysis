@@ -1,6 +1,6 @@
 // HTML elementleri tanımla
 const body = document.querySelector('body'),
-        table = document.querySelector('table');
+        table = document.querySelector('.table');
       sidebar = body.querySelector('nav'),
       toggle = body.querySelector(".toggle"),
       searchBtn = body.querySelector(".search-box"),

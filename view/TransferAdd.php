@@ -25,48 +25,59 @@
 
 <body style="height: 100vh;width:auto ;padding: 0!important;">
 
-    
-    <div id="popup" class="popup">
-        <div class="popup-content">
-            <button id="closeButton" class="close-button"><i class="fa-solid fa-xmark"></i></button>
-            <div class="container ml-5">
-                <div id="tableContainer" class="table-response text-center">
-                    <table id="MyTable" style="margin: 0.2rem;border:0.1px solid;"
-                        class="table  table-striped text-center">
-                        <thead class="text-center">
-                            <tr>
-                                <!-- Add more columns if needed -->
-                            </tr>
-                        </thead>
-                        <tbody class="text-center">
-                        </tbody>
-                    </table>
+
+
+    <div class="modal fade" id="popupModal" tabindex="-1" aria-labelledby="popupModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content justify-content-center" style="width: 800px !important;height: auto !important; ">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="popupModalLabel">Kart Ekle</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div>
+                        <table id="MyTable" style="margin: 0.2rem;border:0.1px solid;" class="table  table-striped ">
+                            <thead class="text-center">
+                                <tr>
+                                    <!-- Add more columns if needed -->
+                                </tr>
+                            </thead>
+                            <tbody class="text-center">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="popupModal1" tabindex="-1" aria-labelledby="popupModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content justify-content-center" style="width: 800px !important;height: auto !important; ">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="popupModalLabel">Kart Ekle</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+
+                    <div id="tableContainer" class=" text-center">
+                        <table id="Influecer" style="margin: 0.2rem;border:0.1px solid;"
+                            class="table  table-striped text-center">
+                            <thead class="text-center">
+                         
+                            </thead>
+                            <tbody class="text-center">
+                            </tbody>
+                        </table>
+                    </div>
+
                 </div>
             </div>
         </div>
     </div>
 
-    <div id="popup1" class="popup">
-        <div class="popup-content">
-            <button id="closeButton1" class="close-button"><i class="fa-solid fa-xmark"></i></button>
-            <div class="container ml-5">
-                <div id="tableContainer" class="table-response text-center">
-                    <table id="Influecer" style="margin: 0.2rem;border:0.1px solid;"
-                        class="table  table-striped text-center">
-                        <thead class="text-center">
-                            <tr>
-                                <!-- Add more columns if needed -->
-                            </tr>
-                        </thead>
-                        <tbody class="text-center">
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
+ 
 
-    <nav class="sidebar close">
+   <nav class="sidebar close">
         <header>
             <div class="image-text">
                 <span class="image">
@@ -147,63 +158,67 @@
         </div>
     </nav>
     <section class="home">
-    <div class="text1">Transfer Add</div>
-    <div id="sonuc"></div>
-    <div class="row justify-content-center">
-        <div class="col-md-12" style="max-height: 30rem; overflow: auto;">
-            <form id="myForm">
-                <div class="row justify-content-start w-100">
-                    <div class="offset-md-2 col-md-1">
-                        <label for="ProcessCode" class="form-label">ProcessCode:</label>
-                        <select class="form-select form-select-sm" id="ProcessCode" name="ProcessCode[]">
-                            <option value="Gifting">Gifting</option>
-                            <option value="Seeding">Seeding</option>
-                        </select>
+        <div class="text1">Transfer Add</div>
+        <div id="sonuc"></div>
+        <div class="row justify-content-center">
+            <div class="col-md-12" style="max-height: 30rem; overflow: auto;">
+                <form id="myForm">
+                    <div class="row justify-content-start w-100">
+                        <div class="offset-md-2 col-md-1">
+                            <label for="ProcessCode" class="form-label">ProcessCode:</label>
+                            <select class="form-select form-select-sm" id="ProcessCode" name="ProcessCode[]">
+                                <option value="Gifting">Gifting</option>
+                                <option value="Seeding">Seeding</option>
+                            </select>
+                        </div>
+                        <div class="col-md-1">
+                            <label for="SendInfCode" class="form-label">Inf Kodu:</label>
+                            <input type="text" class="form-control form-control-sm SendInfCode"
+                                onkeyup="veriGetirInf(this.value)" name="SendInfCode[]">
+                        </div>
+                        <div class="col-md-1">
+                            <label for="SendInfName" class="form-label">Inf Adı:</label>
+                            <input type="text" class="form-control form-control-sm SendInfName" id="SendInfName"
+                                name="SendInfName[]">
+                        </div>
+                        <div class="col-md-1 mb-4">
+                            <label for="shippingcost" class="form-label">Gönderim:</label>
+                            <input type="text" class="form-control form-control-sm shippingcost" id="shippingcost"
+                                name="shippingcost[]">
+                        </div>
+                        <div class="col-md-1 mt-4">
+                            <input type="button" class="btn btn-primary mt-2 toggle-button2 aling-item-center"
+                                value="Influecer" id="InfluecerBtn">
+                        </div>
+                        <div class="col-md-1 mt-4" id="barcodeSection" style="display: block;">
+                            <input type="button" class="btn btn-primary mt-2 toggle-button aling-item-center"
+                                value="Barcode" id="BtnBarcode">
+                        </div>
+                        <div class="col-md-1 mt-4">
+                            <input type="button" class="btn btn-success mt-2" value="İşlem Başlat" id="startProcessBtn">
+                        </div>
                     </div>
-                    <div class="col-md-1">
-                        <label for="SendInfCode" class="form-label">Inf Kodu:</label>
-                        <input type="text" class="form-control form-control-sm SendInfCode" onkeyup="veriGetirInf(this.value)" name="SendInfCode[]">
+                    <div id="dataRows" style="display: none;"></div>
+                    <div class="row justify-content-center mt-3" id="addRowSection" style="display: none;">
+                        <div class="col-md-1">
+                            <button type="button" class="btn btn-success" id="addRowBtn">Satır Ekle</button>
+                        </div>
+                        <div class="col-md-1">
+                            <button type="submit" id="Submit" class="btn btn-primary">Gönder</button>
+                        </div>
                     </div>
-                    <div class="col-md-1">
-                        <label for="SendInfName" class="form-label">Inf Adı:</label>
-                        <input type="text" class="form-control form-control-sm SendInfName" id="SendInfName" name="SendInfName[]">
-                    </div>
-                    <div class="col-md-1 mb-4">
-                        <label for="shippingcost" class="form-label">Gönderim:</label>
-                        <input type="text" class="form-control form-control-sm shippingcost" id="shippingcost" name="shippingcost[]">
-                    </div>
-                    <div class="col-md-1 mt-4">
-                        <input type="button" class="btn btn-primary mt-2 toggle-button2 aling-item-center" value="Influecer" id="InfluecerBtn">
-                    </div>
-                    <div class="col-md-1 mt-4" id="barcodeSection" style="display: none;">
-                        <input type="button" class="btn btn-primary mt-2 toggle-button aling-item-center" value="Barcode" id="Barcode">
-                    </div>
-                    <div class="col-md-1 mt-4">
-                        <input type="button" class="btn btn-success mt-2" value="İşlem Başlat" id="startProcessBtn">
-                    </div>
-                </div>
-                <div id="dataRows" style="display: none;"></div>
-                <div class="row justify-content-center mt-3" id="addRowSection" style="display: none;">
-                    <div class="col-md-1">
-                        <button type="button" class="btn btn-success" id="addRowBtn">Satır Ekle</button>
-                    </div>
-                    <div class="col-md-1">
-                        <button type="submit" id="Submit" class="btn btn-primary">Gönder</button>
-                    </div>
-                </div>
-            </form>
+                </form>
+            </div>
         </div>
-    </div>
 
-    <div class="container">
-        <div class="flex justify-content-center">
-            <table class="table" id="SeedingLine"></table>
+        <div class="container">
+            <div class="flex justify-content-center">
+                <table class="table" id="SeedingLine"></table>
+            </div>
         </div>
-    </div>
-</section>
+    </section>
     <!-- JavaScript dosyası -->
     <script src="../js/app.js"></script>
-    <script src="../js/popup.js"></script>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"
         integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <script src="https://cdn.datatables.net/v/bs5/dt-2.0.7/datatables.min.js"></script>
@@ -212,6 +227,20 @@
     <script src="../js/TransferDataTableSeedingLine.js"></script>
     <script src="../js/TransferAddDatatable.js"></script>
     <script src="../js/TransferAddInputAction.js"></script>
+    <script>
+        // Kart ekle butonuna tıklama olayı ekle
+        $('#BtnBarcode').on('click', function () {
+            // Popup modal'i aç
+            $('#popupModal').modal('show');
+        });
+    </script>
+    <script>
+        // Kart ekle butonuna tıklama olayı ekle
+        $('#InfluecerBtn').on('click', function () {
+            // Popup modal'i aç
+            $('#popupModal').modal('show');
+        });
+    </script>
 
 
 

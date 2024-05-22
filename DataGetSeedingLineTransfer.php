@@ -3,12 +3,12 @@ require './conn/DevTechcon.php';
 
 // Veritabanına bağlan
 $conn = sqlsrv_connect($serverName, $connectionOptions);
+$Code = $_GET['InfCode'];
 
-    $Time =date("Y-m-d");
 if ($conn) {
     // Veritabanından verileri çekme sorgusu
-    $sql = "select * from trSendingLine WHERE  CAST(SendDate AS DATE) = ?";
-    $stmt = sqlsrv_query($conn, $sql,array($Time));
+    $sql = "select * from trSendingLine WHERE TransferNumber = ?";
+    $stmt = sqlsrv_query($conn, $sql ,array($Code));
 
     if ($stmt === false) {
         die(print_r(sqlsrv_errors(), true));
