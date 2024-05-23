@@ -71,7 +71,7 @@
 
                 <ul class="menu-links p-0">
                     <li class="nav-link">
-                        <a href="#">
+                        <a href="index.php">
                             <i class='bx bx-home-alt icon'></i>
                             <span class="text nav-text">Dashboard</span>
                         </a>
@@ -79,7 +79,7 @@
 
                     <li class="nav-link">
                         <a href="transfer.php">
-                            <i class='bx bx-bell icon'></i>
+                            <i class='bx  icon'><img src="../images/transfer.png" alt="" srcset=""></i>
                             <span class="text nav-text">Transfer</span>
                         </a>
                     </li>
@@ -107,7 +107,7 @@
                     </li>
 
                     <li class="nav-link">
-                        <a href="#">
+                        <a href="budget.php">
                             <i class='bx bx-wallet icon'></i>
                             <span class="text nav-text">Wallets</span>
                         </a>
@@ -478,6 +478,9 @@
 
             },
         });
+    </script>
+    <script>
+        
     </script>
 </body>
 

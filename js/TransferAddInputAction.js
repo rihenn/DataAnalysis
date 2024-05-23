@@ -78,7 +78,7 @@ document.getElementById('Submit').addEventListener('click', function(event) {
     var shippingCost = parseFloat(formData.get('shippingcost[]'));
     var shippingCostPerItem = shippingCost / totalQty;
 
-    console.log("Shipping Cost Per Item: ", shippingCostPerItem); // Kontrol için ekledik
+
 
     var lineDataArray = [];
     document.querySelectorAll('.dataRow').forEach(function(row) {

@@ -5,11 +5,13 @@ date_default_timezone_set('Europe/Istanbul');
 function PriceServiceFunction () {
     $serviceType = 2;
  require "../conn/DevTechcon.php";
-require "../conn/DevTechLastServiceDate.php";
+
 require "../conn/IntegratorCon.php";
 
   
-
+if ($lastWorkingDate == null) {
+  $lastWorkingDate ="20210101";
+}
 
 $service_run_datetime = date('Y-m-d H:i:s');
 // API URL

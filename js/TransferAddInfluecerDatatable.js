@@ -1,17 +1,20 @@
-  // DataTable başlatma ve tablo nesnesini bir değişkene atama
+
   var dataTable1 = $('#Influecer').DataTable({
     ajax: {
         url: '../DataGetCdInfluecer.php',
         dataSrc: '' // Sunucudan gelen JSON verilerinin doğrudan kullanılacağını belirtir
     },
     columns: [
-        { data: 'Code', title: 'Code' },
-        { data: 'FirstName', title: 'FirstName' },
-        { data: 'LastName', title: 'LastName' },
-        { data: 'CountryCode', title: 'CountryCode' },
-        { data: 'Country', title: 'Country' },
+        { data: 'Code', title: 'Inf Kodu', width: '150px', className: 'dt-center' },
+        { data: 'FirstName', title: 'Adı', width: '150px', className: 'dt-center' },
+        { data: 'LastName', title: 'Soyadı', width: '150px', className: 'dt-center' },
+        { data: 'CountryCode', title: 'Ülke Kodu', width: '150px', className: 'dt-center' },
+        { data: 'Country', title: 'Ülke', width: '150px', className: 'dt-center' },
+        { data: 'City', title: 'Şehir', width: '150px', className: 'dt-center' },
+        { data: 'Address', title: 'Adres', width: '200px', className: 'dt-center' }
     ],
-    scrollY: "20rem",
+    scrollY: "30rem",
+    autoWidth: false, // Otomatik genişlik ayarını devre dışı bırak
     language: {
         "info": "_TOTAL_ kayıttan _START_ - _END_ arasındaki kayıtlar gösteriliyor",
         "infoEmpty": "Kayıt yok",
@@ -267,11 +270,11 @@
 
 $('#Influecer tbody').on('dblclick', 'tr', function () {
 var data = dataTable1.row(this).data(); // dataTable.row kullanıldı
-console.log(data);
+
 var Code = data.Code;
 var name = data.FirstName + " "+ data.LastName;
 
-const popup = document.getElementById('popup1');
+
 // Barkodu panoya kopyalamak için bir textarea oluşturun ve içine barkodu yazın
 var tempTextarea = document.createElement('textarea');
 tempTextarea.value = Code;
@@ -320,21 +323,13 @@ if (InputSendInfCode[i].value === '') {
 
     break;
 }
+
 }
-popup.style.display = 'none';
+var closeButton = document.getElementById('closeButton1');
+closeButton.click();
 });
 
-const toggleButton1 = document.getElementById('InfluecerBtn');
-const popup1 = document.getElementById('popup1');
-const closeButton1 = document.getElementById('closeButton1');
 
-toggleButton1.addEventListener('click', function () {
-    popup1.style.display = 'block';
-});
-
-closeButton1.addEventListener('click', function () {
-    popup1.style.display = 'none';
-});
 
 function veriGetirInf(Code, index) {
     if (!Code) return;
@@ -352,4 +347,5 @@ function veriGetirInf(Code, index) {
     };
     xhr.open("GET", "../DataGetTransferInf.php?Code=" + Code, true);
     xhr.send();
+    
 }

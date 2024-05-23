@@ -225,20 +225,10 @@ body.dark {
 }
 
 /* Koyu tema için tablo stilleri */
-body.dark table {
-    background-color: #222;
-    color: #fff;
-    border: 1px solid #ccc; /* Tablo kenarlığı */
-}
 
-body.dark th {
-    background-color: #444;
-    color: #fff;
-}
 
-body.dark tr:nth-child(even) {
-    background-color: #333;
-}
+
+
 
 
 :root{
