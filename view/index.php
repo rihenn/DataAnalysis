@@ -208,6 +208,13 @@
 
     </section>
     <!-- JavaScript dosyası -->
+    <script>
+    // Kart ekle butonuna tıklama olayı ekle
+    $('#kartEkleButton').on('click', function() {
+        // Popup modal'i aç
+        $('#popupModal').modal('show');
+    });
+    </script>
 
     <script src="../js/app.js"></script>
 
@@ -471,15 +478,10 @@
 
             },
         });
-        </script>
-    
-        <script>
-        // Kart ekle butonuna tıklama olayı ekle
-        $('#kartEkleButton').on('click', function() {
-            // Popup modal'i aç
-            $('#popupModal').modal('show');
-        });
-        </script>
+    </script>
+    <script>
+        
+    </script>
 </body>
 
 </html>

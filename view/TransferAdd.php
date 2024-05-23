@@ -25,8 +25,6 @@
 
 <body style="height: 100vh;width:auto ;padding: 0!important;">
 
-
-
     <div class="modal fade" id="popupModal" tabindex="-1" aria-labelledby="popupModalLabel" aria-hidden="true">
         <div class="modal-dialog" style="--bs-modal-width: 55% !important">
             <div class="modal-content justify-content-center" style="width: 1000px !important;height: auto !important; ">
@@ -35,15 +33,12 @@
                     <button type="button" class="btn-close" id="closeButton" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    
-                        <table id="MyTable" style="margin: 0.2rem;border:0.1px solid;" class="table  table-striped ">
-                            <thead class="text-center">
-                        
-                            </thead>
-                            <tbody class="text-center">
-                            </tbody>
-                        </table>
-                   
+                    <table id="MyTable" style="margin: 0.2rem;border:0.1px solid;" class="table table-striped">
+                        <thead class="text-center">
+                        </thead>
+                        <tbody class="text-center">
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
@@ -53,29 +48,24 @@
             <div class="modal-content justify-content-center" style="width: 800px !important;height: auto !important; ">
                 <div class="modal-header">
                     <h5 class="modal-title" id="popupModalLabel"></h5>
-                    <button type="button" class="btn-close"  id="closeButton1" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" class="btn-close" id="closeButton1" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-
-                    <div id="tableContainer" class=" text-center">
+                    <div id="tableContainer" class="text-center">
                         <table id="Influecer" style="margin: 0.2rem;border:0.1px solid;"
-                            class="table  table-striped text-center">
+                            class="table table-striped text-center">
                             <thead class="text-center">
-                         
                             </thead>
                             <tbody class="text-center">
                             </tbody>
                         </table>
                     </div>
-
                 </div>
             </div>
         </div>
     </div>
 
- 
-
-   <nav class="sidebar close">
+    <nav class="sidebar close">
         <header>
             <div class="image-text">
                 <span class="image">
@@ -97,7 +87,7 @@
                 </li>
 
                 <ul class="menu-links p-0">
-                <li class="nav-link">
+                    <li class="nav-link">
                         <a href="index.php">
                             <i class='bx bx-home-alt icon'></i>
                             <span class="text nav-text">Dashboard</span>
@@ -163,7 +153,7 @@
                 <form id="myForm">
                     <div class="row justify-content-start w-100">
                         <div class="offset-md-2 col-md-1">
-                            <label for="ProcessCode" class="form-label">ProcessCode:</label>
+                            <label for="ProcessCode" class="form-label">Süreç Kodu:</label>
                             <select class="form-select form-select-sm" id="ProcessCode" name="ProcessCode[]">
                                 <option value="Gifting">Gifting</option>
                                 <option value="Seeding">Seeding</option>
@@ -180,10 +170,14 @@
                                 name="SendInfName[]">
                         </div>
                         <div class="col-md-1 mb-4">
-                            <label for="shippingcost" class="form-label">Gönderim:</label>
+                            <label for="shippingcost" class="form-label">Gönderim Maliyeti:</label>
                             <input type="text" class="form-control form-control-sm shippingcost" id="shippingcost"
                                 name="shippingcost[]">
                         </div>
+                        <div class="col-md-1 mb-4">
+                        <label for="SendDate" class="form-label">Gönderim Tarihi:</label>
+                        <input type="date" class="form-control form-control-sm" id="SendDate" name="SendDate[]">
+                    </div>
                         <div class="col-md-1 mt-4">
                             <input type="button" class="btn btn-primary mt-2 toggle-button2 aling-item-center"
                                 value="Influecer" id="InfluecerBtn">
@@ -239,9 +233,6 @@
             $('#popupModal1').modal('show');
         });
     </script>
-
-
-
 </body>
 
 </html>
