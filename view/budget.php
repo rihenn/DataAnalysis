@@ -19,6 +19,7 @@
     <link href="https://cdn.datatables.net/v/bs5/dt-2.0.7/datatables.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <title>Gifting</title>
 </head>
@@ -114,6 +115,9 @@
                         <div class="progress-bar" role="progressbar" style="width: 50%;" aria-valuenow="50"
                             aria-valuemin="0" aria-valuemax="100">50%</div>
                     </div>
+                    <div class="container mt-5">
+        <canvas id="myChart"></canvas>
+    </div>
                 </div>
             </div>
         </div>
@@ -126,17 +130,113 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
     <script>
-            function updateProgressBar(percentage) {
-        var progressBar = document.querySelector('.progress-bar');
-        progressBar.style.width = percentage + '%';
-        progressBar.setAttribute('aria-valuenow', percentage);
-        progressBar.textContent = percentage + '%';
-    }
+     function updateProgressBar(percentage) {
+            var progressBar = document.querySelector('.progress-bar');
+            progressBar.style.width = percentage + '%';
+            progressBar.setAttribute('aria-valuenow', percentage);
+            progressBar.textContent = percentage + '%';
+        }
 
+        // Fetch budget data from PHP script
+        fetch('../DataGetBudgetprogress.php')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                if (data.length > 0) {
+                    var totalBudget = parseFloat(data[0].TotalBudget);
+                    var spentBudget = parseFloat(data[0].SpentBudget);
+                    var percentage = (spentBudget / totalBudget) * 100;
 
-    updateProgressBar(15);
+                    // Update the progress bar with the calculated percentage
+                    updateProgressBar(percentage.toFixed(2)); // toFixed(2) to show percentage up to 2 decimal places
+                } else {
+                    console.error('Budget data not found');
+                }
+            })
+            .catch(error => console.error('Error fetching budget data:', error));
+            
 </script>
+<script>
+fetch('../DataGetBudgetGrafik.php')
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json();
+    })
+    .then(data => {
+        // Grafik verilerini saklamak için boş bir dizi oluştur
+        var chartData = [];
+     
+        // Her bir veri için işlem yap
+        data.forEach(monthData => {
+            // Her bir ay için toplam bütçe ve harcanan bütçe verilerini al
+            var totalBudget = parseFloat(monthData.TotalBudget);
+            var spentBudget = parseFloat(monthData.SpentBudget);
+            var month = new Date(monthData.StartDate.date).getMonth() + 1; // Ayın sırasını al
 
+            // Ayın sırasıyla veriyi diziye ekle
+            chartData.push({
+                month: month,
+                totalBudget: totalBudget,
+                spentBudget: spentBudget
+            });
+        });
+
+        // Burada alınan verilere göre grafikleri oluşturabilirsiniz
+        // Örneğin, Chart.js gibi bir kütüphane kullanarak
+        drawBarChart(chartData);
+    })
+    .catch(error => console.error('Error fetching budget data:', error));
+
+// Sütun grafiği oluşturmak için fonksiyon
+function drawBarChart(data) {
+    const labels = data.map(item => item.month); // Ay sıralarını etiket olarak kullan
+    const totalBudget = data.map(item => item.totalBudget); // Her ayın toplam bütçe verisini al
+    const spentBudget = data.map(item => item.spentBudget); // Her ayın harcanan bütçe verisini al
+
+    const ctx = document.getElementById('myChart').getContext('2d');
+    const myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: labels,
+            datasets: [
+                {
+                    label: 'Toplam Bütçe',
+                    data: totalBudget,
+                    backgroundColor: ['rgba(75, 192, 192, 0.2)'],
+                    borderColor: ['rgba(75, 192, 192, 1)'],
+                    borderWidth: 1
+                },
+                {
+                    label: 'Harcanan Bütçe',
+                    data: spentBudget,
+                    backgroundColor:  ['rgba(255, 99, 132, 0.2)'],
+                    borderColor: ['rgba(255, 99, 132, 1)'],
+                    borderWidth: 1
+                }
+            ]
+        },
+        options: {
+            indexAxis: 'x',
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+}
+function getMonthName(month) {
+    const monthNames = ['Ocak', 'Şubat', 'Mart', 'Nisan', 'Mayıs', 'Haziran', 'Temmuz', 'Ağustos', 'Eylül', 'Ekim', 'Kasım', 'Aralık'];
+    return monthNames[month];
+}
+
+</script>
 </body>
 
 </html>

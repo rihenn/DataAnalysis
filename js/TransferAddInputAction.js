@@ -21,6 +21,7 @@ document.getElementById('startProcessBtn').addEventListener('click', function() 
     var sendInfCode = document.querySelector('[name="SendInfCode[]"]').value;
     var sendInfName = document.querySelector('[name="SendInfName[]"]').value;
     var shippingCost = document.querySelector('[name="shippingcost[]"]').value;
+    var sendDate = document.getElementById('SendDate').value; // Tarih alanını al
 
     if (processCode && sendInfCode && sendInfName && shippingCost) {
         var actualProcessCode = processCode === 'Gifting' ? 'GF' : 'SD';
@@ -29,8 +30,11 @@ document.getElementById('startProcessBtn').addEventListener('click', function() 
             ProcessCode: actualProcessCode,
             SendInfCode: sendInfCode,
             SendInfName: sendInfName,
-            ShippingCost: shippingCost
+            ShippingCost: shippingCost,
+            SendDate: sendDate
         };
+
+        console.log("Gönderilen veri: ", data); // JSON verisini konsola yazdır
 
         var xhr = new XMLHttpRequest();
         xhr.open('POST', '../query/TransferAddInsert.php', true);
@@ -38,6 +42,7 @@ document.getElementById('startProcessBtn').addEventListener('click', function() 
         xhr.onreadystatechange = function () {
             if (xhr.readyState === 4) {
                 if (xhr.status === 200) {
+                    console.log(xhr.responseText); // Yanıtı konsola yazdır
                     var response = JSON.parse(xhr.responseText);
                     if (response.status === 'success') {
                         toastr.info('İşlem Başlatıldı Lütfen Gerekli Bilgileri Doldurunuz');
@@ -50,6 +55,7 @@ document.getElementById('startProcessBtn').addEventListener('click', function() 
                         window.transferNumber = response.transferNumber; // transferNumber'ı sakla
                         window.actualProcessCode = actualProcessCode; // process code'u sakla
                         window.shippingCost = parseFloat(shippingCost); // shippingCost'u sakla
+                        window.sendDate = response.sendDate; // sendDate'i sakla
                     } else {
                         toastr.error('Kayıt ekleme başarısız: ' + response.message);
                     }
@@ -78,8 +84,6 @@ document.getElementById('Submit').addEventListener('click', function(event) {
     var shippingCost = parseFloat(formData.get('shippingcost[]'));
     var shippingCostPerItem = shippingCost / totalQty;
 
-
-
     var lineDataArray = [];
     document.querySelectorAll('.dataRow').forEach(function(row) {
         var itemBarcode = row.querySelector(`[name="ItemBarcode[]"]`).value;
@@ -105,7 +109,8 @@ document.getElementById('Submit').addEventListener('click', function(event) {
             Qty1: qty1,
             Post: 1,
             InfCode: document.querySelector('[name="SendInfCode[]"]').value,
-            InfName: document.querySelector('[name="SendInfName[]"]').value
+            InfName: document.querySelector('[name="SendInfName[]"]').value,
+            SendDate: document.getElementById('SendDate').value // SendDate değerini al
         });
     });
 
@@ -115,7 +120,7 @@ document.getElementById('Submit').addEventListener('click', function(event) {
     xhrLine.onreadystatechange = function () {
         if (xhrLine.readyState === 4) {
             console.log(xhrLine.responseText); // Yanıtı konsola yazdır
-            if (xhrLine.status === 200) {
+            try {
                 var responseLine = JSON.parse(xhrLine.responseText);
                 if (responseLine.status === 'success') {
                     toastr.success('Ürünler başarıyla eklendi');
@@ -123,14 +128,16 @@ document.getElementById('Submit').addEventListener('click', function(event) {
                 } else {
                     toastr.error('Ürün ekleme başarısız: ' + responseLine.message);
                 }
-            } else if (xhrLine.readyState === 4) {
-                toastr.error('Ürün eklenirken bir hata oluştu');
+            } catch (e) {
+                console.error('JSON parse hatası:', e);
+                toastr.error('Yanıt işlenirken bir hata oluştu');
             }
+        } else if (xhrLine.readyState === 4) {
+            toastr.error('Ürün eklenirken bir hata oluştu');
         }
     };
     xhrLine.send(JSON.stringify({ lines: lineDataArray }));
 });
-
 function addRow() {
     var dataRows = document.getElementsByClassName('dataRow');
     var index = dataRows.length + 1;

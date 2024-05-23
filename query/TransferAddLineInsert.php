@@ -6,22 +6,28 @@ $data = json_decode(file_get_contents("php://input"), true);
 
 $lines = isset($data['lines']) ? $data['lines'] : [];
 
-$total = 0;
+$totalCost = 0;
 
 foreach ($lines as $line) {
+    // SendDate'in olup olmadığını kontrol et
+    if (!isset($line['SendDate'])) {
+        echo json_encode(["status" => "error", "message" => "Eksik SendDate değeri."]);
+        exit;
+    }
+
     // Toplam maliyet hesaplama
     $shippingCostPrice = floatval($line['ShippingCostPrice']);
     $itemCostPrice = floatval($line['ItemCostPrice']);
-    $total += $shippingCostPrice + $itemCostPrice;
+    $totalCost += $shippingCostPrice + $itemCostPrice;
 
     // Insert sorgusu
     $sql = "INSERT INTO trSendingLine (
         SendingLineID, ProcessCode, TransferNumber, Barcode, ItemCode, ColorCode, ItemDim1Code,
-        ItemDescription, ColorDescription, ItemCostPrice, ShippingCostPrice, Qty1, Post, InfCode,
-        InfName, SendDate, SendingHeaderID, CreatedUserName, CreatedDate, LastUpdatedUserName,
+        ItemDescription, ColorDescription, ItemCostPrice, ShippingCostPrice, Qty1, InfCode,
+        InfName, SendDate, SendingHeaderID, Post,CreatedUserName, CreatedDate, LastUpdatedUserName,
         LastUpdatedDate, IsActive
     ) VALUES (
-        NEWID(), ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, GETDATE(), ?, 'ADMIN', GETDATE(), 'ADMIN', GETDATE(), '1'
+        NEWID(), ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0,'ADMIN', GETDATE(), 'ADMIN', GETDATE(), '1'
     );";
 
     $params = array(
@@ -36,9 +42,9 @@ foreach ($lines as $line) {
         $itemCostPrice,
         $shippingCostPrice,
         $line['Qty1'],
-        $line['Post'],
         $line['InfCode'],
         $line['InfName'],
+        $line['SendDate'],
         $line['SendingHeaderID']
     );
 
@@ -56,66 +62,42 @@ foreach ($lines as $line) {
     }
 }
 
-// Ay ve yıl bugünkü tarihle aynı olan TotalBudget'i çekme
-$sqlDataBudget = "
-    SELECT TotalBudget 
-    FROM MonthlyBudget 
-    WHERE YEAR(StartDate) = YEAR(GETDATE()) AND MONTH(StartDate) = MONTH(GETDATE())
-";
-
-$stmtDataBudget = sqlsrv_query($conn, $sqlDataBudget);
-
-if ($stmtDataBudget === false) {
-    echo json_encode(["status" => "error", "message" => "TotalBudget sorgusu çalıştırılamadı.", "errors" => sqlsrv_errors()]);
-    exit;
-}
-
-$budget = null;
-if ($row = sqlsrv_fetch_array($stmtDataBudget, SQLSRV_FETCH_ASSOC)) {
-    $budget = floatval($row['TotalBudget']);
-} else {
-    echo json_encode(["status" => "error", "message" => "Bu ay ve yıla ait veri bulunamadı."]);
-    exit;
-}
-
-$totalBudget = $budget - $total;
-
-// Güncelleme sorgusu
-$sqlUpdateBudget = "
-INSERT INTO your_table_name (StartDate , EndDate , TotalBudget , SpentBudget , LastTransferNumber  , LastLineID , CreatedUserName , CreatedDate , LastUpdatedUserName , LastUpdatedDate ,IsActive ) 
-            VALUES (?, ?, :Amount, :LastUpdatedUserName, :UniqueIdentifier, :CreatedBy, :CreatedDate, :UpdatedBy, :UpdatedDate, :IsActive)
-    INSERT INTO MonthlyBudget 
-    (TotalBudget, 
-        LastTransferNumber = ?, 
-        LastUpdatedUserName = 'admin', 
-        LastUpdatedDate = GETDATE(), 
-        LastLineId = ?)
-    )
-";
-
-// `trSendingLine` tablosunda yeni eklenen satırın `SendingLineID` değerini al
-$sqlGetLastLineId = "
-    SELECT TOP 1 SendingLineID 
+// `trSendingLine` tablosunda yeni eklenen satırın `SendingLineID` ve `SendDate` değerini al
+$sqlGetLastLine = "
+    SELECT TOP 1 SendingLineID, SendDate 
     FROM trSendingLine 
     ORDER BY CreatedDate DESC
 ";
 
-$stmtLastLineId = sqlsrv_query($conn, $sqlGetLastLineId);
+$stmtLastLine = sqlsrv_query($conn, $sqlGetLastLine);
 
-if ($stmtLastLineId === false) {
-    echo json_encode(["status" => "error", "message" => "Son satır ID'si alınamadı.", "errors" => sqlsrv_errors()]);
+if ($stmtLastLine === false) {
+    echo json_encode(["status" => "error", "message" => "Son satır verileri alınamadı.", "errors" => sqlsrv_errors()]);
     exit;
 }
 
 $lastLineId = null;
-if ($row = sqlsrv_fetch_array($stmtLastLineId, SQLSRV_FETCH_ASSOC)) {
+$sendDate = null;
+if ($row = sqlsrv_fetch_array($stmtLastLine, SQLSRV_FETCH_ASSOC)) {
     $lastLineId = $row['SendingLineID'];
+    $sendDate = $row['SendDate'];
 } else {
-    echo json_encode(["status" => "error", "message" => "Son satır ID'si bulunamadı."]);
+    echo json_encode(["status" => "error", "message" => "Son satır verileri bulunamadı."]);
     exit;
 }
 
-$paramsUpdate = array($totalBudget, $line['TransferNumber'], $lastLineId);
+// Gönderim tarihi ile startdate ayları eşleştirme ve güncelleme
+$sqlUpdateBudget = "
+    UPDATE MonthlyBudget 
+    SET SpentBudget = SpentBudget - ?, 
+        LastTransferNumber = ?, 
+        LastLineID = ?, 
+        LastUpdatedUserName = 'admin', 
+        LastUpdatedDate = GETDATE()
+    WHERE MONTH(StartDate) = MONTH(?) AND YEAR(StartDate) = YEAR(?)
+";
+
+$paramsUpdate = array($totalCost, $line['TransferNumber'], $lastLineId, $sendDate, $sendDate);
 
 $stmtUpdateBudget = sqlsrv_prepare($conn, $sqlUpdateBudget, $paramsUpdate);
 
@@ -129,7 +111,9 @@ if (!sqlsrv_execute($stmtUpdateBudget)) {
     exit;
 }
 
-echo json_encode(["status" => "success", "TotalBudget" => $totalBudget]);
+echo json_encode(["status" => "success"]);
 
 sqlsrv_close($conn);
 ?>
+
+
