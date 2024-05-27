@@ -93,6 +93,7 @@ document.getElementById('Submit').addEventListener('click', function(event) {
         var itemName = row.querySelector(`[name="ItemName[]"]`).value;
         var mlyEur = row.querySelector(`[name="MLY_EUR[]"]`).value;
         var qty1 = row.querySelector(`[name="Qty1[]"]`).value;
+        var colorCatalogDescription = row.querySelector(`[name="ColorCatalogDescription[]"]`).value;
 
         lineDataArray.push({
             SendingHeaderID: window.headerID,
@@ -103,7 +104,7 @@ document.getElementById('Submit').addEventListener('click', function(event) {
             ColorCode: colorCode,
             ItemDim1Code: itemDim1Code,
             ItemDescription: itemName,
-            ColorDescription: colorCode,
+            ColorCatalogDescription: colorCatalogDescription,
             ItemCostPrice: mlyEur,
             ShippingCostPrice: shippingCostPerItem,
             Qty1: qty1,
@@ -113,6 +114,8 @@ document.getElementById('Submit').addEventListener('click', function(event) {
             SendDate: document.getElementById('SendDate').value // SendDate değerini al
         });
     });
+
+    console.log("Gönderilen lineDataArray:", lineDataArray); // Gönderilen lineDataArray içeriğini kontrol et
 
     var xhrLine = new XMLHttpRequest();
     xhrLine.open('POST', '../query/TransferAddLineInsert.php', true);
@@ -138,6 +141,7 @@ document.getElementById('Submit').addEventListener('click', function(event) {
     };
     xhrLine.send(JSON.stringify({ lines: lineDataArray }));
 });
+
 function addRow() {
     var dataRows = document.getElementsByClassName('dataRow');
     var index = dataRows.length + 1;
@@ -165,6 +169,10 @@ function addRow() {
         <div class="col-md-1">
             <label for="ItemName${index}" class="form-label">Ürün Adı:</label>
             <input type="text" class="form-control form-control-sm name" id="ItemName${index}" name="ItemName[]">
+        </div>
+        <div class="col-md-1">
+            <label for="ColorCatalogDescription${index}" class="form-label">Renk Adı:</label>
+            <input type="text" class="form-control form-control-sm ColorCatalogDescription" id="ColorCatalogDescription${index}" name="ColorCatalogDescription[]">
         </div>
         <div class="col-md-1">
             <label for="MLY_EUR${index}" class="form-label">Euro Maliyeti:</label>

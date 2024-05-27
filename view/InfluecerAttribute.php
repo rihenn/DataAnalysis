@@ -18,14 +18,16 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="https://cdn.datatables.net/v/bs5/dt-2.0.7/datatables.min.css" rel="stylesheet">
     <style>
-         .truncate {
+        .truncate {
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
-            max-width: 150px; /* Sütun genişliği ayarlanabilir */
+            max-width: 150px;
+            /* Sütun genişliği ayarlanabilir */
             display: inline-block;
             vertical-align: middle;
         }
+
         .more-link {
             cursor: pointer;
             color: blue;
@@ -37,33 +39,6 @@
 
 <body style="height: 100vh;width:auto ;padding: 0!important;">
 
-    <div class="modal fade" id="popupModal" tabindex="-1" aria-labelledby="popupModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="popupModalLabel">Kart Ekle</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form id="insertForm" action="../query/insert.php" method="post">
-                        <input class="border form-control mb-3" type="text" id="firstName" name="firstName"
-                            placeholder="İsim">
-                        <input class="border form-control mb-3" type="text" id="lastName" name="lastName"
-                            placeholder="Soyisim">
-                        <input class="border form-control mb-3" type="text" id="countryCode" name="countryCode"
-                            placeholder="Ülke Kodu">
-                        <input class="border form-control mb-3" type="text" id="country" name="country"
-                            placeholder="Ülke">
-                        <input class="border form-control mb-3" type="text" id="city" name="city" placeholder="Şehir">
-                        <input class="border form-control mb-3" type="text" id="address" name="address"
-                            placeholder="Adres">
-                        <button class="btn btn-dark" type="submit" id="saveButton">Kaydet</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <div class="modal fade" id="AttributepopupModal" tabindex="-1" aria-labelledby="popupModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -73,8 +48,12 @@
                 </div>
                 <div class="modal-body">
                     <form id="insertForm" action="../query/insert.php" method="post">
-                    <input class="border form-control mb-3" type="text" id="AttributeName" name="AttributeName"
-                            placeholder="AttributeName">
+                        <select class="form-select mb-3" id="AttributeName" name="AttributeName">
+                            <option value="" selected disabled>AttributeName seçin</option>
+                            <option value="value1">Değer 1</option>
+                            <option value="value2">Değer 2</option>
+                            <option value="value3">Değer 3</option>
+                        </select>
 
                         <input class="border form-control mb-3" type="text" id="Attribute" name="Attribute"
                             placeholder="Attribute">
@@ -85,6 +64,8 @@
             </div>
         </div>
     </div>
+
+
 
     <nav class="sidebar close">
         <header>
@@ -182,14 +163,10 @@
 
         <div class="container ml-5">
             <div id="tableContainer" class="table-response">
-                <table id="MyTable" style="border:0.1px solid;" class="table  table-striped">
-
-
+                <table id="MyTable" style="" class="table  table-striped">
                 </table>
-                <button class="btn btn-primary toggle-button toggle-button1 me-2" data-bs-toggle="modal"
-                    data-bs-target="#popupModal">İnfluecer Ekle</button>
-                    <button class="btn btn-primary " 
-                    id="AttributepopupBtn">Attribute Ekle</button>
+                <button class="btn btn-primary " 
+                    id="AttributepopupBtn">Kart Ekle</button>
             </div>
         </div>
 
@@ -205,12 +182,7 @@
     <script src="https://cdn.datatables.net/v/bs5/dt-2.0.7/datatables.min.js"></script>
     <script>
         // Kart ekle butonuna tıklama olayı ekle
-        $('#kartEkleButton').on('click', function () {
-            // Popup modal'i aç
-            $('#popupModal').modal('show');
-        });
-         // Kart ekle butonuna tıklama olayı ekle
-         $('#AttributepopupBtn').on('click', function () {
+        $('#AttributepopupBtn').on('click', function () {
             // Popup modal'i aç
             $('#AttributepopupModal').modal('show');
         });
@@ -233,18 +205,18 @@
                 { data: 'Address', title: 'Adres', width: '200px', className: 'dt-center' }
             ],
             "columnDefs": [
-            {
-                "targets": 6, // Address sütunu
-                "render": function(data, type, row, meta) {
-                    if (type === 'display') {
-                        var truncatedData = '<span class="truncate">' + data + '</span>';
-                        var moreLink = ' <span class="more-link link-dark">...</span>';
-                        return truncatedData + moreLink;
+                {
+                    "targets": 6, // Address sütunu
+                    "render": function (data, type, row, meta) {
+                        if (type === 'display') {
+                            var truncatedData = '<span class="truncate">' + data + '</span>';
+                            var moreLink = ' <span class="more-link link-dark">...</span>';
+                            return truncatedData + moreLink;
+                        }
+                        return data;
                     }
-                    return data;
                 }
-            }
-        ],
+            ],
             language: {
 
                 "info": "_TOTAL_ kayıttan _START_ - _END_ arasındaki kayıtlar gösteriliyor",
@@ -496,12 +468,12 @@
 
             },
         });
-        $('#MyTable tbody').on('click', 'span.more-link', function() {
-        var $this = $(this);
-        var $cell = $this.closest('td');
-        var fullText = $cell.text().replace('...', ''); // "..." kısmını çıkar
-        $cell.html(fullText); // Tam metni hücreye yerleştir
-    });
+        $('#MyTable tbody').on('click', 'span.more-link', function () {
+            var $this = $(this);
+            var $cell = $this.closest('td');
+            var fullText = $cell.text().replace('...', ''); // "..." kısmını çıkar
+            $cell.html(fullText); // Tam metni hücreye yerleştir
+        });
 
     </script>
     <script>

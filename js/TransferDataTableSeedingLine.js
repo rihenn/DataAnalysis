@@ -12,13 +12,8 @@
         { data: 'ItemCode', title: 'Ürün Kodu' },
         { data: 'ColorCode', title: 'Renk Kodu' },
         { data: 'ItemDim1Code', title: 'Beden' },
-        { 
-            data: null, 
-            title: 'Ürün Adı',
-            render: function (data, type, row) {
-                return `${row.ItemDescription} ${row.ColorDescription}`;
-            } 
-        },
+        { data: 'ItemDescription', title: 'Ürün Adı' },
+        { data: 'ColorCatalogDescription', title: 'Renk Adı' },
         { data: 'ItemCostPrice', title: 'Maliyet Fiyatı' },
         { data: 'ShippingCostPrice', title: 'Gönderim Bedeli' },
         { data: 'Qty1', title: 'Adet' },
@@ -40,7 +35,7 @@
                 // Sadece tarih kısmını 'YYYY-MM-DD' formatında döndür
                 return date.format('YYYY-MM-DD');
             }
-        },
+        }
     ],
     scrollX: true,
     scrollY: "30rem",

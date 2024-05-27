@@ -1,8 +1,6 @@
 
-
-
 // DataTable başlatma ve tablo nesnesini bir değişkene atama
-  var dataTable = $('#MyTable').DataTable({
+var dataTable = $('#MyTable').DataTable({
     ajax: {
         url: '../DataGetProduct.php',
         dataSrc: '' // Sunucudan gelen JSON verilerinin doğrudan kullanılacağını belirtir
@@ -17,9 +15,8 @@
         { data: 'ColorThemeCode', title: 'Renk Tema Kodu' },
         { data: 'ColorThemeDescription', title: 'Renk Tema Açıklaması' },
         { data: 'ColorCatalogCode', title: 'Renk Katalog Kodu' },
-
+        { data: 'ColorCatalogDescription', title: 'Renk Katalog Açıklaması' }
     ],
-
     scrollY: "30rem",
     language: {
         "info": "_TOTAL_ kayıttan _START_ - _END_ arasındaki kayıtlar gösteriliyor",
@@ -272,77 +269,73 @@
     },
 }
 
-
 );
-
-
 $('#MyTable tbody').on('dblclick', 'tr', function () {
-var data = dataTable.row(this).data(); // dataTable.row kullanıldı
-var barcode = data.Barcode;
-var ColorCode = data.ColorCode;
-var ItemDim1Code = data.ItemDim1Code;
-var name = data.ItemDescription +" "+ data.ColorThemeDescription;
-var MLY_EUR = data.MLY_EUR;
-var ItemCode = data.ItemCode;
+    var data = dataTable.row(this).data(); // dataTable.row kullanıldı
+    var barcode = data.Barcode;
+    var ColorCode = data.ColorCode;
+    var ItemDim1Code = data.ItemDim1Code;
+    var name = data.ItemDescription + " " + data.ColorThemeDescription;
+    var MLY_EUR = data.MLY_EUR;
+    var ItemCode = data.ItemCode;
+    var ColorCatalogDescription = data.ColorCatalogDescription; // ColorCatalogDescription bilgisini al
 
+    // Barkodu panoya kopyalamak için bir textarea oluşturun ve içine barkodu yazın
+    var tempTextarea = document.createElement('textarea');
+    tempTextarea.value = barcode;
+    tempTextarea.setAttribute('readonly', ''); // Yazılamaz hale getir
+    tempTextarea.style.position = 'absolute';
+    tempTextarea.style.left = '-9999px'; // Ekran dışında konumlandır
+    document.body.appendChild(tempTextarea);
 
-// Barkodu panoya kopyalamak için bir textarea oluşturun ve içine barkodu yazın
-var tempTextarea = document.createElement('textarea');
-tempTextarea.value = barcode;
-tempTextarea.setAttribute('readonly', ''); // Yazılamaz hale getir
-tempTextarea.style.position = 'absolute';
-tempTextarea.style.left = '-9999px'; // Ekran dışında konumlandır
-document.body.appendChild(tempTextarea);
+    // Barkodu seçip kopyalama işlemi
+    tempTextarea.select();
+    document.execCommand('copy');
 
-// Barkodu seçip kopyalama işlemi
-tempTextarea.select();
-document.execCommand('copy');
+    // Geçici textarea'yı kaldır
+    document.body.removeChild(tempTextarea);
 
-// Geçici textarea'yı kaldır
-document.body.removeChild(tempTextarea);
+    // Kullanıcıya kopyalandı mesajını göstermek için bir div oluşturun
+    var messageDiv = document.createElement('div');
+    messageDiv.textContent = 'Barcode kopyalandı: ' + barcode;
+    messageDiv.style.position = 'fixed';
+    messageDiv.style.top = '50%'; // Yukarıdan yarıya konumlandır
+    messageDiv.style.right = '20px'; // Sağdan 20 piksel mesafede
+    messageDiv.style.transform = 'translateY(-50%)'; // Dikey hizalama
+    messageDiv.style.padding = '10px';
+    messageDiv.style.background = '#fff';
+    messageDiv.style.border = '1px solid #ccc';
+    messageDiv.style.borderRadius = '5px';
+    messageDiv.style.boxShadow = '0 2px 5px rgba(0,0,0,0.2)';
+    document.body.appendChild(messageDiv);
 
+    // Yazının belirli bir süre sonra kaybolmasını sağlayın
+    setTimeout(function () {
+        document.body.removeChild(messageDiv);
+    }, 2000); // 2 saniye sonra sil
 
-// Kullanıcıya kopyalandı mesajını göstermek için bir div oluşturun
-var messageDiv = document.createElement('div');
-messageDiv.textContent = 'Barcode kopyalandı: ' + barcode;
-messageDiv.style.position = 'fixed';
-messageDiv.style.top = '50%'; // Yukarıdan yarıya konumlandır
-messageDiv.style.right = '20px'; // Sağdan 20 piksel mesafede
-messageDiv.style.transform = 'translateY(-50%)'; // Dikey hizalama
-messageDiv.style.padding = '10px';
-messageDiv.style.background = '#fff';
-messageDiv.style.border = '1px solid #ccc';
-messageDiv.style.borderRadius = '5px';
-messageDiv.style.boxShadow = '0 2px 5px rgba(0,0,0,0.2)';
-document.body.appendChild(messageDiv);
+    // Find the first empty input with class 'barcode' to write the barcode
+    var Inputbarcode = document.querySelectorAll('input.barcode');
+    var InputColorCode = document.querySelectorAll('input.ColorCode');
+    var InputItemDim1Code = document.querySelectorAll('input.ItemDim1Code');
+    var Inputname = document.querySelectorAll('input.name');
+    var InputMLY_EUR = document.querySelectorAll('input.MLY_EUR');
+    var InputItemCode = document.querySelectorAll('input.ItemCode');
+    var InputColorCatalogDescription = document.querySelectorAll('input.ColorCatalogDescription'); // Yeni eklenen input alanı
+    var Inputqty1 = document.querySelectorAll('input.Qty1');
+    for (var i = 0; i < Inputbarcode.length; i++) {
+        if (Inputbarcode[i].value === '') {
+            Inputbarcode[i].value = barcode;
+            InputItemDim1Code[i].value = ItemDim1Code;
+            Inputname[i].value = name;
+            InputMLY_EUR[i].value = MLY_EUR;
+            InputItemCode[i].value = ItemCode;
+            InputColorCode[i].value = ColorCode;
+            InputColorCatalogDescription[i].value = ColorCatalogDescription; // Yeni eklenen alanı doldur
+            var closeButton = document.getElementById('closeButton');
+            closeButton.click();
 
-// Yazının belirli bir süre sonra kaybolmasını sağlayın
-setTimeout(function() {
-document.body.removeChild(messageDiv);
-}, 2000); // 2 saniye sonra sil
-
-
-// Find the first empty input with class 'barcode' to write the barcode
-var Inputbarcode = document.querySelectorAll('input.barcode');
-var InputColorCode = document.querySelectorAll('input.ColorCode');
-var InputItemDim1Code = document.querySelectorAll('input.ItemDim1Code');
-var Inputname = document.querySelectorAll('input.name');
-var InputMLY_EUR = document.querySelectorAll('input.MLY_EUR');
-var InputItemCode = document.querySelectorAll('input.ItemCode');
-var Inputqty1 = document.querySelectorAll('input.Qty1');
-for (var i = 0; i < Inputbarcode.length; i++) {
-if (Inputbarcode[i].value === '') {
-    Inputbarcode[i].value = barcode;
-    InputItemDim1Code[i].value = ItemDim1Code;
-    Inputname[i].value = name;
-    InputMLY_EUR[i].value = MLY_EUR;
-    InputItemCode[i].value = ItemCode;
-    InputColorCode[i].value = ColorCode;
-    var closeButton = document.getElementById('closeButton');
-    closeButton.click();
-   
-    break;
-}
-}
-
+            break;
+        }
+    }
 });

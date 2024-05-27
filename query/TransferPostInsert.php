@@ -33,24 +33,34 @@ if (!$date) {
 }
 $formattedShareDate = $date->format('Y-m-d');
 
-$sql = "INSERT INTO prSendingAttribute (ID,TransferNumber, PlatformCode, PlatformName, ContentCode, ContentName, ShareDate,
+// SQL sorgusunu hazırlayın
+$sqlInsert = "INSERT INTO prSendingAttribute (ID, TransferNumber, PlatformCode, PlatformName, ContentCode, ContentName, ShareDate,
                                       LikeCount, ViewCount, Barcode, CreatedUserName, CreatedDate, LastUpdatedUserName,
                                       LastUpdatedDate, IsActive)
-        VALUES (NEWID(),?, ?, ?, ?, ?, ?, ?, ?, ?, 'admin', GETDATE(), 'admin', GETDATE(), '1')";
+        VALUES (NEWID(), ?, ?, ?, ?, ?, ?, ?, ?, ?, 'admin', GETDATE(), 'admin', GETDATE(), '1')";
 
-$params = array($transferNumber, $PlatformCode, $PlatformName, $ContentCode, $ContentName, $formattedShareDate, $LikeCount, $WievCount, $barcode);
+$sqlUpdate = "UPDATE trSendingLine SET Post = '1' WHERE TransferNumber = ? AND Barcode = ?";
 
-// SQL sorgusunu hazırlayın ve çalıştırın
-$stmt = sqlsrv_prepare($conn, $sql, $params);
+$paramsInsert = array($transferNumber, $PlatformCode, $PlatformName, $ContentCode, $ContentName, $formattedShareDate, $LikeCount, $WievCount, $barcode);
+$paramsUpdate = array($transferNumber, $barcode);
 
-if ($stmt === false) {
-    die(json_encode(["status" => "error", "message" => "Sorgu hazırlanırken hata oluştu: " . print_r(sqlsrv_errors(), true)]));
+// SQL sorgusunu çalıştırın
+$stmtInsert = sqlsrv_prepare($conn, $sqlInsert, $paramsInsert);
+if ($stmtInsert === false) {
+    die(json_encode(["status" => "error", "message" => "INSERT sorgusu hazırlanırken hata oluştu: " . print_r(sqlsrv_errors(), true)]));
 }
 
-if (sqlsrv_execute($stmt)) {
+$stmtUpdate = sqlsrv_prepare($conn, $sqlUpdate, $paramsUpdate);
+if ($stmtUpdate === false) {
+    die(json_encode(["status" => "error", "message" => "UPDATE sorgusu hazırlanırken hata oluştu: " . print_r(sqlsrv_errors(), true)]));
+}
+
+// INSERT ve UPDATE sorgularını çalıştırın
+if (sqlsrv_execute($stmtInsert) && sqlsrv_execute($stmtUpdate)) {
     echo json_encode(["status" => "success", "message" => "Kayıt başarılı."]);
 } else {
-    die(json_encode(["status" => "error", "message" => "Kayıt ekleme başarısız: " . print_r(sqlsrv_errors(), true)]));
+    die(json_encode(["status" => "error", "message" => "Kayıt ekleme veya güncelleme başarısız: " . print_r(sqlsrv_errors(), true)]));
 }
 
 sqlsrv_close($conn);
+?>

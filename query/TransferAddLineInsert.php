@@ -9,6 +9,12 @@ $lines = isset($data['lines']) ? $data['lines'] : [];
 $totalCost = 0;
 
 foreach ($lines as $line) {
+    // ColorCatalogDescription'in olup olmadığını kontrol et
+    if (!isset($line['ColorCatalogDescription']) || empty($line['ColorCatalogDescription'])) {
+        echo json_encode(["status" => "error", "message" => "Eksik ColorCatalogDescription değeri."]);
+        exit;
+    }
+
     // SendDate'in olup olmadığını kontrol et
     if (!isset($line['SendDate'])) {
         echo json_encode(["status" => "error", "message" => "Eksik SendDate değeri."]);
@@ -23,11 +29,11 @@ foreach ($lines as $line) {
     // Insert sorgusu
     $sql = "INSERT INTO trSendingLine (
         SendingLineID, ProcessCode, TransferNumber, Barcode, ItemCode, ColorCode, ItemDim1Code,
-        ItemDescription, ColorDescription, ItemCostPrice, ShippingCostPrice, Qty1, InfCode,
-        InfName, SendDate, SendingHeaderID, Post,CreatedUserName, CreatedDate, LastUpdatedUserName,
+        ItemDescription, ColorCatalogDescription, ItemCostPrice, ShippingCostPrice, Qty1, InfCode,
+        InfName, SendDate, SendingHeaderID, Post, CreatedUserName, CreatedDate, LastUpdatedUserName,
         LastUpdatedDate, IsActive
     ) VALUES (
-        NEWID(), ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0,'ADMIN', GETDATE(), 'ADMIN', GETDATE(), '1'
+        NEWID(), ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0, 'ADMIN', GETDATE(), 'ADMIN', GETDATE(), 1
     );";
 
     $params = array(
@@ -38,7 +44,7 @@ foreach ($lines as $line) {
         $line['ColorCode'],
         $line['ItemDim1Code'],
         $line['ItemDescription'],
-        $line['ColorDescription'],
+        $line['ColorCatalogDescription'],
         $itemCostPrice,
         $shippingCostPrice,
         $line['Qty1'],
@@ -115,5 +121,3 @@ echo json_encode(["status" => "success"]);
 
 sqlsrv_close($conn);
 ?>
-
-

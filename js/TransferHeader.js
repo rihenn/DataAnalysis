@@ -326,13 +326,8 @@ $(document).ready(function() {
                 { data: 'ItemCode', title: 'Ürün Kodu' },
                 { data: 'ColorCode', title: 'Renk Kodu' },
                 { data: 'ItemDim1Code', title: 'Beden' },
-                { 
-                    data: null, 
-                    title: 'Ürün Adı',
-                    render: function (data, type, row) {
-                        return `${row.ItemDescription} ${row.ColorDescription}`;
-                    } 
-                },
+                { data: 'ItemDescription', title: 'Ürün Adı' },
+                { data: 'ColorCatalogDescription', title: 'Renk Adı' },
                 { data: 'ItemCostPrice', title: 'Maliyet Fiyatı' },
                 { data: 'ShippingCostPrice', title: 'Gönderim Bedeli' },
                 { data: 'Qty1', title: 'Adet' },
@@ -355,9 +350,17 @@ $(document).ready(function() {
                 },
                 {
                     data: null,
-                    title: 'İşlem',
+                    title: 'Post',
                     render: function(data, type, row) {
                         return `<button class="btn btn-primary btn-action" data-id="${row.TransferNumber}">Post</button>`;
+                         
+                    }
+                },  {
+                    data: null,
+                    title: 'İşlem',
+                    render: function(data, type, row) {
+                        return `<button class="btn btn-primary btn-düzenle" data-id="${row.TransferNumber}">Düzenle</button>`;
+                         
                     }
                 }
             ],
@@ -383,6 +386,12 @@ $(document).ready(function() {
 
         // Detay tablosunu yeniden yükle
         detailsTable.ajax.reload();
+    });
+     // Düzenle butonuna tıklama işlemi
+     $('#detailsTable').on('click', '.btn-düzenle', function() {
+        var transferNumber = $(this).data('id');
+        $('#editTransferNumber').val(transferNumber);
+        $('#editModal').modal('show');
     });
 
 });

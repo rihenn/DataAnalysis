@@ -7,15 +7,19 @@ $conn = sqlsrv_connect($serverName, $connectionOptions);
 header('Content-Type: application/json');
 
 if ($conn) {
+    // GET ile gelen YearDate değişkenini al
+    $yearDate = isset($_GET['year']) ? intval($_GET['year']) : date("Y");
+
     // Veritabanından verileri çekme sorgusu
     $sql = "SELECT *
             FROM MonthlyBudget
-            WHERE YEAR(StartDate) = YEAR(GETDATE()) ";
+            WHERE YEAR(StartDate) = ?";
     
-    $stmt = sqlsrv_query($conn, $sql);
+    $params = array($yearDate);
+    $stmt = sqlsrv_query($conn, $sql, $params);
 
     if ($stmt === false) {
-        echo json_encode(array("status" => "error", "message" => "Sorgu çalıştırılamadı", "errors" => sqlsrv_errors()));
+        echo json_encode(array("status" => "error", "message" => "Sorgu çalıştırılamadı"));
         exit;
     }
 
@@ -27,10 +31,10 @@ if ($conn) {
 
     // JSON formatında verileri yazdırma
     echo json_encode($data);
-
+    
     sqlsrv_free_stmt($stmt);
     sqlsrv_close($conn);
 } else {
-    echo json_encode(array("status" => "error", "message" => "Bağlantı kurulamadı", "errors" => sqlsrv_errors()));
+    echo json_encode(array("status" => "error", "message" => "Bağlantı kurulamadı"));
 }
 ?>

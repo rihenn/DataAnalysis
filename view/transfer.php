@@ -25,12 +25,13 @@
 </head>
 
 <body>
+
     <!-- Modal Popup -->
     <div class="modal fade" id="popupModal" tabindex="-1" aria-labelledby="popupModalLabel" aria-hidden="true">
         <div class="modal-dialog" style="--bs-modal-width: 85% !important">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="popupModalLabel">Detaylar</h5>
+                    <h5 class="modal-title" id="popupModalLabel">İçerik</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -38,18 +39,16 @@
                         
                     </table>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kapat</button>
-                </div>
             </div>
         </div>
     </div>
-   <!-- Modal Popup -->
-<div class="modal fade" id="popupModal1" tabindex="-1" aria-labelledby="popupModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
+
+  
+    <div class="modal fade" id="popupModal1" tabindex="-1" aria-labelledby="popupModalLabel" aria-hidden="true">
+  <div class="modal-dialog shadow-lg">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="popupModalLabel">Sending Attribute</h5>
+        <h5 class="modal-title" id="popupModalLabel">Paylaşım</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
@@ -62,7 +61,7 @@
           <input class="border form-control mb-3" type="text" name="ContentName" placeholder="Content Name">
           <input class="border form-control mb-3" type="date" name="ShareDate" placeholder="Share Date">
           <input class="border form-control mb-3" type="text" name="LikeCount" placeholder="Like Count">
-          <input class="border form-control mb-3" type="text" name="WievCount" placeholder="Wiev Count">
+          <input class="border form-control mb-3" type="text" name="WievCount" placeholder="View Count">
           <button class="btn btn-dark" type="button" id="saveButton">Kaydet</button>
         </form>
       </div>
@@ -70,6 +69,119 @@
   </div>
 </div>
 
+<!-- Düzenle Modal -->
+<!-- Düzenle Modal -->
+<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg shadow-lg"> <!-- modal-lg sınıfı genişliği arttırır, shadow-lg gölgelendirme ekler -->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editModalLabel">Düzenle</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="editForm">
+                    <!-- Ürün Bilgileri -->
+                    <div class="mb-3">
+                        <h6 class="p-2">Ürün Bilgileri</h6>
+                        <hr>
+                        <div class="row">
+                            <div class="col-md-3 mb-3">
+                                <label for="editBarcode" class="form-label">Barkod</label>
+                                <input type="text" class="form-control" id="editBarcode" name="Barcode">
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <label for="editItemCode" class="form-label">Ürün Kodu</label>
+                                <input type="text" class="form-control" id="editItemCode" name="ItemCode">
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <label for="editColorCode" class="form-label">Renk Kodu</label>
+                                <input type="text" class="form-control" id="editColorCode" name="ColorCode">
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <label for="editItemDim1Code" class="form-label">Beden</label>
+                                <input type="text" class="form-control" id="editItemDim1Code" name="ItemDim1Code">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3 mb-3">
+                                <label for="editItemDescription" class="form-label">Ürün Açıklaması</label>
+                                <input type="text" class="form-control" id="editItemDescription" name="ItemDescription">
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <label for="editColorCatalogDescription" class="form-label">Renk Açıklaması</label> <!-- Burada değişiklik yapıldı -->
+                                <input type="text" class="form-control" id="editColorCatalogDescription" name="ColorCatalogDescription"> <!-- Burada değişiklik yapıldı -->
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <label for="editItemCostPrice" class="form-label">Ürün Maliyet Fiyatı</label>
+                                <input type="text" class="form-control" id="editItemCostPrice" name="ItemCostPrice">
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <label for="editShippingCostPrice" class="form-label">Gönderim Bedeli</label>
+                                <input type="text" class="form-control" id="editShippingCostPrice" name="ShippingCostPrice">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3 mb-3">
+                                <label for="editQty1" class="form-label">Adet</label>
+                                <input type="text" class="form-control" id="editQty1" name="Qty1">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3 mb-3">
+                                <label for="editSendDate" class="form-label">Gönderim Tarihi</label>
+                                <input type="date" class="form-control" id="editSendDate" name="SendDate">
+                            </div>
+                        </div>
+                        <div class="text-end">
+                            <button type="submit" class="btn btn-primary">Kaydet</button>
+                        </div>
+                    </div>
+                    <!-- Paylaşım Bilgileri -->
+                  <!-- Paylaşım Bilgileri -->
+                  <div class="mb-3">
+                        <h6 class="p-2">Paylaşım Bilgileri</h6>
+                        <hr>
+                        <div class="row">
+                            <div class="col-md-3 mb-3">
+                                <label for="editPlatformCode" class="form-label">Platform Kodu</label>
+                                <input type="text" class="form-control" id="editPlatformCode" name="PlatformCode">
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <label for="editPlatformName" class="form-label">Platform Adı</label>
+                                <input type="text" class="form-control" id="editPlatformName" name="PlatformName">
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <label for="editContentCode" class="form-label">İçerik Kodu</label>
+                                <input type="text" class="form-control" id="editContentCode" name="ContentCode">
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <label for="editContentName" class="form-label">İçerik Adı</label>
+                                <input type="text" class="form-control" id="editContentName" name="ContentName">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3 mb-3">
+                                <label for="editShareDate" class="form-label">Paylaşım Tarihi</label>
+                                <input type="date" class="form-control" id="editShareDate" name="ShareDate">
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <label for="editLikeCount" class="form-label">Beğeni Sayısı</label>
+                                <input type="text" class="form-control" id="editLikeCount" name="LikeCount">
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <label for="editViewCount" class="form-label">Görüntüleme Sayısı</label>
+                                <input type="text" class="form-control" id="editViewCount" name="ViewCount">
+                            </div>
+                        </div>
+                        <div class="text-end">
+                            <button type="button" id="shareSaveButton" class="btn btn-primary">Paylaşım Kaydet</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 
     <nav class="sidebar close">
         <header>
@@ -161,7 +273,7 @@
 
         <div class="container ml-5" >
             <div id="tableContainer" class="table-response" >
-                <table id="MyTable" style="margin: 0.2rem;border:0.1px solid;"  class="table  table-striped">
+                <table id="MyTable" style="border:0.1px solid;"  class="table  table-striped">
                     
                 </table>
                 <a href="./TransferAdd.php" class="btn btn-primary">Transfer Ekle</a>
@@ -177,7 +289,9 @@
     <script src="../js/app.js"></script>
     <script src="../js/TransferHeader.js"></script>
     <script src="../js/TransferDataTableSeedingLine.js"></script>
-    <script src="../js/TransferPostLine.js"></script>
+    <script src="../js/TransferPostLine.js"></script> 
+    <script src="../js/TransferLinePlatform.js"></script> 
+    <script src="../js/TransferUpdate.js"></script>
 
  
        

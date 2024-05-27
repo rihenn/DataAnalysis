@@ -1,5 +1,4 @@
 <?php
-
 // Bağlantı bilgilerini içeren dosyayı dahil et
 require_once '../conn/DevTechcon.php';
 
@@ -8,11 +7,30 @@ $conn = sqlsrv_connect($serverName, $connectionOptions);
 
 // Eğer bağlantı sağlandıysa
 if ($conn) {
-    // Değişkenlerin tanımlanması
-    $currentYear = 2024;
-    $totalBudget = 40000;
+    // POST ile gelen yıl verisini al
+    $currentYear = isset($_POST['year']) ? intval($_POST['year']) : 2024; // Varsayılan yıl 2024
+    $totalBudget =0;
     $createdUserName = 'admin';
     $isActive = 1;
+
+    // Veritabanında o yıla ait veri olup olmadığını kontrol et
+    $checkSql = "SELECT COUNT(*) AS count FROM MonthlyBudget WHERE YEAR(StartDate) = ?";
+    $checkParams = array($currentYear);
+    $checkStmt = sqlsrv_query($conn, $checkSql, $checkParams);
+
+    // Sorgu başarılı bir şekilde çalıştıysa
+    if ($checkStmt !== false) {
+        $rowCount = sqlsrv_fetch_array($checkStmt, SQLSRV_FETCH_ASSOC)['count'];
+        if ($rowCount > 0) {
+            // Eğer o yıla ait veri zaten varsa işlem yapmadan önce hata mesajı göster ve işlemi sonlandır
+            echo json_encode(array("success" => false, "message" => "Seçilen yıl zaten veritabanında mevcut."));
+            exit;
+        }
+    } else {
+        // Hata durumunda hata mesajını döndür ve işlemi sonlandır
+        echo json_encode(array("success" => false, "error" => "Veritabanında yıl kontrolü yapılırken bir hata oluştu: " . print_r(sqlsrv_errors(), true)));
+        exit;
+    }
 
     // Ay döngüsü
     for ($month = 1; $month <= 12; $month++) {
@@ -21,16 +39,17 @@ if ($conn) {
         $endDate = date_create("$currentYear-$month-01")->modify('last day of')->format('Y-m-d');
 
         // Veritabanına ekleme sorgusu
-        $sql = "INSERT INTO MonthlyBudget (ID, StartDate, EndDate, TotalBudget,SpentBudget, LastTransferNumber, CreatedUserName, CreatedDate, LastUpdatedUserName, LastUpdatedDate, IsActive)
-                VALUES (NEWID(), ?, ?, ?,0, '', ?, GETDATE(), ?, GETDATE(), ?)";
+        $sql = "INSERT INTO MonthlyBudget (ID, StartDate, EndDate, TotalBudget, SpentBudget, LastTransferNumber, CreatedUserName, CreatedDate, LastUpdatedUserName, LastUpdatedDate, IsActive)
+                VALUES (NEWID(), ?, ?, ?, ?, '', ?, GETDATE(), ?, GETDATE(), ?) ";
         
-        $params = array($startDate, $endDate, $totalBudget, $createdUserName, $createdUserName, $isActive);
+        $params = array($startDate, $endDate, $totalBudget, $totalBudget, $createdUserName, $createdUserName, $isActive);
         $stmt = sqlsrv_query($conn, $sql, $params);
 
         // Sorgu başarılı bir şekilde çalıştıysa
         if ($stmt === false) {
-            echo "Error in statement execution.\n";
-            die(print_r(sqlsrv_errors(), true));
+            // Hata durumunda hata mesajını döndür ve işlemi sonlandır
+            echo json_encode(array("success" => false, "error" => "Yıl ekleme sırasında bir hata oluştu: " . print_r(sqlsrv_errors(), true)));
+            exit;
         }
     }
 
@@ -38,9 +57,8 @@ if ($conn) {
     sqlsrv_close($conn);
 
     // Başarılı bir şekilde işlem yapıldığını bildiren JSON yanıtı döndür
-    echo json_encode(array("success" => true));
+    echo json_encode(array("success" => true, "message" => "Yıl başarıyla eklendi."));
 } else {
     // Bağlantı kurulamazsa hata mesajı göster
-    echo json_encode(array("success" => false, "error" => "Connection could not be established: " . print_r(sqlsrv_errors(), true)));
+    echo json_encode(array("success" => false, "error" => "Bağlantı kurulamadı: " . print_r(sqlsrv_errors(), true)));
 }
-?>

@@ -16,7 +16,6 @@ toastr.options = {
     "hideMethod": "fadeOut"
 };
 
-
 $(document).ready(function() {
     // "Post" butonuna tıklama işlemini yakala ve ikinci modalı aç
     $('#detailsTable').on('click', '.btn-action', function() {
@@ -30,6 +29,8 @@ $(document).ready(function() {
 
         // İkinci modalı aç
         $('#popupModal1').modal('show');
+
+        console.log('Paylaşım Modülü açıldı');
     });
 
     // Formun gönderilmesi işlemi
@@ -44,10 +45,37 @@ $(document).ready(function() {
         var WievCount = document.querySelector('[name="WievCount"]').value;
         var ContentCode = document.querySelector('[name="ContentCode"]').value;
 
+        // Konsola yazdırarak form verilerini kontrol et
+        console.log('TransferNumber:', transferNumber);
+        console.log('Barcode:', barcode);
+        console.log('PlatformCode:', PlatformCode);
+        console.log('PlatformName:', PlatformName);
+        console.log('ContentName:', ContentName);
+        console.log('ShareDate:', ShareDate);
+        console.log('LikeCount:', LikeCount);
+        console.log('WievCount:', WievCount);
+        console.log('ContentCode:', ContentCode);
+
         // ShareDate formatını kontrol et ve dönüştür
         var formattedShareDate = moment(ShareDate, 'YYYY-MM-DD').format('YYYY-MM-DD');
 
-        if (PlatformCode && PlatformName && ContentName && formattedShareDate && LikeCount && WievCount) {
+        // Eksik alanları kontrol et ve konsola yazdır
+        var missingFields = [];
+        if (!PlatformCode) missingFields.push('PlatformCode');
+        if (!PlatformName) missingFields.push('PlatformName');
+        if (!ContentName) missingFields.push('ContentName');
+        if (!formattedShareDate) missingFields.push('ShareDate');
+        if (!LikeCount) missingFields.push('LikeCount');
+        if (!WievCount) missingFields.push('WievCount');
+        if (!ContentCode) missingFields.push('ContentCode');
+
+        if (missingFields.length > 0) {
+            console.log('Eksik alanlar: ', missingFields.join(', '));
+            toastr.warning('Lütfen Eksik Bilgileri Giriniz.');
+            return;
+        }
+
+        if (PlatformCode && PlatformName && ContentName && formattedShareDate && LikeCount && WievCount && ContentCode) {
             var data = {
                 transferNumber,
                 barcode, // Barkod verisini ekle
@@ -87,5 +115,15 @@ $(document).ready(function() {
         } else {
             toastr.warning('Lütfen Eksik Bilgileri Giriniz.');
         }
+    });
+
+    // Modal kapandığında form alanlarını sıfırla
+    $('#popupModal1').on('hidden.bs.modal', function () {
+        // Modal içindeki formu resetle
+        $(this).find('form')[0].reset();
+        // Eğer form yoksa inputları resetle
+        $(this).find('input').val('');
+        $(this).find('textarea').val('');
+        $(this).find('select').val('');
     });
 });
