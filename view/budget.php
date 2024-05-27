@@ -237,7 +237,7 @@
                 <div class="container mt-5">
 
                     <div class="d-flex justify-content-between">
-                        <h2 class="text-start">Bütçe Durumu</h2>
+                        <h2 class="text-start">Mevcut Ay Bütçe Dürümü</h2>
                         <h2 id="SpentBudgetSpan" class="text-end">SpentBudgetSpan</h2>
                     </div>
                     <div class="progress">
@@ -245,7 +245,7 @@
                             aria-valuemin="0" aria-valuemax="100">100%</div>
                     </div>
                     <div class="container mt-5">
-                        <div class="chart-label" style="">
+                        <div class="chart-label" >
                             <h4 style="display: inline;" id="yearIndicator"></h4>
                             <h4 style="display: inline;"> Yılı Verileri</h4>
                         </div>
@@ -284,9 +284,11 @@
             progressBar.setAttribute('aria-valuenow', percentage);
             progressBar.textContent = percentage + '%';
             if (percentage < 10 && percentage > 0) {
-                toastr.warning("Bütçenizin %10'undan az kaldı!");
+                toastr.warning("Bütçeniz %10'dan Az Kaldı!");
             } if (percentage == 0) {
-                toastr.error("Bütçenizin bitmiştir!");
+                toastr.error("Bütçenizin Bitmiştir!");
+            } if (percentage < 0) {
+                toastr.error("Bütçeniz Eksiye Düşmüştür!");
             }
         }
 
@@ -372,7 +374,7 @@
                                 borderWidth: 1
                             },
                             {
-                                label: 'kalan Bütçe',
+                                label: 'Kalan Bütçe',
                                 data: spentBudget,
                                 backgroundColor: 'rgba(255, 99, 132, 0.2)',
                                 borderColor: 'rgba(255, 99, 132, 1)',

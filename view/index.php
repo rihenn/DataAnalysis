@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="https://cdn.datatables.net/v/bs5/dt-2.0.7/datatables.min.css" rel="stylesheet">
     <style>
-         .truncate {
+        .truncate {
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
@@ -26,6 +26,7 @@
             display: inline-block;
             vertical-align: middle;
         }
+
         .more-link {
             cursor: pointer;
             color: blue;
@@ -68,18 +69,16 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="popupModalLabel">Kart Ekle</h5>
+                    <h5 class="modal-title" id="popupModalLabel">Özellik Tipi Ekle</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form id="insertForm" action="../query/insert.php" method="post">
-                    <input class="border form-control mb-3" type="text" id="AttributeName" name="AttributeName"
-                            placeholder="AttributeName">
-
-                        <input class="border form-control mb-3" type="text" id="Attribute" name="Attribute"
-                            placeholder="Attribute">
-
-                        <button class="btn btn-dark" type="submit" id="saveButton">Kaydet</button>
+                    <form id="insertFormAttribute" action="javascript:void(0);">
+                        <input class="border form-control mb-3" type="text" id="AttributeTypeCode"
+                            name="AttributeTypeCode" placeholder="Özellik Tip Kodu">
+                        <input class="border form-control mb-3" type="text" id="AttributeTypeName"
+                            name="AttributeTypeName" placeholder="Özellik Tip Adı">
+                        <button class="btn btn-dark" type="submit" id="saveAttributeButton">Kaydet</button>
                     </form>
                 </div>
             </div>
@@ -183,17 +182,12 @@
         <div class="container ml-5">
             <div id="tableContainer" class="table-response">
                 <table id="MyTable" style="border:0.1px solid;" class="table  table-striped">
-
-
                 </table>
                 <button class="btn btn-primary toggle-button toggle-button1 me-2" data-bs-toggle="modal"
-                    data-bs-target="#popupModal">İnfluecer Ekle</button>
-                    <button class="btn btn-primary " 
-                    id="AttributepopupBtn">Attribute Ekle</button>
+                    data-bs-target="#popupModal">Kart Ekle</button>
+                <button class="btn btn-primary" id="AttributepopupBtn">Özellik Tipi Ekle</button>
             </div>
         </div>
-
-
     </section>
     <!-- JavaScript dosyası -->
 
@@ -203,37 +197,65 @@
         integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <script src="https://cdn.datatables.net/v/bs5/dt-2.0.7/datatables.min.js"></script>
+    <script src="../js/AttributeTypeInsert.js"></script>
     <script>
         // Kart ekle butonuna tıklama olayı ekle
-        $('#kartEkleButton').on('click', function () {
+        $('#kartEkleButton').on('click', function() {
             // Popup modal'i aç
             $('#popupModal').modal('show');
         });
-         // Kart ekle butonuna tıklama olayı ekle
-         $('#AttributepopupBtn').on('click', function () {
-            // Popup modal'i aç
-            $('#AttributepopupModal').modal('show');
-        });
     </script>
     <script>
-
         $('#MyTable').DataTable({
             scrollX: true,
             ajax: {
                 url: '../DataGetCdInfluecer.php',
                 dataSrc: '' // Sunucudan gelen JSON verilerinin doğrudan kullanılacağını belirtir
             },
-            columns: [
-                { data: 'Code', title: 'Inf Kodu', width: '150px', className: 'dt-center' },
-                { data: 'FirstName', title: 'Adı', width: '150px', className: 'dt-center' },
-                { data: 'LastName', title: 'Soyadı', width: '150px', className: 'dt-center' },
-                { data: 'CountryCode', title: 'Ülke Kodu', width: '150px', className: 'dt-center' },
-                { data: 'Country', title: 'Ülke', width: '150px', className: 'dt-center' },
-                { data: 'City', title: 'Şehir', width: '150px', className: 'dt-center' },
-                { data: 'Address', title: 'Adres', width: '200px', className: 'dt-center' }
+            columns: [{
+                    data: 'Code',
+                    title: 'Inf Kodu',
+                    width: '150px',
+                    className: 'dt-center'
+                },
+                {
+                    data: 'FirstName',
+                    title: 'Adı',
+                    width: '150px',
+                    className: 'dt-center'
+                },
+                {
+                    data: 'LastName',
+                    title: 'Soyadı',
+                    width: '150px',
+                    className: 'dt-center'
+                },
+                {
+                    data: 'CountryCode',
+                    title: 'Ülke Kodu',
+                    width: '150px',
+                    className: 'dt-center'
+                },
+                {
+                    data: 'Country',
+                    title: 'Ülke',
+                    width: '150px',
+                    className: 'dt-center'
+                },
+                {
+                    data: 'City',
+                    title: 'Şehir',
+                    width: '150px',
+                    className: 'dt-center'
+                },
+                {
+                    data: 'Address',
+                    title: 'Adres',
+                    width: '200px',
+                    className: 'dt-center'
+                }
             ],
-            "columnDefs": [
-            {
+            "columnDefs": [{
                 "targets": 6, // Address sütunu
                 "render": function(data, type, row, meta) {
                     if (type === 'display') {
@@ -243,10 +265,8 @@
                     }
                     return data;
                 }
-            }
-        ],
+            }],
             language: {
-
                 "info": "_TOTAL_ kayıttan _START_ - _END_ arasındaki kayıtlar gösteriliyor",
                 "infoEmpty": "Kayıt yok",
                 "infoFiltered": "(_MAX_ kayıt içerisinden bulunan)",
@@ -497,15 +517,11 @@
             },
         });
         $('#MyTable tbody').on('click', 'span.more-link', function() {
-        var $this = $(this);
-        var $cell = $this.closest('td');
-        var fullText = $cell.text().replace('...', ''); // "..." kısmını çıkar
-        $cell.html(fullText); // Tam metni hücreye yerleştir
-    });
-
-    </script>
-    <script>
-
+            var $this = $(this);
+            var $cell = $this.closest('td');
+            var fullText = $cell.text().replace('...', ''); // "..." kısmını çıkar
+            $cell.html(fullText); // Tam metni hücreye yerleştir
+        });
     </script>
 </body>
 

@@ -31,7 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             WHERE YEAR(StartDate) = ? AND MONTH(StartDate) = ?";
 
     // Veritabanı bağlantısını kullanarak sorguyu hazırlayın
-    $params = array($updatedTotalBudget, $spentBudget, $year, $selectedMonth);
+    $params = array($updatedTotalBudget, $updatedTotalBudget, $year, $selectedMonth);
     $stmt = sqlsrv_prepare($conn, $sql, $params);
 
     // Sorguyu çalıştırın

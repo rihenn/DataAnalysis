@@ -60,29 +60,44 @@ if (isset($data['transferNumber']) && isset($data['barcode'])) {
 
     if ($stmtUpdate) {
         if (sqlsrv_execute($stmtUpdate)) {
-            // Bütçe tablosunu güncelle
-            $sqlUpdateBudget = "
-                UPDATE MonthlyBudget 
-                SET SpentBudget = SpentBudget - ?, 
-                    LastTransferNumber = ?, 
-                    LastLineID = (SELECT SendingLineID FROM trSendingLine WHERE TransferNumber = ? AND Barcode = ?),
-                    LastUpdatedUserName = 'admin', 
-                    LastUpdatedDate = GETDATE()
-                WHERE MONTH(StartDate) = MONTH(?) AND YEAR(StartDate) = YEAR(?)
-            ";
+            // trSendingHeader tablosunu güncelle
+            $sqlUpdateHeader = "UPDATE trSendingHeader
+                                SET ShippingCostPrice = ?
+                                WHERE TransferNumber = ?";
+            $paramsUpdateHeader = array($shippingCostPrice, $transferNumber);
+            $stmtUpdateHeader = sqlsrv_prepare($conn, $sqlUpdateHeader, $paramsUpdateHeader);
 
-            $paramsUpdateBudget = array($costDifference, $transferNumber, $transferNumber, $barcode, $sendDate, $sendDate);
+            if ($stmtUpdateHeader) {
+                if (sqlsrv_execute($stmtUpdateHeader)) {
+                    // Bütçe tablosunu güncelle
+                    $sqlUpdateBudget = "
+                        UPDATE MonthlyBudget 
+                        SET SpentBudget = SpentBudget - ?, 
+                            LastTransferNumber = ?, 
+                            LastLineID = (SELECT SendingLineID FROM trSendingLine WHERE TransferNumber = ? AND Barcode = ?),
+                            LastUpdatedUserName = 'admin', 
+                            LastUpdatedDate = GETDATE()
+                        WHERE MONTH(StartDate) = MONTH(?) AND YEAR(StartDate) = YEAR(?)
+                    ";
 
-            $stmtUpdateBudget = sqlsrv_prepare($conn, $sqlUpdateBudget, $paramsUpdateBudget);
+                    $paramsUpdateBudget = array($costDifference, $transferNumber, $transferNumber, $barcode, $sendDate, $sendDate);
 
-            if ($stmtUpdateBudget) {
-                if (sqlsrv_execute($stmtUpdateBudget)) {
-                    echo json_encode(['status' => 'success']);
+                    $stmtUpdateBudget = sqlsrv_prepare($conn, $sqlUpdateBudget, $paramsUpdateBudget);
+
+                    if ($stmtUpdateBudget) {
+                        if (sqlsrv_execute($stmtUpdateBudget)) {
+                            echo json_encode(['status' => 'success']);
+                        } else {
+                            echo json_encode(['status' => 'error', 'message' => 'Bütçe güncelleme başarısız: ' . print_r(sqlsrv_errors(), true)]);
+                        }
+                    } else {
+                        echo json_encode(['status' => 'error', 'message' => 'Bütçe güncelleme hazırlama başarısız: ' . print_r(sqlsrv_errors(), true)]);
+                    }
                 } else {
-                    echo json_encode(['status' => 'error', 'message' => 'Bütçe güncelleme başarısız: ' . print_r(sqlsrv_errors(), true)]);
+                    echo json_encode(['status' => 'error', 'message' => 'Header güncelleme başarısız: ' . print_r(sqlsrv_errors(), true)]);
                 }
             } else {
-                echo json_encode(['status' => 'error', 'message' => 'Bütçe güncelleme hazırlama başarısız: ' . print_r(sqlsrv_errors(), true)]);
+                echo json_encode(['status' => 'error', 'message' => 'Header güncelleme hazırlama başarısız: ' . print_r(sqlsrv_errors(), true)]);
             }
         } else {
             echo json_encode(['status' => 'error', 'message' => 'Veri güncelleme başarısız: ' . print_r(sqlsrv_errors(), true)]);
