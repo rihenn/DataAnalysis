@@ -21,37 +21,41 @@ $(document).ready(function() {
 
     // "Özellik Tipi Ekle" butonuna tıklama işlemini yakala ve modalı aç
     $('#AttributepopupBtn').on('click', function() {
-        console.log("Modal açılıyor"); // Butona tıklanıldığını kontrol edin
         $('#AttributepopupModal').modal('show');
     });
 
-    // "Kaydet" butonuna tıklama işlemini yakala
-    $('#insertForm').on('submit', function(event) {
+   // "Kaydet" butonuna tıklama işlemini yakala
+    $('#saveAttributeButton').on('click', function(event) {
+      
         event.preventDefault(); // Formun kendi kendine submit olmasını engelle
-        console.log("Form submit edildi"); // Formun submit edildiğini kontrol edin
+
 
         // Form alanlarından verileri al
-        var attributeTypeCode = $('#AttributeTypeCode').val();
-        var attributeTypeName = $('#AttributeTypeName').val();
+        var AttributeTypeCode2 = $('#AttributeTypeCode2').val();
+        var AttributeCode = $('#AttributeCode').val();
+        var AttributeName = $('#AttributeName').val();
+        var Attribute = $('#Attribute').val();
 
         // Gerekli alanların dolu olup olmadığını kontrol et
-        if (!attributeTypeCode || !attributeTypeName) {
+        if (!AttributeTypeCode2 || !AttributeName || !AttributeCode || !Attribute) {
             toastr.warning('Lütfen tüm alanları doldurunuz.');
-            console.log("Boş alanlar var"); // Boş alanların kontrolü
+        
             return;
         }
 
-        console.log("Veriler alındı:", { attributeTypeCode, attributeTypeName }); // Alınan verileri kontrol edin
+        console.log("Veriler alındı:", { AttributeTypeCode2, AttributeName }); // Alınan verileri kontrol edin
 
         // Verileri JSON formatına dönüştür
         var data = {
-            AttributeTypeCode: attributeTypeCode,
-            AttributeTypeName: attributeTypeName
+            AttributeTypeCode2: AttributeTypeCode2,
+            AttributeCode: AttributeCode,
+            AttributeName: AttributeName,
+            Attribute: Attribute
         };
 
-        // AJAX isteği gönder
+        //AJAX isteği gönder
         $.ajax({
-            url: '../query/InsertAttributeType.php',
+            url: '../query/InfluecerAttribute.php',
             type: 'POST',
             contentType: 'application/json; charset=UTF-8',
             data: JSON.stringify(data),

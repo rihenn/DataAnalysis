@@ -23,15 +23,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
     
     // Güncellenecek bütçeyi hesapla
-    $TotalBudget = $TotalBudgetbefore - $spentBudget;
-    $updatedTotalBudget = $budget -$TotalBudgetbefore;
+    $TotalBudget1 = $TotalBudgetbefore - $spentBudget;
+    $updatedTotalBudget = $budget -$TotalBudget1;
     // SQL ifadesini hazırlayın
     $sql = "UPDATE MonthlyBudget 
             SET TotalBudget = ?, SpentBudget = ?, LastUpdatedUserName = 'admin', LastUpdatedDate = SYSDATETIME()
             WHERE YEAR(StartDate) = ? AND MONTH(StartDate) = ?";
 
     // Veritabanı bağlantısını kullanarak sorguyu hazırlayın
-    $params = array($updatedTotalBudget, $updatedTotalBudget, $year, $selectedMonth);
+    $params = array($budget, $updatedTotalBudget, $year, $selectedMonth);
     $stmt = sqlsrv_prepare($conn, $sql, $params);
 
     // Sorguyu çalıştırın

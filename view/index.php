@@ -22,7 +22,8 @@
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
-            max-width: 150px; /* Sütun genişliği ayarlanabilir */
+            max-width: 150px;
+            /* Sütun genişliği ayarlanabilir */
             display: inline-block;
             vertical-align: middle;
         }
@@ -65,7 +66,8 @@
         </div>
     </div>
 
-    <div class="modal fade" id="AttributepopupModal" tabindex="-1" aria-labelledby="popupModalLabel" aria-hidden="true">
+    <div class="modal fade" id="AttributeTypepopupModal" tabindex="-1" aria-labelledby="popupModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -73,17 +75,50 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form id="insertFormAttribute" action="javascript:void(0);">
+                    <form id="insertFormAttributeType" action="javascript:void(0);">
                         <input class="border form-control mb-3" type="text" id="AttributeTypeCode"
                             name="AttributeTypeCode" placeholder="Özellik Tip Kodu">
                         <input class="border form-control mb-3" type="text" id="AttributeTypeName"
                             name="AttributeTypeName" placeholder="Özellik Tip Adı">
-                        <button class="btn btn-dark" type="submit" id="saveAttributeButton">Kaydet</button>
+                        <button class="btn btn-dark" id="saveAttributeTypeButton">Kaydet</button>
                     </form>
                 </div>
             </div>
         </div>
     </div>
+
+    <div class="modal fade" id="AttributepopupModal" tabindex="-1" aria-labelledby="popupModalLabel" aria-hidden="true">
+        <div class="modal-dialog" style="--bs-modal-width: 30% !important">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="popupModalLabel">Özellik Ekle</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="container">
+                        <div class="row">
+                            <div class="table-container">
+                                <table id="AttributetypeTable" class="table table-response">
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <form id="insertFormAttribute" action="javascript:void(0);">
+                        <input class="border form-control mb-3 AttributeTypeCode2" type="text" id="AttributeTypeCode2"
+                            name="AttributeTypeCode2" placeholder="Özellik Tip Kodu">
+                        <input class="border form-control mb-3" type="text" id="AttributeCode" name="AttributeCode"
+                            placeholder="Özellik Kodu">
+                        <input class="border form-control mb-3 AttributeName" type="text" id="AttributeName" name="AttributeName"
+                            placeholder="Özellik Adı">
+                        <input class="border form-control mb-3" type="text" id="Attribute" name="Attribute"
+                            placeholder="Özellik ">
+                        <button class="btn btn-dark" id="saveAttributeButton">Kaydet</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
     <nav class="sidebar close">
         <header>
@@ -185,7 +220,8 @@
                 </table>
                 <button class="btn btn-primary toggle-button toggle-button1 me-2" data-bs-toggle="modal"
                     data-bs-target="#popupModal">Kart Ekle</button>
-                <button class="btn btn-primary" id="AttributepopupBtn">Özellik Tipi Ekle</button>
+                <button class="btn btn-primary" id="AttributeTypepopupBtn">Özellik Tipi Ekle</button>
+                <button class="btn btn-primary" id="AttributepopupBtn">Özellik Ekle</button>
             </div>
         </div>
     </section>
@@ -197,10 +233,12 @@
         integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <script src="https://cdn.datatables.net/v/bs5/dt-2.0.7/datatables.min.js"></script>
-    <script src="../js/AttributeTypeInsert.js"></script>
+    <script src="../js/InfluecerAttribute.js"></script>
+    <script src="../js/InfluecerAttributeTypeDatatable.js"></script>
+    <script src="../js/InfluecerAttributeTypeInsert.js"></script>
     <script>
         // Kart ekle butonuna tıklama olayı ekle
-        $('#kartEkleButton').on('click', function() {
+        $('#kartEkleButton').on('click', function () {
             // Popup modal'i aç
             $('#popupModal').modal('show');
         });
@@ -213,51 +251,51 @@
                 dataSrc: '' // Sunucudan gelen JSON verilerinin doğrudan kullanılacağını belirtir
             },
             columns: [{
-                    data: 'Code',
-                    title: 'Inf Kodu',
-                    width: '150px',
-                    className: 'dt-center'
-                },
-                {
-                    data: 'FirstName',
-                    title: 'Adı',
-                    width: '150px',
-                    className: 'dt-center'
-                },
-                {
-                    data: 'LastName',
-                    title: 'Soyadı',
-                    width: '150px',
-                    className: 'dt-center'
-                },
-                {
-                    data: 'CountryCode',
-                    title: 'Ülke Kodu',
-                    width: '150px',
-                    className: 'dt-center'
-                },
-                {
-                    data: 'Country',
-                    title: 'Ülke',
-                    width: '150px',
-                    className: 'dt-center'
-                },
-                {
-                    data: 'City',
-                    title: 'Şehir',
-                    width: '150px',
-                    className: 'dt-center'
-                },
-                {
-                    data: 'Address',
-                    title: 'Adres',
-                    width: '200px',
-                    className: 'dt-center'
-                }
+                data: 'Code',
+                title: 'Inf Kodu',
+                width: '150px',
+                className: 'dt-center'
+            },
+            {
+                data: 'FirstName',
+                title: 'Adı',
+                width: '150px',
+                className: 'dt-center'
+            },
+            {
+                data: 'LastName',
+                title: 'Soyadı',
+                width: '150px',
+                className: 'dt-center'
+            },
+            {
+                data: 'CountryCode',
+                title: 'Ülke Kodu',
+                width: '150px',
+                className: 'dt-center'
+            },
+            {
+                data: 'Country',
+                title: 'Ülke',
+                width: '150px',
+                className: 'dt-center'
+            },
+            {
+                data: 'City',
+                title: 'Şehir',
+                width: '150px',
+                className: 'dt-center'
+            },
+            {
+                data: 'Address',
+                title: 'Adres',
+                width: '200px',
+                className: 'dt-center'
+            }
             ],
             "columnDefs": [{
                 "targets": 6, // Address sütunu
-                "render": function(data, type, row, meta) {
+                "render": function (data, type, row, meta) {
                     if (type === 'display') {
                         var truncatedData = '<span class="truncate">' + data + '</span>';
                         var moreLink = ' <span class="more-link link-dark">...</span>';
@@ -516,7 +554,7 @@
 
             },
         });
-        $('#MyTable tbody').on('click', 'span.more-link', function() {
+        $('#MyTable tbody').on('click', 'span.more-link', function () {
             var $this = $(this);
             var $cell = $this.closest('td');
             var fullText = $cell.text().replace('...', ''); // "..." kısmını çıkar

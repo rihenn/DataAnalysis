@@ -85,7 +85,7 @@
                     <div class="container">
                         <div class="row">
                             <div class="d-flex justify-content-center col">
-                                <div class="scroll-picker col-12" >
+                                <div class="scroll-picker col-12">
                                     <ul>
                                         <!-- Yıllar dinamik olarak JavaScript ile eklenecek -->
                                     </ul>
@@ -123,13 +123,13 @@
                             </div>
                         </div>
                         <div class="row mt-3"> <!-- mt-3 sınıfı ile üst kısımdan biraz boşluk ekleyebiliriz -->
-                        
-                        <div class="d-flex justify-content-center col">
-                            <div class="flex">
-                                <input type="text" id="budgetInput" class="form-control active">
+
+                            <div class="d-flex justify-content-center col">
+                                <div class="flex">
+                                    <input type="text" id="budgetInput" class="form-control active">
+                                </div>
                             </div>
                         </div>
-                    </div>
                         <div class="row mt-3"> <!-- mt-3 sınıfı ile üst kısımdan biraz boşluk ekleyebiliriz -->
 
                             <div class="d-flex justify-content-center col">
@@ -144,12 +144,6 @@
         </div>
     </div>
 
-    <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kapat</button>
-    </div>
-    </div>
-    </div>
-    </div>
     <nav class="sidebar close">
         <header>
             <div class="image-text">
@@ -245,7 +239,7 @@
                             aria-valuemin="0" aria-valuemax="100">100%</div>
                     </div>
                     <div class="container mt-5">
-                        <div class="chart-label" >
+                        <div class="chart-label">
                             <h4 style="display: inline;" id="yearIndicator"></h4>
                             <h4 style="display: inline;"> Yılı Verileri</h4>
                         </div>
@@ -352,7 +346,7 @@
                     const difference = totalBudget[i] - spentBudget[i];
                     budgetDifferences.push(difference);
                 }
-                console.log(budgetDifferences);
+
                 const date = data.map(item => item.StartDate.date);
                 if (date.length > 0) {
                     const year = new Date(date[0]).getFullYear();
@@ -385,10 +379,10 @@
                                 data: budgetDifferences,
                                 backgroundColor: 'rgba(255, 255, 0, 0.5)',
                                 borderColor: 'rgba(255, 255, 0, 1)',
-                               
+
                                 borderWidth: 1
                             }
-                          
+
                         ]
                     },
                     options: {
@@ -430,7 +424,7 @@
                 if (!isNaN(currentYear)) {
                     var dateCurrent = currentYear - 1
                     fetchDataAndUpdateUI(`../DataGetBudgetGrafik.php?year=${dateCurrent}`);
-                    
+
                     toastr.info(`${dateCurrent} yılının verileri`);
                 } else {
                     console.error('Invalid current year:', currentYearText);
@@ -458,86 +452,86 @@
                     console.error('Invalid current year:', currentYearText);
                 }
             });
-         
+
             // Initial data fetch and UI update
             const currentYear = new Date().getFullYear();
             toastr.info(`${currentYear} yılının verileri`);
             fetchDataAndUpdateUI(`../DataGetBudgetGrafik.php?year=${currentYear}`);
         });
 
-       document.addEventListener("DOMContentLoaded", function () {
-    // Kart ekle butonuna tıklama olayı ekle
-    $('#YearAddBtn').on('click', function () {
-        // Popup modal'i aç
-        $('#popupModal').modal('show');
-    });
-    $('#BudgetAddBtn').on('click', function () {
-        // Popup modal'i aç
-        $('#BudgetAddpopupModal').modal('show');
-    });
+        document.addEventListener("DOMContentLoaded", function () {
+            // Kart ekle butonuna tıklama olayı ekle
+            $('#YearAddBtn').on('click', function () {
+                // Popup modal'i aç
+                $('#popupModal').modal('show');
+            });
+            $('#BudgetAddBtn').on('click', function () {
+                // Popup modal'i aç
+                $('#BudgetAddpopupModal').modal('show');
+            });
 
-    // JavaScript ile yılların dinamik olarak eklenmesi
-    var currentYear = new Date().getFullYear();
-    var yearList = document.querySelector('.scroll-picker ul');
+            // JavaScript ile yılların dinamik olarak eklenmesi
+            var currentYear = new Date().getFullYear();
+            var yearList = document.querySelector('.scroll-picker ul');
 
-    // 5 yıl geriye ve 5 yıl ileriye yılları ekleme
-    for (var i = currentYear - 2; i <= currentYear + 2; i++) {
-        var listItem = document.createElement('li');
-        listItem.textContent = i;
+            // 5 yıl geriye ve 5 yıl ileriye yılları ekleme
+            for (var i = currentYear - 2; i <= currentYear + 2; i++) {
+                var listItem = document.createElement('li');
+                listItem.textContent = i;
 
-        // Aktif yılı belirleme
-        if (i === currentYear) {
-            listItem.classList.add('active');
-        }
+                // Aktif yılı belirleme
+                if (i === currentYear) {
+                    listItem.classList.add('active');
+                }
 
-        yearList.appendChild(listItem);
-    }
+                yearList.appendChild(listItem);
+            }
 
-    // Ayların dinamik olarak eklenmesi
-    var currentMonth = new Date().getMonth();
-    var MonthList = document.querySelector('#ScrollPicker ul');
-    var months = ['Ocak', 'Şubat', 'Mart', 'Nisan', 'Mayıs', 'Haziran', 'Temmuz', 'Ağustos', 'Eylül', 'Ekim', 'Kasım', 'Aralık'];
+            // Ayların dinamik olarak eklenmesi
+            var currentMonth = new Date().getMonth();
+            var MonthList = document.querySelector('#ScrollPicker ul');
+            var months = ['Ocak', 'Şubat', 'Mart', 'Nisan', 'Mayıs', 'Haziran', 'Temmuz', 'Ağustos', 'Eylül', 'Ekim', 'Kasım', 'Aralık'];
 
-    for (var i = 0; i < months.length; i++) {
-        var listItem = document.createElement('li');
-        listItem.textContent = months[i];
+            for (var i = 0; i < months.length; i++) {
+                var listItem = document.createElement('li');
+                listItem.textContent = months[i];
 
-        // Aktif ayı belirleme
-        if (i === currentMonth) {
-            listItem.classList.add('active');
-        }
+                // Aktif ayı belirleme
+                if (i === currentMonth) {
+                    listItem.classList.add('active');
+                }
 
-        MonthList.appendChild(listItem);
-    }
+                MonthList.appendChild(listItem);
+            }
 
-    // Ortalanmış scroll'u gerçekleştirmek için işlev
-    function scrollToMiddle(element) {
-        var parent = element.parentNode;
-        parent.scrollTop = element.offsetTop - (parent.offsetHeight / 2) + (element.offsetHeight / 2);
-    }
+            // Ortalanmış scroll'u gerçekleştirmek için işlev
+            function scrollToMiddle(element) {
+                var parent = element.parentNode;
+                parent.scrollTop = element.offsetTop - (parent.offsetHeight / 2) + (element.offsetHeight / 2);
+            }
 
-    // Listeye tıklama olayı ekle (delegasyon yöntemiyle)
-    $(document).on('click', '.scroll-picker ul li', function () {
-        // Önce tüm öğelerden 'active' sınıfını kaldır
-        $(this).siblings().removeClass('active');
-        // Tıklanan öğeye 'active' sınıfını ekle
-        $(this).addClass('active');
-        // Ortalanmış scroll'u gerçekleştir
-        scrollToMiddle(this);
-    });
-});
+            // Listeye tıklama olayı ekle (delegasyon yöntemiyle)
+            $(document).on('click', '.scroll-picker ul li', function () {
+                // Önce tüm öğelerden 'active' sınıfını kaldır
+                $(this).siblings().removeClass('active');
+                // Tıklanan öğeye 'active' sınıfını ekle
+                $(this).addClass('active');
+                // Ortalanmış scroll'u gerçekleştir
+                scrollToMiddle(this);
+            });
+        });
 
-  
+
         $(function () {
             $('#yearGetButton').on('click', function () {
                 var activeYear = $('.scroll-picker ul li.active').text();
-             
+
 
                 $.ajax({
                     url: '../query/budgetYearInsert.php',
                     method: 'POST',
-                    data: { month: activeYear },
-              
+                    data: { year: activeYear },
+
                     success: function (response) {
                         // PHP'den gelen yanıtı işleyin
                         var responseData = JSON.parse(response);
@@ -556,70 +550,70 @@
             });
         });
         $(function () {
-    $('#BudgetLimitAddBtn').on('click', function () {
-        var activeMonth = $('#ScrollPicker ul li.active').text(); // Doğru değişkeni al
-       
-        if (activeMonth == "Ocak") {
-            activeMonth = "01"
-        }
-        if (activeMonth == "Şubat") {
-            activeMonth = "02"
-        }
-        if (activeMonth == "Mart") {
-            activeMonth = "03"
-        }
-        if (activeMonth == "Nisan") {
-            activeMonth = "04"
-        }
-        if (activeMonth == "Mayıs") {
-            activeMonth = "05"
-        }
-        if (activeMonth == "Haziran") {
-            activeMonth = "06"
-        }
-        if (activeMonth == "Temmuz") {
-            activeMonth = "07"
-        }
-        if (activeMonth == "Ağustos") {
-            activeMonth = "08"
-        }
-        if (activeMonth == "Eylül") {
-            activeMonth = "09"
-        }
-        if (activeMonth == "Ekim") {
-            activeMonth = "10"
-        }
-        if (activeMonth == "Kasım") {
-            activeMonth = "11"
-        }
-        if (activeMonth == "Aralık") {
-            activeMonth = "12"
-        }
-        var budget = $('#budgetInput').val(); 
+            $('#BudgetLimitAddBtn').on('click', function () {
+                var activeMonth = $('#ScrollPicker ul li.active').text(); // Doğru değişkeni al
 
-        console.log(activeMonth);
-        $.ajax({
-            url: '../query/BudgetLimitUpdate.php',
-            method: 'POST',
-            data: { year: activeMonth,budget : budget },
-            success: function (response) {
-                // PHP'den gelen yanıtı işleyin
-                var responseData = JSON.parse(response);
-                if (responseData.success) {
-                    // Başarılı yanıt
-                    toastr.success(responseData.message);
-                    location.reload();
-                } else {
-                    // Başarısız yanıt
-                    toastr.error(responseData.message);
+                if (activeMonth == "Ocak") {
+                    activeMonth = "01"
                 }
-            },
-            error: function () {
-                toastr.error('Bütçe limiti güncelleme sırasında bir hata oluştu.');
-            }
+                if (activeMonth == "Şubat") {
+                    activeMonth = "02"
+                }
+                if (activeMonth == "Mart") {
+                    activeMonth = "03"
+                }
+                if (activeMonth == "Nisan") {
+                    activeMonth = "04"
+                }
+                if (activeMonth == "Mayıs") {
+                    activeMonth = "05"
+                }
+                if (activeMonth == "Haziran") {
+                    activeMonth = "06"
+                }
+                if (activeMonth == "Temmuz") {
+                    activeMonth = "07"
+                }
+                if (activeMonth == "Ağustos") {
+                    activeMonth = "08"
+                }
+                if (activeMonth == "Eylül") {
+                    activeMonth = "09"
+                }
+                if (activeMonth == "Ekim") {
+                    activeMonth = "10"
+                }
+                if (activeMonth == "Kasım") {
+                    activeMonth = "11"
+                }
+                if (activeMonth == "Aralık") {
+                    activeMonth = "12"
+                }
+                var budget = $('#budgetInput').val();
+
+
+                $.ajax({
+                    url: '../query/BudgetLimitUpdate.php',
+                    method: 'POST',
+                    data: { year: activeMonth, budget: budget },
+                    success: function (response) {
+                        // PHP'den gelen yanıtı işleyin
+                        var responseData = JSON.parse(response);
+                        if (responseData.success) {
+                            // Başarılı yanıt
+                            toastr.success(responseData.message);
+                            location.reload();
+                        } else {
+                            // Başarısız yanıt
+                            toastr.error(responseData.message);
+                        }
+                    },
+                    error: function () {
+                        toastr.error('Bütçe limiti güncelleme sırasında bir hata oluştu.');
+                    }
+                });
+            });
         });
-    });
-});
     </script>
 
 </body>
