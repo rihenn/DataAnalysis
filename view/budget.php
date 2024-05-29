@@ -363,22 +363,22 @@
                             {
                                 label: 'Toplam Bütçe',
                                 data: totalBudget,
-                                backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                                borderColor: 'rgba(75, 192, 192, 1)',
+                                backgroundColor: 'rgba(255, 99, 132, 1)',
+                                borderColor: 'rgba(255, 99, 132, 1)',
                                 borderWidth: 1
                             },
                             {
                                 label: 'Kalan Bütçe',
                                 data: spentBudget,
-                                backgroundColor: 'rgba(255, 99, 132, 0.2)',
-                                borderColor: 'rgba(255, 99, 132, 1)',
+                                backgroundColor: 'rgba(75, 192, 192, 1)',
+                                borderColor: 'rgba(75, 192, 192, 1)', 
                                 borderWidth: 1
                             },
                             {
                                 label: 'Harcanan Bütçe',
                                 data: budgetDifferences,
-                                backgroundColor: 'rgba(255, 255, 0, 0.5)',
-                                borderColor: 'rgba(255, 255, 0, 1)',
+                                backgroundColor: 'rgba(135, 206, 250,1)',
+                                borderColor: 'rgba(135, 206, 250)',
 
                                 borderWidth: 1
                             }

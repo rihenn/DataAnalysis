@@ -17,58 +17,73 @@ toastr.options = {
 };
 
 $(document).ready(function() {
-    console.log("Document ready"); // Sayfa yüklendiğinde bu mesajı kontrol edin
+    console.log("Document ready");
 
-    // "Özellik Tipi Ekle" butonuna tıklama işlemini yakala ve modalı aç
     $('#AttributeTypepopupBtn').on('click', function() {
         $('#AttributeTypepopupModal').modal('show');
     });
 
-    // "Kaydet" butonuna tıklama işlemini yakala
     $('#saveAttributeTypeButton').on('click', function(event) {
-      
-        event.preventDefault(); // Formun kendi kendine submit olmasını engelle
+        event.preventDefault();
 
-
-        // Form alanlarından verileri al
         var attributeTypeCode = $('#AttributeTypeCode').val();
         var attributeTypeName = $('#AttributeTypeName').val();
 
-        // Gerekli alanların dolu olup olmadığını kontrol et
         if (!attributeTypeCode || !attributeTypeName) {
             toastr.warning('Lütfen tüm alanları doldurunuz.');
-        
             return;
         }
 
-        console.log("Veriler alındı:", { attributeTypeCode, attributeTypeName }); // Alınan verileri kontrol edin
+        console.log("Veriler alındı:", { attributeTypeCode, attributeTypeName });
 
-        // Verileri JSON formatına dönüştür
         var data = {
             AttributeTypeCode: attributeTypeCode,
             AttributeTypeName: attributeTypeName
         };
 
-        // AJAX isteği gönder
         $.ajax({
             url: '../query/InsertAttributeType.php',
             type: 'POST',
             contentType: 'application/json; charset=UTF-8',
             data: JSON.stringify(data),
             success: function(response) {
-                console.log("AJAX başarıyla tamamlandı", response); // Başarılı AJAX yanıtını kontrol edin
+                console.log("AJAX başarıyla tamamlandı", response);
                 if (response.status === 'success') {
                     toastr.success('Veri başarıyla eklendi.');
-                    $('#AttributeTypepopupModal').modal('hide'); // Modalı kapat
-                    $('#insertForm')[0].reset(); // Formu sıfırla
+                    $('#AttributeTypepopupModal').modal('hide');
+                    $('#insertFormAttributeType')[0].reset();
+                    updateGrid(); // Grid'i güncelle
                 } else {
                     toastr.error('Veri eklenirken bir hata oluştu: ' + response.message);
                 }
             },
             error: function(xhr, status, error) {
-                console.log("AJAX hatası", error); // AJAX hatasını kontrol edin
+                console.log("AJAX hatası", error);
                 toastr.error('Bir hata oluştu: ' + error);
             }
         });
     });
+
+    function updateGrid() {
+        $.ajax({
+            url: '../DataGetAttributeType.php', // Bu URL'yi sunucunuzdaki doğru endpoint ile değiştirin
+            type: 'GET',
+            success: function(response) {
+                // Grid'inizi güncelleyin, örneğin:
+                var grid = $('#attributeTypeGrid');
+                grid.empty(); // Mevcut içeriği temizleyin
+                
+                response.data.forEach(function(item) {
+                    // Grid'e yeni verileri ekleyin, örneğin:
+                    grid.append('<tr><td>' + item.AttributeTypeCode + '</td><td>' + item.AttributeTypeName + '</td></tr>');
+                });
+                
+                console.log("Grid başarıyla güncellendi", response);
+            },
+            error: function(xhr, status, error) {
+                console.log("Grid güncelleme hatası", error);
+                toastr.error('Grid güncellenirken bir hata oluştu: ' + error);
+            }
+        });
+    }
 });

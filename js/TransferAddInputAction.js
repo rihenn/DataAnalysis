@@ -21,6 +21,7 @@ document.getElementById('startProcessBtn').addEventListener('click', function() 
     var sendInfCode = document.querySelector('[name="SendInfCode[]"]').value;
     var sendInfName = document.querySelector('[name="SendInfName[]"]').value;
     var shippingCost = document.querySelector('[name="shippingcost[]"]').value;
+
     var sendDate = document.getElementById('SendDate').value; // Tarih alanını al
 
     if (processCode && sendInfCode && sendInfName && shippingCost) {
@@ -203,8 +204,11 @@ function veriGetir(barkod, index) {
                 document.getElementById(`ItemName${index}`).value = item.ItemDescription + " " + item.ColorThemeDescription;
                 document.getElementById(`MLY_EUR${index}`).value = item.MLY_EUR;
                 document.getElementById(`Qty1${index}`).value = "1";
+                document.getElementById(`ColorCatalogDescription${index}`).value =item.ColorCatalogDescription;
+                console.log(item);
             }
         }
+   
     };
     xhr.open("GET", "../DataGetTransfer.php?barcode=" + barkod, true);
     xhr.send();

@@ -63,6 +63,7 @@ $(document).ready(function() {
                 console.log("AJAX başarıyla tamamlandı", response); // Başarılı AJAX yanıtını kontrol edin
                 if (response.status === 'success') {
                     toastr.success('Veri başarıyla eklendi.');
+                    updateGrid(); // Grid'i güncelle
                     $('#AttributepopupModal').modal('hide'); // Modalı kapat
                     $('#insertForm')[0].reset(); // Formu sıfırla
                 } else {
@@ -75,4 +76,26 @@ $(document).ready(function() {
             }
         });
     });
+    function updateGrid() {
+        $.ajax({
+            url: '../DataGetAttributeType.php', // Bu URL'yi sunucunuzdaki doğru endpoint ile değiştirin
+            type: 'GET',
+            success: function(response) {
+                // Grid'inizi güncelleyin, örneğin:
+                var grid = $('#attributeTypeGrid');
+                grid.empty(); // Mevcut içeriği temizleyin
+                
+                response.data.forEach(function(item) {
+                    // Grid'e yeni verileri ekleyin, örneğin:
+                    grid.append('<tr><td>' + item.AttributeTypeCode + '</td><td>' + item.AttributeTypeName + '</td></tr>');
+                });
+                
+                console.log("Grid başarıyla güncellendi", response);
+            },
+            error: function(xhr, status, error) {
+                console.log("Grid güncelleme hatası", error);
+                toastr.error('Grid güncellenirken bir hata oluştu: ' + error);
+            }
+        });
+    }
 });

@@ -22,7 +22,6 @@ if ($conn) {
 
     // JSON formatında verileri yazdırma
     echo json_encode($data);
-
     sqlsrv_free_stmt($stmt);
     sqlsrv_close($conn);
 } else {

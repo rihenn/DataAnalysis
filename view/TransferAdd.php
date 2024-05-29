@@ -170,12 +170,12 @@
                                 name="SendInfName[]">
                         </div>
                         <div class="col-md-1 mb-4">
-                            <label for="shippingcost" class="form-label">Gönderim Maliyeti:</label>
+                            <label for="shippingcost" style="font-size: 13px;" class="form-label">Gönderim Maliyeti:</label>
                             <input type="text" class="form-control form-control-sm shippingcost" id="shippingcost"
                                 name="shippingcost[]">
                         </div>
                         <div class="col-md-1 mb-4">
-                        <label for="SendDate" class="form-label">Gönderim Tarihi:</label>
+                        <label for="SendDate" style="font-size: 15px;" class="form-label">Gönderim Tarihi:</label>
                         <input type="date" class="form-control form-control-sm" id="SendDate" name="SendDate[]">
                     </div>
                         <div class="col-md-1 mt-4">

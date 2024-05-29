@@ -11,11 +11,8 @@ $sendInfName = isset($data['SendInfName']) ? $data['SendInfName'] : null;
 $shippingCost = isset($data['ShippingCost']) ? $data['ShippingCost'] : null;
 $sendDate = isset($data['SendDate']) ? $data['SendDate'] : null;
 
-// Gerekli alanların doldurulup doldurulmadığını kontrol edin
-if (!$processCode || !$sendInfCode || !$sendInfName || !$shippingCost || !$sendDate) {
-    echo json_encode(["status" => "error", "message" => "Gerekli alanlar eksik."]);
-    exit;
-}
+
+
 
 // ProcessCode değerine göre insert sorgusunu ayarlama
 if ($processCode === 'GF') {
@@ -39,10 +36,6 @@ $params = array($processCode, $shippingCost, $sendDate, $sendInfCode, $sendInfNa
 // SQL sorgusunu hazırlayın ve çalıştırın
 $stmt = sqlsrv_prepare($conn, $sql, $params);
 
-if ($stmt === false) {
-    echo json_encode(["status" => "error", "message" => "Sorgu hazırlanırken hata oluştu."]);
-    die(print_r(sqlsrv_errors(), true));
-}
 
 if (sqlsrv_execute($stmt)) {
     sqlsrv_fetch($stmt);

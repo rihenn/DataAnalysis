@@ -1,14 +1,57 @@
-var dataTable = $('#AttributetypeTable').DataTable({
+
+let highestZIndex = 1050;  // Başlangıç z-index değeri
+
+function bringToFront(modalId) {
+    highestZIndex += 10;  // z-index değerini artır
+    const modal = document.getElementById(modalId);
+    modal.style.zIndex = highestZIndex;  // Yeni z-index değerini ata
+    // Arka plan için z-index'i ayarla
+    const backdrop = document.querySelector('.modal-backdrop');
+    if (backdrop) {
+        backdrop.style.zIndex = highestZIndex - 1;  // Arka planı bir alt seviyede tut
+    }
+}
+
+function removeBackdrops() {
+    const backdrops = document.querySelectorAll('.modal-backdrop');
+    backdrops.forEach(backdrop => backdrop.remove());
+}
+
+// Her modal açıldığında bringToFront fonksiyonunu çağır
+const modals = document.querySelectorAll('.modal');
+modals.forEach(modal => {
+    modal.addEventListener('shown.bs.modal', () => {
+        bringToFront(modal.id);
+    });
+    modal.addEventListener('hidden.bs.modal', () => {
+        removeBackdrops();
+    });
+});
+
+$(document).ready(function () {
+    $('#BarcodeTableBtn').on('click', function () {
+        $('#BarcodepopupModal').modal('show');
+    });
+});
+// DataTable başlatma ve tablo nesnesini bir değişkene atama
+var dataTable = $('#BarcodeTable').DataTable({
     ajax: {
-        url: '../DataGetAttributeType.php',
+        url: '../DataGetProduct.php',
         dataSrc: '' // Sunucudan gelen JSON verilerinin doğrudan kullanılacağını belirtir
     },
     columns: [
-        { data: 'AttributeTypeCode', title: 'Özellik Tip Kodu'},
-        { data: 'AttributeName', title: 'Özellik Tip Adı'}
-
+        { data: 'Barcode', title: 'Barkod' },
+        { data: 'ItemCode', title: 'Ürün Kodu' },
+        { data: 'ItemDescription', title: 'Ürün Açıklaması' },
+        { data: 'ColorCode', title: 'Renk Kodu' },
+        { data: 'ItemDim1Code', title: 'Ürün Boyut Kodu' },
+        { data: 'MLY_EUR', title: 'Euro Bazlı Maliyet' },
+        { data: 'ColorThemeCode', title: 'Renk Tema Kodu' },
+        { data: 'ColorThemeDescription', title: 'Renk Tema Açıklaması' },
+        { data: 'ColorCatalogCode', title: 'Renk Katalog Kodu' },
+        { data: 'ColorCatalogDescription', title: 'Renk Katalog Açıklaması' }
     ],
-    scrollY: "20rem",
+    scrollY: "30rem",
     language: {
         "info": "_TOTAL_ kayıttan _START_ - _END_ arasındaki kayıtlar gösteriliyor",
         "infoEmpty": "Kayıt yok",
@@ -258,24 +301,37 @@ var dataTable = $('#AttributetypeTable').DataTable({
         "infoPostFix": " "
 
     },
+
 }
 )
- // Tablodaki satıra çift tıklama olayını yakalama
- $('#AttributetypeTable tbody').on('dblclick', 'tr', function() {
-    var data = dataTable.row(this).data();
-    console.log("Satır verileri: ", data); // Tıklanan satırın verilerini kontrol etme
 
-    var attributeTypeCode = data.AttributeTypeCode;
-    var attributeName = data.AttributeName;
+$('#BarcodeTable tbody').on('dblclick', 'tr', function () {
+    var data = dataTable.row(this).data(); // dataTable.row kullanıldı
+    var barcode = data.Barcode;
+    var ColorCode = data.ColorCode;
+    var ItemDim1Code = data.ItemDim1Code;
+    var MLY_EUR = data.MLY_EUR;
+    var ItemCode = data.ItemCode;
+    var ColorCatalogDescription = data.ColorCatalogDescription; // ColorCatalogDescription bilgisini al
 
-    var inputAttributeTypeCode2 = document.querySelector('input.AttributeTypeCode2');
-    var inputAttributeName = document.querySelector('input.AttributeName');
+    var Inputbarcode = document.querySelectorAll('input.editBarcode');
+    var InputColorCode = document.querySelectorAll('input.ColorCode');
+    var InputItemDim1Code = document.querySelectorAll('input.ItemDim1Code');
 
-    if (inputAttributeTypeCode2 && inputAttributeName) {
-        inputAttributeTypeCode2.value = attributeTypeCode;
-        inputAttributeName.value = attributeName;
-        console.log("Form verileri güncellendi.");
-    } else {
-        console.log("Form elemanları bulunamadı.");
-    }
+    var InputMLY_EUR = document.querySelectorAll('input.ItemCostPrice');
+    var InputItemCode = document.querySelectorAll('input.ItemCode');
+    var InputColorCatalogDescription = document.querySelectorAll('input.ColorCatalogDescription'); // Yeni eklenen input alanı
+    // Inputbarcode dizisindeki her bir input elemanına barcode değerini ata
+    Inputbarcode.forEach(function(input) {
+        input.value = barcode;
+        InputItemDim1Code.value = ItemDim1Code;
+      
+        InputMLY_EUR.value = MLY_EUR;
+        InputItemCode.value = ItemCode;
+        InputColorCode.value = ColorCode;
+        InputColorCatalogDescription.value = ColorCatalogDescription; // Yeni eklenen alanı doldur
+    });
+
+    // Popup'ı kapat
+    $('#BarcodepopupModal').modal('hide');
 });
