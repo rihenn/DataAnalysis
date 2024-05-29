@@ -258,6 +258,10 @@ var dataTable = $('#AttributetypeTable').DataTable({
         "infoPostFix": " "
 
     },
+    scrollY: '50vh',
+    scrollCollapse: true,
+    paging: false,
+    autoWidth: false, 
 }
 )
  // Tablodaki satıra çift tıklama olayını yakalama

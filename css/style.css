@@ -533,3 +533,27 @@ body.dark .switch::before{
 body.dark .home .text1{
     color: var(--text-color);
 }
+table.dataTable {
+    width: 100% !important;
+}
+
+table.dataTable thead th,
+table.dataTable tbody td {
+    white-space: nowrap; /* Satırları tek satırda tutar */
+}
+
+.dataTables_wrapper {
+    overflow: auto; /* Wrapper'a otomatik taşma ekler */
+}
+
+.table-responsive {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+}
+.dt-scroll-headInner{
+    width: 100% !important;
+}
+.dt-scroll-headInner{
+    width: 100% !important;
+}

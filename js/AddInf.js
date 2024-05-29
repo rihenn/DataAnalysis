@@ -5,6 +5,10 @@
                 url: '../DataGetCdInfluecer.php',
                 dataSrc: '' // Sunucudan gelen JSON verilerinin doğrudan kullanılacağını belirtir
             },
+            scrollY: '50vh',
+            scrollCollapse: true,
+            paging: false,
+            autoWidth: false, 
             columns: [{
                 data: 'Code',
                 title: 'Inf Kodu',

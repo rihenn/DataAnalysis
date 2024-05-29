@@ -288,6 +288,10 @@
         "infoPostFix": " "
 
     },
+    scrollY: '50vh',
+    scrollCollapse: true,
+    paging: false,
+    autoWidth: false, 
 }
 
 

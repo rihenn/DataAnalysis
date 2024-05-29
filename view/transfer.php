@@ -20,7 +20,21 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 
+<style>
 
+.dataTables_wrapper .dataTables_scrollHead th {
+    text-align: center;
+    vertical-align: middle;
+}
+.dt-center {
+            text-align: center;
+        }
+.flex1 {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+</style>
     <title>Gifting</title>
 </head>
 
@@ -33,7 +47,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <table class="table table-striped justify-content-center" id="BarcodeTable"></table>
+                    <table class="table table-striped" id="BarcodeTable" style="width:100% !important"></table>
                 </div>
             </div>
         </div>
@@ -41,13 +55,13 @@
 
     <!-- Modal Popup -->
     <div class="modal fade" id="popupModal" tabindex="-1" aria-labelledby="popupModalLabel" aria-hidden="true">
-        <div class="modal-dialog" style="--bs-modal-width: 85% !important">
+        <div class="modal-dialog" style="--bs-modal-width: 95% !important">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="popupModalLabel">İçerik</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body">
+                <div class="modal-body ">
                     <table class="table table-striped justify-content-center" id="detailsTable">
                    
                     </table>
@@ -191,7 +205,7 @@
                                 <button type="submit" class="btn btn-primary">Kaydet</button>
                             </div>
                         </div>
-                        <!-- Paylaşım Bilgileri -->
+                      
                         <!-- Paylaşım Bilgileri -->
                         <div class="mb-3">
                             <h6 class="p-2">Paylaşım Bilgileri</h6>
@@ -328,14 +342,14 @@
         <div class="text1">Transfer</div>
 
         <div class="container ml-5">
-            <div id="tableContainer" class="table-response">
+            <div id="" class="flex1">
                 <table id="MyTable" style="border:0.1px solid;" class="table  table-striped">
 
                 </table>
-                <a href="./TransferAdd.php" class="btn btn-primary">Transfer Ekle</a>
-                <button class="btn btn-primary" id="PlatformTypeAddBtn">Platform Ekle</button>
-         
+                
             </div>
+            <a href="./TransferAdd.php" class="btn btn-primary">Transfer Ekle</a>
+            <button class="btn btn-primary" id="PlatformTypeAddBtn">Platform Ekle</button>
         </div>
     </section>
 
@@ -344,6 +358,7 @@
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"
         integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <script src="https://cdn.datatables.net/v/bs5/dt-2.0.7/datatables.min.js"></script>
+    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <script src="../js/app.js"></script>
     <script src="../js/TransferHeader.js"></script>

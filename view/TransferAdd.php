@@ -33,7 +33,7 @@
                     <button type="button" class="btn-close" id="closeButton" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <table id="MyTable" style="margin: 0.2rem;border:0.1px solid;" class="table table-striped">
+                    <table id="MyTable" style="border:0.1px solid;" class="table table-striped">
                         <thead class="text-center">
                         </thead>
                         <tbody class="text-center">
@@ -51,15 +51,11 @@
                     <button type="button" class="btn-close" id="closeButton1" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <div id="tableContainer" class="text-center">
-                        <table id="Influecer" style="margin: 0.2rem;border:0.1px solid;"
-                            class="table table-striped text-center">
-                            <thead class="text-center">
-                            </thead>
-                            <tbody class="text-center">
-                            </tbody>
+                 
+                        <table id="Influecer" style="border:0.1px solid;" class="table table-striped text-center">
+    
                         </table>
-                    </div>
+               
                 </div>
             </div>
         </div>
