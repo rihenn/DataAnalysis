@@ -1,12 +1,12 @@
 $(document).ready(function() {
     // Global değişkenler
-    var table = $('#detailsTable').DataTable();
+    var tableDetails = $('#detailsTable').DataTable();
     var editRow, deleteRow;
 
     // Düzenle butonuna tıklama olayını dinleyin
     $(document).on('click', '.btn-edit', function() {
         editRow = $(this).closest('tr'); // Satırı seç
-        var data = table.row(editRow).data(); // Veriyi al
+        var data = tableDetails.row(editRow).data(); // Veriyi al
 
         console.log("Edit Data: ", data); // Debugging için veri loglama
 
@@ -23,7 +23,7 @@ $(document).ready(function() {
     // Güncelleme butonuna tıklama olayını dinleyin
     $(document).on('click', '#EditAttributeBtn', function(event) {
         event.preventDefault(); // Sayfanın yenilenmesini engelle
-        var data = table.row(editRow).data();
+        var data = tableDetails.row(editRow).data();
         if (data) {
             var infCode = data.InfluencerCode; // Doğru yazım
             console.log("inf code :" + infCode);
@@ -50,7 +50,7 @@ $(document).ready(function() {
                     console.log("Updated Data: ", data); // Debugging için veri loglama
 
                     // Mevcut satırı güncelle
-                    table.row(editRow).data({
+                    tableDetails.row(editRow).data({
                         InfluencerCode: infCode,
                         FirstName: data.FirstName,
                         LastName: data.LastName,
@@ -81,7 +81,7 @@ $(document).ready(function() {
     // Silme işlemini onayla
     document.getElementById('confirmDelete').addEventListener('click', function(event) {
         event.preventDefault(); // Sayfanın yenilenmesini engelle
-        var data = table.row(deleteRow).data();
+        var data = tableDetails.row(deleteRow).data();
         if (data) {
             var infCode = data.InfluencerCode; // Doğru yazım
             var attributeType = data.AttributeTypeCode;
@@ -103,7 +103,7 @@ $(document).ready(function() {
             .then(data => {
                 if (data.success) {
                     toastr.success('Kayıt başarıyla silindi.');
-                    table.row(deleteRow).remove().draw(false);
+                    tableDetails.row(deleteRow).remove().draw(false);
                 } else {
                     console.log(data.error);
                     console.log(data);

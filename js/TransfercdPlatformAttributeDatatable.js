@@ -1,14 +1,17 @@
-var dataTable = $('#AttributetypeTable').DataTable({
+// DataTable başlatma ve tablo nesnesini bir değişkene atama
+var dataTable = $('#cdPlatformAttributeTable').DataTable({
     ajax: {
-        url: '../DataGetAttributeType.php',
+        url: '../DataGetcdPlatformAttribute.php',
         dataSrc: '' // Sunucudan gelen JSON verilerinin doğrudan kullanılacağını belirtir
     },
     columns: [
-        { data: 'AttributeTypeCode', title: 'Özellik Tip Kodu'},
-        { data: 'AttributeName', title: 'Özellik Tip Adı'}
-
+        { data: 'PlatformCode', title: 'Platform Kodu' },
+        { data: 'PlatformName', title: 'platform Adı' },
+        { data: 'ContentCode', title: 'İçerik Kodu' },
+        { data: 'ContentCode', title: 'İçerik Adı' },
     ],
-    scrollY: "20rem",
+    scrollX: true,
+    scrollY: "15rem",
     language: {
         "info": "_TOTAL_ kayıttan _START_ - _END_ arasındaki kayıtlar gösteriliyor",
         "infoEmpty": "Kayıt yok",
@@ -259,23 +262,15 @@ var dataTable = $('#AttributetypeTable').DataTable({
 
     },
 }
-)
- // Tablodaki satıra çift tıklama olayını yakalama
- $('#AttributetypeTable tbody').on('dblclick', 'tr', function() {
-    var data = dataTable.row(this).data();
-    console.log("Satır verileri: ", data); // Tıklanan satırın verilerini kontrol etme
 
-    var attributeTypeCode = data.AttributeTypeCode;
-    var attributeName = data.AttributeName;
 
-    var inputAttributeTypeCode2 = document.querySelector('input.AttributeTypeCode2');
-    var inputAttributeName = document.querySelector('input.AttributeName');
-
-    if (inputAttributeTypeCode2 && inputAttributeName) {
-        inputAttributeTypeCode2.value = attributeTypeCode;
-        inputAttributeName.value = attributeName;
-        console.log("Form verileri güncellendi.");
-    } else {
-        console.log("Form elemanları bulunamadı.");
-    }
+);
+console.log(dataTable);
+$('#cdPlatformAttributeTable tbody').on('dblclick', 'tr', function () {
+    var data = dataTable.row(this).data(); // Satır verilerini alın
+    $('#PlatformCodeGet').val(data.PlatformCode); // İlgili input alanına yazdırın
+    $('#PlatformNameGet').val(data.PlatformName); // İlgili input alanına yazdırın
+    $('#ContentCodeGet').val(data.ContentCode); // İlgili input alanına yazdırın
+    $('#ContentNameGet').val(data.ContentName); // İlgili input alanına yazdırın
 });
+

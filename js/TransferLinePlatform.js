@@ -110,7 +110,7 @@ $(document).ready(function() {
                                 $('#editShareDate').val(moment(record.ShareDate.date).format('YYYY-MM-DD'));
                                 $('#editLikeCount').val(record.LikeCount);
                                 $('#editViewCount').val(record.ViewCount);
-                                toastr.info('Paylaşım bilgisi vardır.');
+
                                 // Modal'i aç
                                 $('#editModal').modal('show');
                             } else {

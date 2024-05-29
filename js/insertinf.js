@@ -7,7 +7,11 @@ document.getElementById("insertForm").addEventListener("submit", function(event)
     var city = document.getElementById("city").value.trim();
     var address = document.getElementById("address").value.trim();
 
-
+    if (firstName === '' || lastName === '' || countryCode === '' || country === '' || city === '' || address === '') {
+        // Herhangi bir alan boş ise formun gönderilmesini engelle
+        event.preventDefault();
+        alert("Lütfen tüm alanları doldurun.");
+    }
 });
 
 
@@ -19,7 +23,7 @@ document.getElementById("insertForm").addEventListener("submit", function(event)
     xhr.open("POST", "../query/insert.php", true); // POST isteği oluştur ve insert.php'ye gönder
     xhr.onreadystatechange = function() {
         if (xhr.readyState === 4 && xhr.status === 200) {
-            toastr.success(xhr.responseText); // Sunucudan gelen cevabı göster
+            alert(xhr.responseText); // Sunucudan gelen cevabı göster
             // Burada başka bir işlem yapabilirsiniz, örneğin popup'ı kapatmak
         }
     };

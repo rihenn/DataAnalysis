@@ -67,11 +67,13 @@
                 <span class="image">
                     <img src="../images/amblem copy.png" alt="">
                 </span>
+
                 <div class="text logo-text">
                     <span class="name">Gifting</span>
                     <span class="profession">Admin</span>
                 </div>
             </div>
+
             <i class='bx bx-chevron-right toggle'></i>
         </header>
 
@@ -89,30 +91,38 @@
                             <span class="text nav-text">Dashboard</span>
                         </a>
                     </li>
+
                     <li class="nav-link">
                         <a href="transfer.php">
-                            <i class='bx  icon'><img src="../images/transfer.png" alt="" srcset=""></i>
+                            <i class='bx  icon'>
+                                <img class="hover" src="../images/transferWhite.png" alt="" srcset="">
+                                <img class="normal" src="../images/transfer.png" alt="" srcset=""></i>
                             <span class="text nav-text">Transfer</span>
                         </a>
                     </li>
+
                     <li class="nav-link">
                         <a href="#">
                             <i class='bx bx-bar-chart-alt-2 icon'></i>
                             <span class="text nav-text">Revenue</span>
                         </a>
                     </li>
+
+
                     <li class="nav-link">
                         <a href="#">
                             <i class='bx bx-pie-chart-alt icon'></i>
                             <span class="text nav-text">Analytics</span>
                         </a>
                     </li>
+
                     <li class="nav-link">
                         <a href="#">
                             <i class='bx bx-heart icon'></i>
                             <span class="text nav-text">Likes</span>
                         </a>
                     </li>
+
                     <li class="nav-link">
                         <a href="budget.php">
                             <i class='bx bx-wallet icon'></i>
@@ -121,6 +131,7 @@
                     </li>
                 </ul>
             </div>
+
             <div class="bottom-content">
                 <li class="">
                     <a href="#">
@@ -128,12 +139,14 @@
                         <span class="text nav-text">Logout</span>
                     </a>
                 </li>
+
                 <li class="mode">
                     <div class="sun-moon">
                         <i class='bx bx-moon icon moon'></i>
                         <i class='bx bx-sun icon sun'></i>
                     </div>
                     <span class="mode-text text">Dark mode</span>
+
                     <div class="toggle-switch">
                         <span class="switch"></span>
                     </div>

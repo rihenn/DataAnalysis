@@ -24,7 +24,6 @@ $(document).ready(function() {
             dataSrc: '' // Sunucudan gelen JSON verilerinin doğrudan kullanılacağını belirtir
         },
         columns: [
-            { targets: '_all', className: 'dt-center' },
             { data: 'SendInfCode', title: 'Inf Kodu' },
             { data: 'SendInfName', title: 'Inf Adı' },
             { data: 'TransferNumber', title: 'Transfer Numarası' },
@@ -48,10 +47,9 @@ $(document).ready(function() {
             },
             { data: 'ProcessCode', title: 'Süreç Kodu' }
         ],
-        scrollY: '50vh',
+        scrollY: '35rem',
         scrollCollapse: true,
-        paging: false,
-        autoWidth: false, 
+        scrollX: true,
         language: {
             "info": "_TOTAL_ kayıttan _START_ - _END_ arasındaki kayıtlar gösteriliyor",
             "infoEmpty": "Kayıt yok",
@@ -377,10 +375,7 @@ $(document).ready(function() {
                 "processing": "İşleniyor...",
                 "search": "Ara:",
                 "zeroRecords": "Eşleşen kayıt bulunamadı"
-            },
-            paging: false, // Sayfalamayı devre dışı bırakın
-            autoWidth: false, // Otomatik genişliği devre dışı bırakın
-            fixedHeader: true, // Sabit başlık
+            }
         });
 
         // Popup modal'in başlığını transfer numarası ile güncelle
