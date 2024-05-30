@@ -64,7 +64,7 @@
     </div>
 
     <div class="modal fade" id="PlatformAttributepopupModal" tabindex="-1" aria-labelledby="popupModalLabel" aria-hidden="true">
-        <div class="modal-dialog" style="--bs-modal-width: %25 !important">
+        <div class="modal-dialog" style="--bs-modal-width: 50% !important">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="popupModalLabel">Post</h5>
@@ -444,6 +444,7 @@
     <script src="../js/TransferBarcodeDatatable.js"></script>
     <script src="../js/PlatformAdd.js"></script>
     <script src="../js/TransferPlatformTypeDatatable.js"></script>
+    <script src="../js/TransfercdPlatformAttributeDatatable.js"></script>
     <script>
         $("#PlatformTypeAddBtn").on("click", function () {
             $("#PlatformTypeAddpopupModal").modal("show")

@@ -265,12 +265,15 @@ var dataTable = $('#cdPlatformAttributeTable').DataTable({
 
 
 );
-console.log(dataTable);
+
 $('#cdPlatformAttributeTable tbody').on('dblclick', 'tr', function () {
     var data = dataTable.row(this).data(); // Satır verilerini alın
     $('#PlatformCodeGet').val(data.PlatformCode); // İlgili input alanına yazdırın
     $('#PlatformNameGet').val(data.PlatformName); // İlgili input alanına yazdırın
     $('#ContentCodeGet').val(data.ContentCode); // İlgili input alanına yazdırın
     $('#ContentNameGet').val(data.ContentName); // İlgili input alanına yazdırın
+
+    $('#PlatformAttributepopupModal').modal("hide");
+
 });
 
